@@ -1,0 +1,71 @@
+.header-stats{
+    cursor:pointer;
+    padding: 15px;
+    background-color: #ddd;
+    border-bottom: 1px solid #bbb;
+    /* First we need to help some browsers along for this to work.
+    Just because a vendor prefix is there, doesn't mean it will
+    work in a browser made by that vendor either, it's just for
+    future-proofing purposes I guess. */
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    transition:.5s;
+}
+
+.header-active{
+    background-color:#4D92DF;
+    color:white;
+}
+
+.header-stats:not(.header-active):hover{ 
+    background-color:#ccc;
+    cursor: not-allowed;
+}
+
+button:active { 
+    background-color: yellow;
+}
+
+label{
+    font-size:14px;
+    padding: 5px 0px;
+}
+
+.btn-icon-graph{
+    position:absolute;
+    top:0px;
+    margin-top:12.5px;
+    right:0px;
+    margin-right:25px;
+    font-size:20px;
+}
+
+.alert{
+    margin-bottom:0px
+}
+
+input[type=radio] {
+    width:20px;
+    height:20px;
+}
+
+tr>th{
+    text-align: center
+}
+
+td.numero{
+    text-align: right;
+    font-weight: 800;
+}
+.alert{
+    padding: 7.5px;
+}
+.btn-zona{
+    padding:5px;
+}
+.cont-graficas{
+    font-size: 16px;
+}

@@ -1,0 +1,66 @@
+@media (min-width: 300px)
+.main-banner{
+    margin-bottom: 0px;
+}
+
+@media (min-width: 300px)
+.main-banner {
+    min-height: 200px;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-image: url("../images/Banner_opcional-02.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.main-banner {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.main-banner {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.main-banner {
+    min-height: 200px;
+    margin-bottom: 0 !important;
+    color: white;
+    background-color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-image: url("../images/Banner_opcional-02.jpg");
+}
+
+@media (min-width: 300px)
+.main-banner {
+    margin-bottom: 40px;
+    background-position: right center;
+}
+
+@media (min-width: 300px)
+.main-search {
+    margin-bottom: 64px;
+}
+
+.main-search {
+    background-color: black;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 300px)
+.main-search {
+    margin-bottom: 40px;
+}
+
+tr {
+    border: hidden;
+}

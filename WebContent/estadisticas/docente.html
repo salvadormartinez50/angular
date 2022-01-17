@@ -1,0 +1,112 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/sige.css">
+        <link rel="stylesheet" type="text/css" href="../css/sidebar.css">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+    </head>
+    <body ng-app="estadisticas" >
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../index.html">SIGED</a>
+                </div>
+                <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="../index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="../index.html#info"><i class="fa fa-search"></i> Consultas</a></li>      
+                        <li><a href="../estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="../index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!-- li><a href="../contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br>
+        <div  ng-controller="buscarEstadisticas" data-role="page" class="container-fluid" >
+            <div class="row">
+                <div class="col-md-3">
+                    <div   class="panel panel-default panel-sidebar-1">
+                        <div class=" header-stats">Por alumno</div>
+                        <div class=" header-stats">Por docente</div>
+                        <div class=" header-stats header-active">Por centros de trabajo</div>
+                        <div class="panel-body">
+                            <form class="form-light" role="form" ng-submit="search()">
+                                <div class="form-group">
+                                    <label id="error_estado" class="error">Selecciona una ubicación</label>
+                                    <input id="estado" ng-model="estado" ng-value="-1" style="display:none">
+                                    <div  class="alert alert-zona" >
+                                        <label>Quiero ver gráfica por:</label><br>
+                                        <button id="pais" type="button" ng-click="getZona(0)" class="btn-zona btn btn-default btn-full"> País</button>
+                                    </div>
+                                    <div  class="alert alert-zona">
+                                        <label>Ó ver por:</label><br>
+                                        <button id="entidad" type="button" class="btn-zona btn btn-default btn-full"  ng-click="getStates()" > Entidad</button>
+
+                                        <select name="lstStates" id="select_entidad" class="form-control" ng-model="user.state"
+                                                ng-options="state.des for state in states track by state.id"
+                                                style="display:none" ng-change="getZona(user.state.id)"
+                                                >
+                                            <option label="selecciona una opción" value="">selecciona
+                                                una tipo</option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="form-group">
+                                    <label  id="error_tipo" class="error">Selecciona una opción de gráfica</label>
+                                    <label>Gráficar los siguientes datos:</label><br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="1"> Tipo <br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="2"> Sostenimiento <br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="3"> Tipo y sostenimiento <br>
+                                </div>                                           
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-block btn-success">
+                                            <span>generar gráfica</span><i class="fa fa-bar-chart btn-icon-graph"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+        <!-- /inicial -->
+        <!-- CURP no encontrada -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src='../js/velocity.min.js'></script>
+        <script src="../js/angular.js"></script>
+        <script src="../js/angular-resource.js"></script>
+        <script src="../js/estadisticas.js"></script>
+    </body>
+</html>

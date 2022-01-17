@@ -1,0 +1,2400 @@
+<!doctype html>
+<html class="no-js" lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="css/cambios.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <link rel="stylesheet" href="calendar/simbologia/StyleSheet.css" type="text/css">
+        <style type="text/css">
+            tr td {
+                cursor: pointer;
+            }
+            .navbar-siged{
+              position: fixed;
+            }
+
+@media (max-width: 600px) {
+    #divSchoolResults {
+        overflow-x: scroll;
+    }
+}
+
+            }
+        </style>
+        <!--[if lt IE 9]>
+                          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+                        <![endif]-->
+    	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnkqJjLVH2s2pXhNisTMC0KKr_JBA-dPo"></script>
+    	<!--script src="https://maps.googleapis.com/maps/api/js"></script-->
+    </head>
+    <body ng-app="escuelas">
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SIGED</a>
+                </div>
+               <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!--li><a href="contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- inicial -->
+        <div data-role="page">
+       <section id="slider-wrapper" class="layer-slider-wrapper ">
+                <div id="layerslider" style="width: 100%; height: 220px;z-index:0">
+                    <div class="ls-slide"  data-ls="transition2d:1;timeshift:-1000;" >
+                        <!-- slide background -->
+                        <img src="ima/articulo.jpeg" class="ls-bg" style="width:100%;"  alt="Slide background"/>
+
+                        <!-- Left Text -->
+                        <h4 class="ls-l header-sige " style="width:900px; top:15%; left:80px;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Sistema de Información y Gestión Educativa</h4>
+
+                        <h2 class="ls-l header-main" style="width:800px; top:30%;  left:80px;color:white;text-transform:none" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Consulta de principales cifras</h2>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="container" ng-controller="searchSchoolCtrl" >
+       <section id="main-search" class="slice bg-white" style="margin-top: -80px" >
+
+                    <div class="wp-section relative">
+                        <form class="form-inline form-base" role="form" ng-submit="search()">
+                            <div class="inline-form-filters over-top-element1 base" style="background:#545454">
+                                <!-- Optional filters tigger button -->
+                                <!-- <a id="btnToggleOptionalFIlters" class="optional-form-filters-trigger" title="Toggle advanced search" style="background-color:#545454" rel="0"></a> -->
+
+                                <!-- Main filters -->
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                           <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblState" for="lstStates">Ciclo Escolar</label>
+                                                    <select class="form-control" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                            <option value="">2016-2017</option>
+                                                            <option value="">2015-2016</option>
+                                                            <option value="">2014-2015</option>  
+                                                            <option value="">2013-2014</option>
+                                                            <option value="">2012-2013</option>
+                                                            <option value="">2011-2012</option>
+                                                            <option value="">2010-2011</option>
+                                                            <option value="">2009-2010</option>
+                                                            <option value="">2008-2009</option>
+                                                            <option value="">2007-2008</option>
+                                                            <option value="">2006-2007</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                             <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblState" for="lstStates">Tipo Educativo</label>
+                                                    <select name="tipoEducativo" id="tipoEducativo" class="form-control" ng-model="user.tipoEducativo"
+                                                            ng-options="tipoEducativo.nombre for tipoEducativo in tipoEducativos track by tipoEducativo.id"
+                                                            ng-change="getNivelEducativo()"
+                                                            style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblState" for="lstStates">Nivel Educativo</label>
+                                                    <select name="nivelEducativo" id="nivelEducativo" class="form-control" ng-model="user.nivelEducativo"
+                                                            ng-options="nivelEducativo.nombre for nivelEducativo in nivelesEducativos track by nivelEducativo.id"
+															ng-change="getServicioEducativo()"
+                                                            style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblState" for="lstStates">Servicio Educativo</label>
+                                                    <select name="servicioEducativo" id="servicioEducativo" class="form-control" ng-model="user.servicioEducativo"
+                                                            ng-options="servicioEducativo.nombre for servicioEducativo in serviciosEducativos track by servicioEducativo.id"
+                                                            style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblLocations" for="lstLocations">Sostenimiento</label><br />
+                                                    <select class="form-control" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                            <option value="">Federal</option>
+                                                            <option value="">Estatal</option>
+                                                            <option value="">Autónomo</option>
+                                                            <option value="">Particular</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                             <div class="col-md-3">
+                                                    <label id="lblState" for="lstStates">Entidad</label>
+                                              <div class="form-group form-group-lg field_select">
+                                                    <select name="lstStates" id="lstStates" class="form-control" ng-model="user.state"
+                                                            ng-options="state.nombre for state in states track by state.id"
+                                                            ng-change="getMunicipalities()" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblSchedules">Municipio</label><br />
+                                                     <select name="lstStates" id="lstStates" class="form-control" ng-model="user.municipalities"
+                                                            ng-options="municipalitie.nombre for municipalitie in municipalities track by municipalitie.id"
+                                                            style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                          
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <br>
+
+                                        <button type="submit" id="btnFindSchool" ng-click="Search()" class="btn btn-info btn-buscar" >Buscar</button>
+                                        <br>
+                                        <br>
+                                        <button type="button" id="reset" ng-click="newSearch()"class="btn btn-warning btn-buscar">Restablecer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+
+                <section>
+                    <div class="container">
+                        <div class="row">
+                          
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                       <div class="panel-collapse collapse " id="panelLocationMap">
+                            <div class="panel-body" align="center">
+                                <div id="map" style="width: 100%; height: 380px;"></div>
+                            </div>
+                       </div>
+                </section>
+
+                <section>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <ol class="breadcrumb">
+                                <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                                <li><a href="index.html">Inicio</a></li>
+                                <li><a href="index.html#info">Principales cifras</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section>
+                  <!--div  id="divSchoolResults" style="width:100%;overflow-x: scroll;display:none"-->
+                     <div  id="divSchoolResults" style="width:100%;display:none">
+                          <div class="col-md-12 col-lg-12" >
+                            <form  > 
+                                <button  id="btn-concentrado" type="submit" ng-click="generaExcel();" class="btn pull-right" style="color:white; background-color: green"><i class="fa fa-file-excel-o"></i> Obtener concentrado</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-12 col-offset-12 centered">
+                            <a href="#" name="aschoolResults"></a>
+                        </div>
+                        <div><!--id="tblSchoolResults"-->
+                            <table border="1" class="table table-siged table-select table-responsive"
+                                   id="tblSchoolResults" style="width:100%: display:none">
+                                <thead class="header-order">
+                                    <tr>
+                                        <th>CCT</th>
+                                        <th>Entidad</th>
+                                        <th>Trimestre</th>
+                                        <th>Escuela</th>
+                                        <th>Clave plaza</th>
+                                        <th>Tipo plaza</th>
+                                        <th>Descripción modelo</th>
+                                        <th>Percepciones trimestrales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <table style="display:none">
+	<tbody><tr>
+		<td colspan="55"><span class="Titulos_principales2" style="font-size:7pt;">TIPO EDUCATIVO: EDUCACIÓN BÁSICA;     NIVEL EDUCATIVO: PRIMARIA                                          ;     SOSTENIMIENTO: FEDERAL             ;     ENTIDAD: TODAS</span></td>
+	</tr>
+	<tr bgcolor="#EFA57F">
+		<td width="290" align="center"><span class="Titulos_principales2" style="color:White;">Entidad</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Escuelas</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos Hombres</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos Mujeres</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Docentes ¹</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Docentes Hombres</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Docentes Mujeres</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Alumnos 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Hombres 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Mujeres 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Nuevo Ingreso</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Ingreso 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Total repetidores</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Repetidores 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Total de personal</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Directivos con grupo</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Directivos sin grupo</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Doc. Ed. Fisica</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Doc. Ed. Artistica</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Doc. Ed. Tecnologica</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Doc. Idiomas</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Personal Administrativo</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Total de grupos</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 1°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 2°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 3°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 4°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 5°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos 6°</span></td>
+		<td width="80" align="center"><span class="Titulos_principales2" style="color:White;">Grupos Multi Grado</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">AGUASCALIENTES</span></td>
+		<td align="Right"><span class="FontRow">46</span></td>
+		<td align="Right"><span class="FontRow">516</span></td>
+		<td align="Right"><span class="FontRow">283</span></td>
+		<td align="Right"><span class="FontRow">233</span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+		<td align="Right"><span class="FontRow">19</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">95</span></td>
+		<td align="Right"><span class="FontRow">51</span></td>
+		<td align="Right"><span class="FontRow">44</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">41</span></td>
+		<td align="Right"><span class="FontRow">45</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+		<td align="Right"><span class="FontRow">77</span></td>
+		<td align="Right"><span class="FontRow">42</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">50</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">84</span></td>
+		<td align="Right"><span class="FontRow">52</span></td>
+		<td align="Right"><span class="FontRow">32</span></td>
+		<td align="Right"><span class="FontRow">514</span></td>
+		<td align="Right"><span class="FontRow">95</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">77</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">46</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">46</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">BAJA CALIFORNIA </span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">765</span></td>
+		<td align="Right"><span class="FontRow">405</span></td>
+		<td align="Right"><span class="FontRow">360</span></td>
+		<td align="Right"><span class="FontRow">53</span></td>
+		<td align="Right"><span class="FontRow">13</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+		<td align="Right"><span class="FontRow">111</span></td>
+		<td align="Right"><span class="FontRow">55</span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+		<td align="Right"><span class="FontRow">135</span></td>
+		<td align="Right"><span class="FontRow">73</span></td>
+		<td align="Right"><span class="FontRow">62</span></td>
+		<td align="Right"><span class="FontRow">143</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">138</span></td>
+		<td align="Right"><span class="FontRow">69</span></td>
+		<td align="Right"><span class="FontRow">69</span></td>
+		<td align="Right"><span class="FontRow">125</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">60</span></td>
+		<td align="Right"><span class="FontRow">113</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">48</span></td>
+		<td align="Right"><span class="FontRow">761</span></td>
+		<td align="Right"><span class="FontRow">111</span></td>
+		<td align="Right"><span class="FontRow">135</span></td>
+		<td align="Right"><span class="FontRow">143</span></td>
+		<td align="Right"><span class="FontRow">136</span></td>
+		<td align="Right"><span class="FontRow">125</span></td>
+		<td align="Right"><span class="FontRow">111</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">53</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">BAJA CALIFORNIA SUR </span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+		<td align="Right"><span class="FontRow">425</span></td>
+		<td align="Right"><span class="FontRow">243</span></td>
+		<td align="Right"><span class="FontRow">182</span></td>
+		<td align="Right"><span class="FontRow">59</span></td>
+		<td align="Right"><span class="FontRow">24</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">64</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">51</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">49</span></td>
+		<td align="Right"><span class="FontRow">31</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">26</span></td>
+		<td align="Right"><span class="FontRow">21</span></td>
+		<td align="Right"><span class="FontRow">423</span></td>
+		<td align="Right"><span class="FontRow">64</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">59</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">56</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">CAMPECHE</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+		<td align="Right"><span class="FontRow">721</span></td>
+		<td align="Right"><span class="FontRow">354</span></td>
+		<td align="Right"><span class="FontRow">367</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">48</span></td>
+		<td align="Right"><span class="FontRow">30</span></td>
+		<td align="Right"><span class="FontRow">132</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">62</span></td>
+		<td align="Right"><span class="FontRow">144</span></td>
+		<td align="Right"><span class="FontRow">58</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">137</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+		<td align="Right"><span class="FontRow">113</span></td>
+		<td align="Right"><span class="FontRow">48</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">106</span></td>
+		<td align="Right"><span class="FontRow">55</span></td>
+		<td align="Right"><span class="FontRow">51</span></td>
+		<td align="Right"><span class="FontRow">89</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">42</span></td>
+		<td align="Right"><span class="FontRow">716</span></td>
+		<td align="Right"><span class="FontRow">132</span></td>
+		<td align="Right"><span class="FontRow">144</span></td>
+		<td align="Right"><span class="FontRow">137</span></td>
+		<td align="Right"><span class="FontRow">111</span></td>
+		<td align="Right"><span class="FontRow">106</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">CHIAPAS</span></td>
+		<td align="Right"><span class="FontRow">2,077</span></td>
+		<td align="Right"><span class="FontRow">27,482</span></td>
+		<td align="Right"><span class="FontRow">14,079</span></td>
+		<td align="Right"><span class="FontRow">13,403</span></td>
+		<td align="Right"><span class="FontRow">2,634</span></td>
+		<td align="Right"><span class="FontRow">1,498</span></td>
+		<td align="Right"><span class="FontRow">1,136</span></td>
+		<td align="Right"><span class="FontRow">4,631</span></td>
+		<td align="Right"><span class="FontRow">2,404</span></td>
+		<td align="Right"><span class="FontRow">2,227</span></td>
+		<td align="Right"><span class="FontRow">5,092</span></td>
+		<td align="Right"><span class="FontRow">2,606</span></td>
+		<td align="Right"><span class="FontRow">2,486</span></td>
+		<td align="Right"><span class="FontRow">4,571</span></td>
+		<td align="Right"><span class="FontRow">2,346</span></td>
+		<td align="Right"><span class="FontRow">2,225</span></td>
+		<td align="Right"><span class="FontRow">4,562</span></td>
+		<td align="Right"><span class="FontRow">2,293</span></td>
+		<td align="Right"><span class="FontRow">2,269</span></td>
+		<td align="Right"><span class="FontRow">4,179</span></td>
+		<td align="Right"><span class="FontRow">2,172</span></td>
+		<td align="Right"><span class="FontRow">2,007</span></td>
+		<td align="Right"><span class="FontRow">4,447</span></td>
+		<td align="Right"><span class="FontRow">2,258</span></td>
+		<td align="Right"><span class="FontRow">2,189</span></td>
+		<td align="Right"><span class="FontRow">27,266</span></td>
+		<td align="Right"><span class="FontRow">4,631</span></td>
+		<td align="Right"><span class="FontRow">5,026</span></td>
+		<td align="Right"><span class="FontRow">4,571</span></td>
+		<td align="Right"><span class="FontRow">4,445</span></td>
+		<td align="Right"><span class="FontRow">4,179</span></td>
+		<td align="Right"><span class="FontRow">4,414</span></td>
+		<td align="Right"><span class="FontRow">216</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">66</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">117</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">2,638</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">2,082</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">2,076</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">CHIHUAHUA</span></td>
+		<td align="Right"><span class="FontRow">312</span></td>
+		<td align="Right"><span class="FontRow">2,845</span></td>
+		<td align="Right"><span class="FontRow">1,467</span></td>
+		<td align="Right"><span class="FontRow">1,378</span></td>
+		<td align="Right"><span class="FontRow">326</span></td>
+		<td align="Right"><span class="FontRow">98</span></td>
+		<td align="Right"><span class="FontRow">228</span></td>
+		<td align="Right"><span class="FontRow">397</span></td>
+		<td align="Right"><span class="FontRow">212</span></td>
+		<td align="Right"><span class="FontRow">185</span></td>
+		<td align="Right"><span class="FontRow">557</span></td>
+		<td align="Right"><span class="FontRow">302</span></td>
+		<td align="Right"><span class="FontRow">255</span></td>
+		<td align="Right"><span class="FontRow">516</span></td>
+		<td align="Right"><span class="FontRow">258</span></td>
+		<td align="Right"><span class="FontRow">258</span></td>
+		<td align="Right"><span class="FontRow">466</span></td>
+		<td align="Right"><span class="FontRow">239</span></td>
+		<td align="Right"><span class="FontRow">227</span></td>
+		<td align="Right"><span class="FontRow">461</span></td>
+		<td align="Right"><span class="FontRow">242</span></td>
+		<td align="Right"><span class="FontRow">219</span></td>
+		<td align="Right"><span class="FontRow">448</span></td>
+		<td align="Right"><span class="FontRow">214</span></td>
+		<td align="Right"><span class="FontRow">234</span></td>
+		<td align="Right"><span class="FontRow">2,839</span></td>
+		<td align="Right"><span class="FontRow">397</span></td>
+		<td align="Right"><span class="FontRow">555</span></td>
+		<td align="Right"><span class="FontRow">516</span></td>
+		<td align="Right"><span class="FontRow">463</span></td>
+		<td align="Right"><span class="FontRow">461</span></td>
+		<td align="Right"><span class="FontRow">447</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">326</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">312</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">312</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">CIUDAD DE MÉXICO                        </span></td>
+		<td align="Right"><span class="FontRow">2,019</span></td>
+		<td align="Right"><span class="FontRow">687,533</span></td>
+		<td align="Right"><span class="FontRow">349,476</span></td>
+		<td align="Right"><span class="FontRow">338,057</span></td>
+		<td align="Right"><span class="FontRow">25,093</span></td>
+		<td align="Right"><span class="FontRow">4,681</span></td>
+		<td align="Right"><span class="FontRow">20,412</span></td>
+		<td align="Right"><span class="FontRow">109,612</span></td>
+		<td align="Right"><span class="FontRow">55,702</span></td>
+		<td align="Right"><span class="FontRow">53,910</span></td>
+		<td align="Right"><span class="FontRow">111,389</span></td>
+		<td align="Right"><span class="FontRow">57,001</span></td>
+		<td align="Right"><span class="FontRow">54,388</span></td>
+		<td align="Right"><span class="FontRow">114,980</span></td>
+		<td align="Right"><span class="FontRow">58,183</span></td>
+		<td align="Right"><span class="FontRow">56,797</span></td>
+		<td align="Right"><span class="FontRow">116,004</span></td>
+		<td align="Right"><span class="FontRow">58,845</span></td>
+		<td align="Right"><span class="FontRow">57,159</span></td>
+		<td align="Right"><span class="FontRow">117,279</span></td>
+		<td align="Right"><span class="FontRow">59,676</span></td>
+		<td align="Right"><span class="FontRow">57,603</span></td>
+		<td align="Right"><span class="FontRow">118,269</span></td>
+		<td align="Right"><span class="FontRow">60,069</span></td>
+		<td align="Right"><span class="FontRow">58,200</span></td>
+		<td align="Right"><span class="FontRow">683,670</span></td>
+		<td align="Right"><span class="FontRow">109,395</span></td>
+		<td align="Right"><span class="FontRow">110,547</span></td>
+		<td align="Right"><span class="FontRow">114,229</span></td>
+		<td align="Right"><span class="FontRow">115,140</span></td>
+		<td align="Right"><span class="FontRow">116,561</span></td>
+		<td align="Right"><span class="FontRow">117,798</span></td>
+		<td align="Right"><span class="FontRow">3,863</span></td>
+		<td align="Right"><span class="FontRow">217</span></td>
+		<td align="Right"><span class="FontRow">842</span></td>
+		<td align="Right"><span class="FontRow">751</span></td>
+		<td align="Right"><span class="FontRow">864</span></td>
+		<td align="Right"><span class="FontRow">718</span></td>
+		<td align="Right"><span class="FontRow">471</span></td>
+		<td align="Right"><span class="FontRow">44,915</span></td>
+		<td align="Right"><span class="FontRow">169</span></td>
+		<td align="Right"><span class="FontRow">2,271</span></td>
+		<td align="Right"><span class="FontRow">4,642</span></td>
+		<td align="Right"><span class="FontRow">208</span></td>
+		<td align="Right"><span class="FontRow">537</span></td>
+		<td align="Right"><span class="FontRow">1,395</span></td>
+		<td align="Right"><span class="FontRow">7,519</span></td>
+		<td align="Right"><span class="FontRow">25,193</span></td>
+		<td align="Right"><span class="FontRow">4,079</span></td>
+		<td align="Right"><span class="FontRow">4,061</span></td>
+		<td align="Right"><span class="FontRow">4,178</span></td>
+		<td align="Right"><span class="FontRow">4,222</span></td>
+		<td align="Right"><span class="FontRow">4,269</span></td>
+		<td align="Right"><span class="FontRow">4,184</span></td>
+		<td align="Right"><span class="FontRow">200</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">COAHUILA DE ZARAGOZA</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+		<td align="Right"><span class="FontRow">357</span></td>
+		<td align="Right"><span class="FontRow">178</span></td>
+		<td align="Right"><span class="FontRow">179</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+		<td align="Right"><span class="FontRow">18</span></td>
+		<td align="Right"><span class="FontRow">43</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">24</span></td>
+		<td align="Right"><span class="FontRow">11</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">28</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">60</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">31</span></td>
+		<td align="Right"><span class="FontRow">67</span></td>
+		<td align="Right"><span class="FontRow">31</span></td>
+		<td align="Right"><span class="FontRow">36</span></td>
+		<td align="Right"><span class="FontRow">356</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">69</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">60</span></td>
+		<td align="Right"><span class="FontRow">67</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">61</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">COLIMA</span></td>
+		<td align="Right"><span class="FontRow">30</span></td>
+		<td align="Right"><span class="FontRow">1,230</span></td>
+		<td align="Right"><span class="FontRow">622</span></td>
+		<td align="Right"><span class="FontRow">608</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">13</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">264</span></td>
+		<td align="Right"><span class="FontRow">145</span></td>
+		<td align="Right"><span class="FontRow">119</span></td>
+		<td align="Right"><span class="FontRow">228</span></td>
+		<td align="Right"><span class="FontRow">111</span></td>
+		<td align="Right"><span class="FontRow">117</span></td>
+		<td align="Right"><span class="FontRow">227</span></td>
+		<td align="Right"><span class="FontRow">108</span></td>
+		<td align="Right"><span class="FontRow">119</span></td>
+		<td align="Right"><span class="FontRow">192</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">107</span></td>
+		<td align="Right"><span class="FontRow">178</span></td>
+		<td align="Right"><span class="FontRow">100</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">73</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">1,223</span></td>
+		<td align="Right"><span class="FontRow">264</span></td>
+		<td align="Right"><span class="FontRow">227</span></td>
+		<td align="Right"><span class="FontRow">223</span></td>
+		<td align="Right"><span class="FontRow">190</span></td>
+		<td align="Right"><span class="FontRow">178</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">7</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">155</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">9</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">9</span></td>
+		<td align="Right"><span class="FontRow">8</span></td>
+		<td align="Right"><span class="FontRow">7</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">26</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">DURANGO</span></td>
+		<td align="Right"><span class="FontRow">484</span></td>
+		<td align="Right"><span class="FontRow">4,155</span></td>
+		<td align="Right"><span class="FontRow">2,165</span></td>
+		<td align="Right"><span class="FontRow">1,990</span></td>
+		<td align="Right"><span class="FontRow">512</span></td>
+		<td align="Right"><span class="FontRow">215</span></td>
+		<td align="Right"><span class="FontRow">297</span></td>
+		<td align="Right"><span class="FontRow">853</span></td>
+		<td align="Right"><span class="FontRow">428</span></td>
+		<td align="Right"><span class="FontRow">425</span></td>
+		<td align="Right"><span class="FontRow">721</span></td>
+		<td align="Right"><span class="FontRow">387</span></td>
+		<td align="Right"><span class="FontRow">334</span></td>
+		<td align="Right"><span class="FontRow">725</span></td>
+		<td align="Right"><span class="FontRow">390</span></td>
+		<td align="Right"><span class="FontRow">335</span></td>
+		<td align="Right"><span class="FontRow">631</span></td>
+		<td align="Right"><span class="FontRow">329</span></td>
+		<td align="Right"><span class="FontRow">302</span></td>
+		<td align="Right"><span class="FontRow">596</span></td>
+		<td align="Right"><span class="FontRow">302</span></td>
+		<td align="Right"><span class="FontRow">294</span></td>
+		<td align="Right"><span class="FontRow">629</span></td>
+		<td align="Right"><span class="FontRow">329</span></td>
+		<td align="Right"><span class="FontRow">300</span></td>
+		<td align="Right"><span class="FontRow">4,150</span></td>
+		<td align="Right"><span class="FontRow">853</span></td>
+		<td align="Right"><span class="FontRow">719</span></td>
+		<td align="Right"><span class="FontRow">725</span></td>
+		<td align="Right"><span class="FontRow">630</span></td>
+		<td align="Right"><span class="FontRow">596</span></td>
+		<td align="Right"><span class="FontRow">627</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">512</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">484</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">484</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">GUANAJUATO</span></td>
+		<td align="Right"><span class="FontRow">326</span></td>
+		<td align="Right"><span class="FontRow">3,426</span></td>
+		<td align="Right"><span class="FontRow">1,715</span></td>
+		<td align="Right"><span class="FontRow">1,711</span></td>
+		<td align="Right"><span class="FontRow">376</span></td>
+		<td align="Right"><span class="FontRow">121</span></td>
+		<td align="Right"><span class="FontRow">255</span></td>
+		<td align="Right"><span class="FontRow">553</span></td>
+		<td align="Right"><span class="FontRow">278</span></td>
+		<td align="Right"><span class="FontRow">275</span></td>
+		<td align="Right"><span class="FontRow">603</span></td>
+		<td align="Right"><span class="FontRow">283</span></td>
+		<td align="Right"><span class="FontRow">320</span></td>
+		<td align="Right"><span class="FontRow">604</span></td>
+		<td align="Right"><span class="FontRow">296</span></td>
+		<td align="Right"><span class="FontRow">308</span></td>
+		<td align="Right"><span class="FontRow">559</span></td>
+		<td align="Right"><span class="FontRow">300</span></td>
+		<td align="Right"><span class="FontRow">259</span></td>
+		<td align="Right"><span class="FontRow">516</span></td>
+		<td align="Right"><span class="FontRow">257</span></td>
+		<td align="Right"><span class="FontRow">259</span></td>
+		<td align="Right"><span class="FontRow">591</span></td>
+		<td align="Right"><span class="FontRow">301</span></td>
+		<td align="Right"><span class="FontRow">290</span></td>
+		<td align="Right"><span class="FontRow">3,423</span></td>
+		<td align="Right"><span class="FontRow">553</span></td>
+		<td align="Right"><span class="FontRow">602</span></td>
+		<td align="Right"><span class="FontRow">604</span></td>
+		<td align="Right"><span class="FontRow">557</span></td>
+		<td align="Right"><span class="FontRow">516</span></td>
+		<td align="Right"><span class="FontRow">591</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">376</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">326</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">326</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">GUERRERO</span></td>
+		<td align="Right"><span class="FontRow">548</span></td>
+		<td align="Right"><span class="FontRow">6,976</span></td>
+		<td align="Right"><span class="FontRow">3,605</span></td>
+		<td align="Right"><span class="FontRow">3,371</span></td>
+		<td align="Right"><span class="FontRow">647</span></td>
+		<td align="Right"><span class="FontRow">355</span></td>
+		<td align="Right"><span class="FontRow">292</span></td>
+		<td align="Right"><span class="FontRow">1,042</span></td>
+		<td align="Right"><span class="FontRow">544</span></td>
+		<td align="Right"><span class="FontRow">498</span></td>
+		<td align="Right"><span class="FontRow">1,159</span></td>
+		<td align="Right"><span class="FontRow">631</span></td>
+		<td align="Right"><span class="FontRow">528</span></td>
+		<td align="Right"><span class="FontRow">1,160</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+		<td align="Right"><span class="FontRow">541</span></td>
+		<td align="Right"><span class="FontRow">1,165</span></td>
+		<td align="Right"><span class="FontRow">601</span></td>
+		<td align="Right"><span class="FontRow">564</span></td>
+		<td align="Right"><span class="FontRow">1,174</span></td>
+		<td align="Right"><span class="FontRow">560</span></td>
+		<td align="Right"><span class="FontRow">614</span></td>
+		<td align="Right"><span class="FontRow">1,276</span></td>
+		<td align="Right"><span class="FontRow">650</span></td>
+		<td align="Right"><span class="FontRow">626</span></td>
+		<td align="Right"><span class="FontRow">6,965</span></td>
+		<td align="Right"><span class="FontRow">1,042</span></td>
+		<td align="Right"><span class="FontRow">1,157</span></td>
+		<td align="Right"><span class="FontRow">1,160</span></td>
+		<td align="Right"><span class="FontRow">1,162</span></td>
+		<td align="Right"><span class="FontRow">1,174</span></td>
+		<td align="Right"><span class="FontRow">1,270</span></td>
+		<td align="Right"><span class="FontRow">11</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">647</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">548</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">548</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">HIDALGO</span></td>
+		<td align="Right"><span class="FontRow">466</span></td>
+		<td align="Right"><span class="FontRow">4,461</span></td>
+		<td align="Right"><span class="FontRow">2,282</span></td>
+		<td align="Right"><span class="FontRow">2,179</span></td>
+		<td align="Right"><span class="FontRow">520</span></td>
+		<td align="Right"><span class="FontRow">227</span></td>
+		<td align="Right"><span class="FontRow">293</span></td>
+		<td align="Right"><span class="FontRow">760</span></td>
+		<td align="Right"><span class="FontRow">388</span></td>
+		<td align="Right"><span class="FontRow">372</span></td>
+		<td align="Right"><span class="FontRow">765</span></td>
+		<td align="Right"><span class="FontRow">356</span></td>
+		<td align="Right"><span class="FontRow">409</span></td>
+		<td align="Right"><span class="FontRow">796</span></td>
+		<td align="Right"><span class="FontRow">397</span></td>
+		<td align="Right"><span class="FontRow">399</span></td>
+		<td align="Right"><span class="FontRow">732</span></td>
+		<td align="Right"><span class="FontRow">376</span></td>
+		<td align="Right"><span class="FontRow">356</span></td>
+		<td align="Right"><span class="FontRow">701</span></td>
+		<td align="Right"><span class="FontRow">363</span></td>
+		<td align="Right"><span class="FontRow">338</span></td>
+		<td align="Right"><span class="FontRow">707</span></td>
+		<td align="Right"><span class="FontRow">402</span></td>
+		<td align="Right"><span class="FontRow">305</span></td>
+		<td align="Right"><span class="FontRow">4,439</span></td>
+		<td align="Right"><span class="FontRow">760</span></td>
+		<td align="Right"><span class="FontRow">761</span></td>
+		<td align="Right"><span class="FontRow">796</span></td>
+		<td align="Right"><span class="FontRow">719</span></td>
+		<td align="Right"><span class="FontRow">701</span></td>
+		<td align="Right"><span class="FontRow">702</span></td>
+		<td align="Right"><span class="FontRow">22</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">13</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">520</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">466</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">466</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">JALISCO</span></td>
+		<td align="Right"><span class="FontRow">459</span></td>
+		<td align="Right"><span class="FontRow">3,698</span></td>
+		<td align="Right"><span class="FontRow">1,925</span></td>
+		<td align="Right"><span class="FontRow">1,773</span></td>
+		<td align="Right"><span class="FontRow">491</span></td>
+		<td align="Right"><span class="FontRow">203</span></td>
+		<td align="Right"><span class="FontRow">288</span></td>
+		<td align="Right"><span class="FontRow">568</span></td>
+		<td align="Right"><span class="FontRow">274</span></td>
+		<td align="Right"><span class="FontRow">294</span></td>
+		<td align="Right"><span class="FontRow">671</span></td>
+		<td align="Right"><span class="FontRow">370</span></td>
+		<td align="Right"><span class="FontRow">301</span></td>
+		<td align="Right"><span class="FontRow">612</span></td>
+		<td align="Right"><span class="FontRow">325</span></td>
+		<td align="Right"><span class="FontRow">287</span></td>
+		<td align="Right"><span class="FontRow">659</span></td>
+		<td align="Right"><span class="FontRow">341</span></td>
+		<td align="Right"><span class="FontRow">318</span></td>
+		<td align="Right"><span class="FontRow">595</span></td>
+		<td align="Right"><span class="FontRow">314</span></td>
+		<td align="Right"><span class="FontRow">281</span></td>
+		<td align="Right"><span class="FontRow">593</span></td>
+		<td align="Right"><span class="FontRow">301</span></td>
+		<td align="Right"><span class="FontRow">292</span></td>
+		<td align="Right"><span class="FontRow">3,683</span></td>
+		<td align="Right"><span class="FontRow">568</span></td>
+		<td align="Right"><span class="FontRow">666</span></td>
+		<td align="Right"><span class="FontRow">612</span></td>
+		<td align="Right"><span class="FontRow">652</span></td>
+		<td align="Right"><span class="FontRow">595</span></td>
+		<td align="Right"><span class="FontRow">590</span></td>
+		<td align="Right"><span class="FontRow">15</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">7</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">491</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">459</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">459</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">MÉXICO</span></td>
+		<td align="Right"><span class="FontRow">298</span></td>
+		<td align="Right"><span class="FontRow">3,491</span></td>
+		<td align="Right"><span class="FontRow">1,768</span></td>
+		<td align="Right"><span class="FontRow">1,723</span></td>
+		<td align="Right"><span class="FontRow">352</span></td>
+		<td align="Right"><span class="FontRow">169</span></td>
+		<td align="Right"><span class="FontRow">183</span></td>
+		<td align="Right"><span class="FontRow">576</span></td>
+		<td align="Right"><span class="FontRow">285</span></td>
+		<td align="Right"><span class="FontRow">291</span></td>
+		<td align="Right"><span class="FontRow">645</span></td>
+		<td align="Right"><span class="FontRow">331</span></td>
+		<td align="Right"><span class="FontRow">314</span></td>
+		<td align="Right"><span class="FontRow">549</span></td>
+		<td align="Right"><span class="FontRow">275</span></td>
+		<td align="Right"><span class="FontRow">274</span></td>
+		<td align="Right"><span class="FontRow">553</span></td>
+		<td align="Right"><span class="FontRow">283</span></td>
+		<td align="Right"><span class="FontRow">270</span></td>
+		<td align="Right"><span class="FontRow">549</span></td>
+		<td align="Right"><span class="FontRow">275</span></td>
+		<td align="Right"><span class="FontRow">274</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+		<td align="Right"><span class="FontRow">319</span></td>
+		<td align="Right"><span class="FontRow">300</span></td>
+		<td align="Right"><span class="FontRow">3,486</span></td>
+		<td align="Right"><span class="FontRow">576</span></td>
+		<td align="Right"><span class="FontRow">644</span></td>
+		<td align="Right"><span class="FontRow">549</span></td>
+		<td align="Right"><span class="FontRow">549</span></td>
+		<td align="Right"><span class="FontRow">549</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">352</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">298</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">298</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">MICHOACÁN DE OCAMPO ²</span></td>
+		<td align="Right"><span class="FontRow">497</span></td>
+		<td align="Right"><span class="FontRow">3,825</span></td>
+		<td align="Right"><span class="FontRow">1,975</span></td>
+		<td align="Right"><span class="FontRow">1,850</span></td>
+		<td align="Right"><span class="FontRow">515</span></td>
+		<td align="Right"><span class="FontRow">254</span></td>
+		<td align="Right"><span class="FontRow">261</span></td>
+		<td align="Right"><span class="FontRow">578</span></td>
+		<td align="Right"><span class="FontRow">301</span></td>
+		<td align="Right"><span class="FontRow">277</span></td>
+		<td align="Right"><span class="FontRow">701</span></td>
+		<td align="Right"><span class="FontRow">359</span></td>
+		<td align="Right"><span class="FontRow">342</span></td>
+		<td align="Right"><span class="FontRow">684</span></td>
+		<td align="Right"><span class="FontRow">350</span></td>
+		<td align="Right"><span class="FontRow">334</span></td>
+		<td align="Right"><span class="FontRow">644</span></td>
+		<td align="Right"><span class="FontRow">330</span></td>
+		<td align="Right"><span class="FontRow">314</span></td>
+		<td align="Right"><span class="FontRow">590</span></td>
+		<td align="Right"><span class="FontRow">305</span></td>
+		<td align="Right"><span class="FontRow">285</span></td>
+		<td align="Right"><span class="FontRow">628</span></td>
+		<td align="Right"><span class="FontRow">330</span></td>
+		<td align="Right"><span class="FontRow">298</span></td>
+		<td align="Right"><span class="FontRow">3,811</span></td>
+		<td align="Right"><span class="FontRow">578</span></td>
+		<td align="Right"><span class="FontRow">697</span></td>
+		<td align="Right"><span class="FontRow">684</span></td>
+		<td align="Right"><span class="FontRow">639</span></td>
+		<td align="Right"><span class="FontRow">590</span></td>
+		<td align="Right"><span class="FontRow">623</span></td>
+		<td align="Right"><span class="FontRow">14</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">515</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">497</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">497</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">MORELOS</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+		<td align="Right"><span class="FontRow">416</span></td>
+		<td align="Right"><span class="FontRow">233</span></td>
+		<td align="Right"><span class="FontRow">183</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">20</span></td>
+		<td align="Right"><span class="FontRow">27</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">38</span></td>
+		<td align="Right"><span class="FontRow">32</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">26</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">31</span></td>
+		<td align="Right"><span class="FontRow">69</span></td>
+		<td align="Right"><span class="FontRow">36</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">24</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">48</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">413</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">65</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">57</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">NAYARIT</span></td>
+		<td align="Right"><span class="FontRow">173</span></td>
+		<td align="Right"><span class="FontRow">1,187</span></td>
+		<td align="Right"><span class="FontRow">595</span></td>
+		<td align="Right"><span class="FontRow">592</span></td>
+		<td align="Right"><span class="FontRow">180</span></td>
+		<td align="Right"><span class="FontRow">100</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">197</span></td>
+		<td align="Right"><span class="FontRow">93</span></td>
+		<td align="Right"><span class="FontRow">104</span></td>
+		<td align="Right"><span class="FontRow">240</span></td>
+		<td align="Right"><span class="FontRow">127</span></td>
+		<td align="Right"><span class="FontRow">113</span></td>
+		<td align="Right"><span class="FontRow">221</span></td>
+		<td align="Right"><span class="FontRow">113</span></td>
+		<td align="Right"><span class="FontRow">108</span></td>
+		<td align="Right"><span class="FontRow">183</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">92</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">98</span></td>
+		<td align="Right"><span class="FontRow">170</span></td>
+		<td align="Right"><span class="FontRow">93</span></td>
+		<td align="Right"><span class="FontRow">77</span></td>
+		<td align="Right"><span class="FontRow">1,181</span></td>
+		<td align="Right"><span class="FontRow">197</span></td>
+		<td align="Right"><span class="FontRow">237</span></td>
+		<td align="Right"><span class="FontRow">221</span></td>
+		<td align="Right"><span class="FontRow">181</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+		<td align="Right"><span class="FontRow">169</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">180</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">173</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">173</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">NUEVO LEÓN</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">499</span></td>
+		<td align="Right"><span class="FontRow">248</span></td>
+		<td align="Right"><span class="FontRow">251</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">60</span></td>
+		<td align="Right"><span class="FontRow">31</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">33</span></td>
+		<td align="Right"><span class="FontRow">43</span></td>
+		<td align="Right"><span class="FontRow">106</span></td>
+		<td align="Right"><span class="FontRow">52</span></td>
+		<td align="Right"><span class="FontRow">54</span></td>
+		<td align="Right"><span class="FontRow">75</span></td>
+		<td align="Right"><span class="FontRow">41</span></td>
+		<td align="Right"><span class="FontRow">34</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">47</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">42</span></td>
+		<td align="Right"><span class="FontRow">34</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">41</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">498</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">106</span></td>
+		<td align="Right"><span class="FontRow">75</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">OAXACA ²</span></td>
+		<td align="Right"><span class="FontRow">724</span></td>
+		<td align="Right"><span class="FontRow">7,897</span></td>
+		<td align="Right"><span class="FontRow">4,040</span></td>
+		<td align="Right"><span class="FontRow">3,857</span></td>
+		<td align="Right"><span class="FontRow">806</span></td>
+		<td align="Right"><span class="FontRow">374</span></td>
+		<td align="Right"><span class="FontRow">432</span></td>
+		<td align="Right"><span class="FontRow">1,236</span></td>
+		<td align="Right"><span class="FontRow">616</span></td>
+		<td align="Right"><span class="FontRow">620</span></td>
+		<td align="Right"><span class="FontRow">1,333</span></td>
+		<td align="Right"><span class="FontRow">674</span></td>
+		<td align="Right"><span class="FontRow">659</span></td>
+		<td align="Right"><span class="FontRow">1,295</span></td>
+		<td align="Right"><span class="FontRow">652</span></td>
+		<td align="Right"><span class="FontRow">643</span></td>
+		<td align="Right"><span class="FontRow">1,340</span></td>
+		<td align="Right"><span class="FontRow">676</span></td>
+		<td align="Right"><span class="FontRow">664</span></td>
+		<td align="Right"><span class="FontRow">1,291</span></td>
+		<td align="Right"><span class="FontRow">671</span></td>
+		<td align="Right"><span class="FontRow">620</span></td>
+		<td align="Right"><span class="FontRow">1,402</span></td>
+		<td align="Right"><span class="FontRow">751</span></td>
+		<td align="Right"><span class="FontRow">651</span></td>
+		<td align="Right"><span class="FontRow">7,860</span></td>
+		<td align="Right"><span class="FontRow">1,236</span></td>
+		<td align="Right"><span class="FontRow">1,328</span></td>
+		<td align="Right"><span class="FontRow">1,295</span></td>
+		<td align="Right"><span class="FontRow">1,315</span></td>
+		<td align="Right"><span class="FontRow">1,291</span></td>
+		<td align="Right"><span class="FontRow">1,395</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">25</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">7</span></td>
+		<td align="Right"><span class="FontRow">806</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">724</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">724</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">PUEBLA</span></td>
+		<td align="Right"><span class="FontRow">404</span></td>
+		<td align="Right"><span class="FontRow">5,426</span></td>
+		<td align="Right"><span class="FontRow">2,750</span></td>
+		<td align="Right"><span class="FontRow">2,676</span></td>
+		<td align="Right"><span class="FontRow">493</span></td>
+		<td align="Right"><span class="FontRow">212</span></td>
+		<td align="Right"><span class="FontRow">281</span></td>
+		<td align="Right"><span class="FontRow">900</span></td>
+		<td align="Right"><span class="FontRow">455</span></td>
+		<td align="Right"><span class="FontRow">445</span></td>
+		<td align="Right"><span class="FontRow">895</span></td>
+		<td align="Right"><span class="FontRow">469</span></td>
+		<td align="Right"><span class="FontRow">426</span></td>
+		<td align="Right"><span class="FontRow">922</span></td>
+		<td align="Right"><span class="FontRow">457</span></td>
+		<td align="Right"><span class="FontRow">465</span></td>
+		<td align="Right"><span class="FontRow">860</span></td>
+		<td align="Right"><span class="FontRow">457</span></td>
+		<td align="Right"><span class="FontRow">403</span></td>
+		<td align="Right"><span class="FontRow">870</span></td>
+		<td align="Right"><span class="FontRow">427</span></td>
+		<td align="Right"><span class="FontRow">443</span></td>
+		<td align="Right"><span class="FontRow">979</span></td>
+		<td align="Right"><span class="FontRow">485</span></td>
+		<td align="Right"><span class="FontRow">494</span></td>
+		<td align="Right"><span class="FontRow">5,406</span></td>
+		<td align="Right"><span class="FontRow">900</span></td>
+		<td align="Right"><span class="FontRow">888</span></td>
+		<td align="Right"><span class="FontRow">922</span></td>
+		<td align="Right"><span class="FontRow">848</span></td>
+		<td align="Right"><span class="FontRow">870</span></td>
+		<td align="Right"><span class="FontRow">978</span></td>
+		<td align="Right"><span class="FontRow">20</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">7</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">12</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">493</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">404</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">404</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">QUERÉTARO</span></td>
+		<td align="Right"><span class="FontRow">235</span></td>
+		<td align="Right"><span class="FontRow">2,860</span></td>
+		<td align="Right"><span class="FontRow">1,504</span></td>
+		<td align="Right"><span class="FontRow">1,356</span></td>
+		<td align="Right"><span class="FontRow">299</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">216</span></td>
+		<td align="Right"><span class="FontRow">430</span></td>
+		<td align="Right"><span class="FontRow">198</span></td>
+		<td align="Right"><span class="FontRow">232</span></td>
+		<td align="Right"><span class="FontRow">489</span></td>
+		<td align="Right"><span class="FontRow">264</span></td>
+		<td align="Right"><span class="FontRow">225</span></td>
+		<td align="Right"><span class="FontRow">499</span></td>
+		<td align="Right"><span class="FontRow">268</span></td>
+		<td align="Right"><span class="FontRow">231</span></td>
+		<td align="Right"><span class="FontRow">485</span></td>
+		<td align="Right"><span class="FontRow">257</span></td>
+		<td align="Right"><span class="FontRow">228</span></td>
+		<td align="Right"><span class="FontRow">479</span></td>
+		<td align="Right"><span class="FontRow">257</span></td>
+		<td align="Right"><span class="FontRow">222</span></td>
+		<td align="Right"><span class="FontRow">478</span></td>
+		<td align="Right"><span class="FontRow">260</span></td>
+		<td align="Right"><span class="FontRow">218</span></td>
+		<td align="Right"><span class="FontRow">2,849</span></td>
+		<td align="Right"><span class="FontRow">430</span></td>
+		<td align="Right"><span class="FontRow">484</span></td>
+		<td align="Right"><span class="FontRow">499</span></td>
+		<td align="Right"><span class="FontRow">481</span></td>
+		<td align="Right"><span class="FontRow">479</span></td>
+		<td align="Right"><span class="FontRow">476</span></td>
+		<td align="Right"><span class="FontRow">11</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">5</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">299</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">235</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">235</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">QUINTANA ROO</span></td>
+		<td align="Right"><span class="FontRow">59</span></td>
+		<td align="Right"><span class="FontRow">993</span></td>
+		<td align="Right"><span class="FontRow">476</span></td>
+		<td align="Right"><span class="FontRow">517</span></td>
+		<td align="Right"><span class="FontRow">81</span></td>
+		<td align="Right"><span class="FontRow">46</span></td>
+		<td align="Right"><span class="FontRow">35</span></td>
+		<td align="Right"><span class="FontRow">166</span></td>
+		<td align="Right"><span class="FontRow">73</span></td>
+		<td align="Right"><span class="FontRow">93</span></td>
+		<td align="Right"><span class="FontRow">142</span></td>
+		<td align="Right"><span class="FontRow">62</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">175</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">88</span></td>
+		<td align="Right"><span class="FontRow">167</span></td>
+		<td align="Right"><span class="FontRow">84</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">162</span></td>
+		<td align="Right"><span class="FontRow">80</span></td>
+		<td align="Right"><span class="FontRow">82</span></td>
+		<td align="Right"><span class="FontRow">181</span></td>
+		<td align="Right"><span class="FontRow">90</span></td>
+		<td align="Right"><span class="FontRow">91</span></td>
+		<td align="Right"><span class="FontRow">987</span></td>
+		<td align="Right"><span class="FontRow">166</span></td>
+		<td align="Right"><span class="FontRow">142</span></td>
+		<td align="Right"><span class="FontRow">175</span></td>
+		<td align="Right"><span class="FontRow">165</span></td>
+		<td align="Right"><span class="FontRow">162</span></td>
+		<td align="Right"><span class="FontRow">177</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">72</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">58</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">SAN LUIS POTOSÍ</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+		<td align="Right"><span class="FontRow">5,634</span></td>
+		<td align="Right"><span class="FontRow">2,853</span></td>
+		<td align="Right"><span class="FontRow">2,781</span></td>
+		<td align="Right"><span class="FontRow">678</span></td>
+		<td align="Right"><span class="FontRow">304</span></td>
+		<td align="Right"><span class="FontRow">374</span></td>
+		<td align="Right"><span class="FontRow">907</span></td>
+		<td align="Right"><span class="FontRow">441</span></td>
+		<td align="Right"><span class="FontRow">466</span></td>
+		<td align="Right"><span class="FontRow">978</span></td>
+		<td align="Right"><span class="FontRow">492</span></td>
+		<td align="Right"><span class="FontRow">486</span></td>
+		<td align="Right"><span class="FontRow">960</span></td>
+		<td align="Right"><span class="FontRow">496</span></td>
+		<td align="Right"><span class="FontRow">464</span></td>
+		<td align="Right"><span class="FontRow">938</span></td>
+		<td align="Right"><span class="FontRow">460</span></td>
+		<td align="Right"><span class="FontRow">478</span></td>
+		<td align="Right"><span class="FontRow">859</span></td>
+		<td align="Right"><span class="FontRow">445</span></td>
+		<td align="Right"><span class="FontRow">414</span></td>
+		<td align="Right"><span class="FontRow">992</span></td>
+		<td align="Right"><span class="FontRow">519</span></td>
+		<td align="Right"><span class="FontRow">473</span></td>
+		<td align="Right"><span class="FontRow">5,623</span></td>
+		<td align="Right"><span class="FontRow">907</span></td>
+		<td align="Right"><span class="FontRow">976</span></td>
+		<td align="Right"><span class="FontRow">960</span></td>
+		<td align="Right"><span class="FontRow">932</span></td>
+		<td align="Right"><span class="FontRow">859</span></td>
+		<td align="Right"><span class="FontRow">989</span></td>
+		<td align="Right"><span class="FontRow">11</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">678</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">619</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">SINALOA</span></td>
+		<td align="Right"><span class="FontRow">393</span></td>
+		<td align="Right"><span class="FontRow">3,787</span></td>
+		<td align="Right"><span class="FontRow">1,961</span></td>
+		<td align="Right"><span class="FontRow">1,826</span></td>
+		<td align="Right"><span class="FontRow">450</span></td>
+		<td align="Right"><span class="FontRow">144</span></td>
+		<td align="Right"><span class="FontRow">306</span></td>
+		<td align="Right"><span class="FontRow">701</span></td>
+		<td align="Right"><span class="FontRow">356</span></td>
+		<td align="Right"><span class="FontRow">345</span></td>
+		<td align="Right"><span class="FontRow">658</span></td>
+		<td align="Right"><span class="FontRow">347</span></td>
+		<td align="Right"><span class="FontRow">311</span></td>
+		<td align="Right"><span class="FontRow">682</span></td>
+		<td align="Right"><span class="FontRow">357</span></td>
+		<td align="Right"><span class="FontRow">325</span></td>
+		<td align="Right"><span class="FontRow">606</span></td>
+		<td align="Right"><span class="FontRow">303</span></td>
+		<td align="Right"><span class="FontRow">303</span></td>
+		<td align="Right"><span class="FontRow">575</span></td>
+		<td align="Right"><span class="FontRow">303</span></td>
+		<td align="Right"><span class="FontRow">272</span></td>
+		<td align="Right"><span class="FontRow">565</span></td>
+		<td align="Right"><span class="FontRow">295</span></td>
+		<td align="Right"><span class="FontRow">270</span></td>
+		<td align="Right"><span class="FontRow">3,781</span></td>
+		<td align="Right"><span class="FontRow">701</span></td>
+		<td align="Right"><span class="FontRow">656</span></td>
+		<td align="Right"><span class="FontRow">682</span></td>
+		<td align="Right"><span class="FontRow">603</span></td>
+		<td align="Right"><span class="FontRow">575</span></td>
+		<td align="Right"><span class="FontRow">564</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">450</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">393</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">393</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">SONORA</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+		<td align="Right"><span class="FontRow">444</span></td>
+		<td align="Right"><span class="FontRow">227</span></td>
+		<td align="Right"><span class="FontRow">217</span></td>
+		<td align="Right"><span class="FontRow">74</span></td>
+		<td align="Right"><span class="FontRow">29</span></td>
+		<td align="Right"><span class="FontRow">45</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">34</span></td>
+		<td align="Right"><span class="FontRow">44</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">44</span></td>
+		<td align="Right"><span class="FontRow">75</span></td>
+		<td align="Right"><span class="FontRow">37</span></td>
+		<td align="Right"><span class="FontRow">38</span></td>
+		<td align="Right"><span class="FontRow">62</span></td>
+		<td align="Right"><span class="FontRow">39</span></td>
+		<td align="Right"><span class="FontRow">23</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">40</span></td>
+		<td align="Right"><span class="FontRow">36</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">38</span></td>
+		<td align="Right"><span class="FontRow">32</span></td>
+		<td align="Right"><span class="FontRow">444</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">75</span></td>
+		<td align="Right"><span class="FontRow">62</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">70</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">74</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">TABASCO</span></td>
+		<td align="Right"><span class="FontRow">205</span></td>
+		<td align="Right"><span class="FontRow">2,018</span></td>
+		<td align="Right"><span class="FontRow">1,041</span></td>
+		<td align="Right"><span class="FontRow">977</span></td>
+		<td align="Right"><span class="FontRow">210</span></td>
+		<td align="Right"><span class="FontRow">89</span></td>
+		<td align="Right"><span class="FontRow">121</span></td>
+		<td align="Right"><span class="FontRow">369</span></td>
+		<td align="Right"><span class="FontRow">189</span></td>
+		<td align="Right"><span class="FontRow">180</span></td>
+		<td align="Right"><span class="FontRow">347</span></td>
+		<td align="Right"><span class="FontRow">165</span></td>
+		<td align="Right"><span class="FontRow">182</span></td>
+		<td align="Right"><span class="FontRow">341</span></td>
+		<td align="Right"><span class="FontRow">195</span></td>
+		<td align="Right"><span class="FontRow">146</span></td>
+		<td align="Right"><span class="FontRow">339</span></td>
+		<td align="Right"><span class="FontRow">184</span></td>
+		<td align="Right"><span class="FontRow">155</span></td>
+		<td align="Right"><span class="FontRow">315</span></td>
+		<td align="Right"><span class="FontRow">149</span></td>
+		<td align="Right"><span class="FontRow">166</span></td>
+		<td align="Right"><span class="FontRow">307</span></td>
+		<td align="Right"><span class="FontRow">159</span></td>
+		<td align="Right"><span class="FontRow">148</span></td>
+		<td align="Right"><span class="FontRow">2,014</span></td>
+		<td align="Right"><span class="FontRow">369</span></td>
+		<td align="Right"><span class="FontRow">346</span></td>
+		<td align="Right"><span class="FontRow">341</span></td>
+		<td align="Right"><span class="FontRow">336</span></td>
+		<td align="Right"><span class="FontRow">315</span></td>
+		<td align="Right"><span class="FontRow">307</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">210</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">205</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">205</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">TAMAULIPAS</span></td>
+		<td align="Right"><span class="FontRow">177</span></td>
+		<td align="Right"><span class="FontRow">2,133</span></td>
+		<td align="Right"><span class="FontRow">1,158</span></td>
+		<td align="Right"><span class="FontRow">975</span></td>
+		<td align="Right"><span class="FontRow">213</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">137</span></td>
+		<td align="Right"><span class="FontRow">327</span></td>
+		<td align="Right"><span class="FontRow">166</span></td>
+		<td align="Right"><span class="FontRow">161</span></td>
+		<td align="Right"><span class="FontRow">403</span></td>
+		<td align="Right"><span class="FontRow">224</span></td>
+		<td align="Right"><span class="FontRow">179</span></td>
+		<td align="Right"><span class="FontRow">357</span></td>
+		<td align="Right"><span class="FontRow">210</span></td>
+		<td align="Right"><span class="FontRow">147</span></td>
+		<td align="Right"><span class="FontRow">374</span></td>
+		<td align="Right"><span class="FontRow">204</span></td>
+		<td align="Right"><span class="FontRow">170</span></td>
+		<td align="Right"><span class="FontRow">338</span></td>
+		<td align="Right"><span class="FontRow">183</span></td>
+		<td align="Right"><span class="FontRow">155</span></td>
+		<td align="Right"><span class="FontRow">334</span></td>
+		<td align="Right"><span class="FontRow">171</span></td>
+		<td align="Right"><span class="FontRow">163</span></td>
+		<td align="Right"><span class="FontRow">2,120</span></td>
+		<td align="Right"><span class="FontRow">327</span></td>
+		<td align="Right"><span class="FontRow">397</span></td>
+		<td align="Right"><span class="FontRow">357</span></td>
+		<td align="Right"><span class="FontRow">368</span></td>
+		<td align="Right"><span class="FontRow">338</span></td>
+		<td align="Right"><span class="FontRow">333</span></td>
+		<td align="Right"><span class="FontRow">13</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">6</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">222</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">186</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">2</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">TLAXCALA</span></td>
+		<td align="Right"><span class="FontRow">79</span></td>
+		<td align="Right"><span class="FontRow">1,046</span></td>
+		<td align="Right"><span class="FontRow">532</span></td>
+		<td align="Right"><span class="FontRow">514</span></td>
+		<td align="Right"><span class="FontRow">96</span></td>
+		<td align="Right"><span class="FontRow">32</span></td>
+		<td align="Right"><span class="FontRow">64</span></td>
+		<td align="Right"><span class="FontRow">193</span></td>
+		<td align="Right"><span class="FontRow">99</span></td>
+		<td align="Right"><span class="FontRow">94</span></td>
+		<td align="Right"><span class="FontRow">186</span></td>
+		<td align="Right"><span class="FontRow">99</span></td>
+		<td align="Right"><span class="FontRow">87</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+		<td align="Right"><span class="FontRow">76</span></td>
+		<td align="Right"><span class="FontRow">100</span></td>
+		<td align="Right"><span class="FontRow">177</span></td>
+		<td align="Right"><span class="FontRow">94</span></td>
+		<td align="Right"><span class="FontRow">83</span></td>
+		<td align="Right"><span class="FontRow">158</span></td>
+		<td align="Right"><span class="FontRow">79</span></td>
+		<td align="Right"><span class="FontRow">79</span></td>
+		<td align="Right"><span class="FontRow">156</span></td>
+		<td align="Right"><span class="FontRow">85</span></td>
+		<td align="Right"><span class="FontRow">71</span></td>
+		<td align="Right"><span class="FontRow">1,046</span></td>
+		<td align="Right"><span class="FontRow">193</span></td>
+		<td align="Right"><span class="FontRow">186</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+		<td align="Right"><span class="FontRow">177</span></td>
+		<td align="Right"><span class="FontRow">158</span></td>
+		<td align="Right"><span class="FontRow">156</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">96</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">79</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">79</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">VERACRUZ DE IGNACIO DE LA LLAVE</span></td>
+		<td align="Right"><span class="FontRow">896</span></td>
+		<td align="Right"><span class="FontRow">9,639</span></td>
+		<td align="Right"><span class="FontRow">4,932</span></td>
+		<td align="Right"><span class="FontRow">4,707</span></td>
+		<td align="Right"><span class="FontRow">1,006</span></td>
+		<td align="Right"><span class="FontRow">511</span></td>
+		<td align="Right"><span class="FontRow">495</span></td>
+		<td align="Right"><span class="FontRow">1,190</span></td>
+		<td align="Right"><span class="FontRow">609</span></td>
+		<td align="Right"><span class="FontRow">581</span></td>
+		<td align="Right"><span class="FontRow">1,732</span></td>
+		<td align="Right"><span class="FontRow">887</span></td>
+		<td align="Right"><span class="FontRow">845</span></td>
+		<td align="Right"><span class="FontRow">1,514</span></td>
+		<td align="Right"><span class="FontRow">775</span></td>
+		<td align="Right"><span class="FontRow">739</span></td>
+		<td align="Right"><span class="FontRow">1,686</span></td>
+		<td align="Right"><span class="FontRow">901</span></td>
+		<td align="Right"><span class="FontRow">785</span></td>
+		<td align="Right"><span class="FontRow">1,481</span></td>
+		<td align="Right"><span class="FontRow">703</span></td>
+		<td align="Right"><span class="FontRow">778</span></td>
+		<td align="Right"><span class="FontRow">2,036</span></td>
+		<td align="Right"><span class="FontRow">1,057</span></td>
+		<td align="Right"><span class="FontRow">979</span></td>
+		<td align="Right"><span class="FontRow">9,297</span></td>
+		<td align="Right"><span class="FontRow">1,190</span></td>
+		<td align="Right"><span class="FontRow">1,594</span></td>
+		<td align="Right"><span class="FontRow">1,514</span></td>
+		<td align="Right"><span class="FontRow">1,510</span></td>
+		<td align="Right"><span class="FontRow">1,481</span></td>
+		<td align="Right"><span class="FontRow">2,008</span></td>
+		<td align="Right"><span class="FontRow">342</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">138</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">176</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">28</span></td>
+		<td align="Right"><span class="FontRow">1,006</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">896</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">896</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">YUCATÁN </span></td>
+		<td align="Right"><span class="FontRow">118</span></td>
+		<td align="Right"><span class="FontRow">922</span></td>
+		<td align="Right"><span class="FontRow">478</span></td>
+		<td align="Right"><span class="FontRow">444</span></td>
+		<td align="Right"><span class="FontRow">129</span></td>
+		<td align="Right"><span class="FontRow">78</span></td>
+		<td align="Right"><span class="FontRow">51</span></td>
+		<td align="Right"><span class="FontRow">125</span></td>
+		<td align="Right"><span class="FontRow">67</span></td>
+		<td align="Right"><span class="FontRow">58</span></td>
+		<td align="Right"><span class="FontRow">189</span></td>
+		<td align="Right"><span class="FontRow">103</span></td>
+		<td align="Right"><span class="FontRow">86</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">68</span></td>
+		<td align="Right"><span class="FontRow">73</span></td>
+		<td align="Right"><span class="FontRow">151</span></td>
+		<td align="Right"><span class="FontRow">67</span></td>
+		<td align="Right"><span class="FontRow">84</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">72</span></td>
+		<td align="Right"><span class="FontRow">69</span></td>
+		<td align="Right"><span class="FontRow">175</span></td>
+		<td align="Right"><span class="FontRow">101</span></td>
+		<td align="Right"><span class="FontRow">74</span></td>
+		<td align="Right"><span class="FontRow">914</span></td>
+		<td align="Right"><span class="FontRow">125</span></td>
+		<td align="Right"><span class="FontRow">188</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">148</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">171</span></td>
+		<td align="Right"><span class="FontRow">8</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">3</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">4</span></td>
+		<td align="Right"><span class="FontRow">129</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">118</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">118</span></td>
+	</tr>
+	<tr bgcolor="F3CCB6">
+		<td align="Left"><span class="FontRow">ZACATECAS</span></td>
+		<td align="Right"><span class="FontRow">233</span></td>
+		<td align="Right"><span class="FontRow">1,730</span></td>
+		<td align="Right"><span class="FontRow">842</span></td>
+		<td align="Right"><span class="FontRow">888</span></td>
+		<td align="Right"><span class="FontRow">242</span></td>
+		<td align="Right"><span class="FontRow">90</span></td>
+		<td align="Right"><span class="FontRow">152</span></td>
+		<td align="Right"><span class="FontRow">278</span></td>
+		<td align="Right"><span class="FontRow">137</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">320</span></td>
+		<td align="Right"><span class="FontRow">138</span></td>
+		<td align="Right"><span class="FontRow">182</span></td>
+		<td align="Right"><span class="FontRow">311</span></td>
+		<td align="Right"><span class="FontRow">147</span></td>
+		<td align="Right"><span class="FontRow">164</span></td>
+		<td align="Right"><span class="FontRow">276</span></td>
+		<td align="Right"><span class="FontRow">133</span></td>
+		<td align="Right"><span class="FontRow">143</span></td>
+		<td align="Right"><span class="FontRow">262</span></td>
+		<td align="Right"><span class="FontRow">141</span></td>
+		<td align="Right"><span class="FontRow">121</span></td>
+		<td align="Right"><span class="FontRow">283</span></td>
+		<td align="Right"><span class="FontRow">146</span></td>
+		<td align="Right"><span class="FontRow">137</span></td>
+		<td align="Right"><span class="FontRow">1,729</span></td>
+		<td align="Right"><span class="FontRow">278</span></td>
+		<td align="Right"><span class="FontRow">320</span></td>
+		<td align="Right"><span class="FontRow">311</span></td>
+		<td align="Right"><span class="FontRow">276</span></td>
+		<td align="Right"><span class="FontRow">262</span></td>
+		<td align="Right"><span class="FontRow">282</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">1</span></td>
+		<td align="Right"><span class="FontRow">242</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">233</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">0</span></td>
+		<td align="Right"><span class="FontRow">233</span></td>
+	</tr>
+	<tr bgcolor="white">
+		<td align="Left"><span class="FontRow">TOTAL</span></td>
+		<td align="Right"><span class="FontRow">12,296</span></td>
+		<td align="Right"><span class="FontRow">798,537</span></td>
+		<td align="Right"><span class="FontRow">406,412</span></td>
+		<td align="Right"><span class="FontRow">392,125</span></td>
+		<td align="Right"><span class="FontRow">36,938</span></td>
+		<td align="Right"><span class="FontRow">10,204</span></td>
+		<td align="Right"><span class="FontRow">26,734</span></td>
+		<td align="Right"><span class="FontRow">127,514</span></td>
+		<td align="Right"><span class="FontRow">64,800</span></td>
+		<td align="Right"><span class="FontRow">62,714</span></td>
+		<td align="Right"><span class="FontRow">131,218</span></td>
+		<td align="Right"><span class="FontRow">67,174</span></td>
+		<td align="Right"><span class="FontRow">64,044</span></td>
+		<td align="Right"><span class="FontRow">133,753</span></td>
+		<td align="Right"><span class="FontRow">67,848</span></td>
+		<td align="Right"><span class="FontRow">65,905</span></td>
+		<td align="Right"><span class="FontRow">134,431</span></td>
+		<td align="Right"><span class="FontRow">68,281</span></td>
+		<td align="Right"><span class="FontRow">66,150</span></td>
+		<td align="Right"><span class="FontRow">134,580</span></td>
+		<td align="Right"><span class="FontRow">68,503</span></td>
+		<td align="Right"><span class="FontRow">66,077</span></td>
+		<td align="Right"><span class="FontRow">137,041</span></td>
+		<td align="Right"><span class="FontRow">69,806</span></td>
+		<td align="Right"><span class="FontRow">67,235</span></td>
+		<td align="Right"><span class="FontRow">793,887</span></td>
+		<td align="Right"><span class="FontRow">127,297</span></td>
+		<td align="Right"><span class="FontRow">130,116</span></td>
+		<td align="Right"><span class="FontRow">132,998</span></td>
+		<td align="Right"><span class="FontRow">133,160</span></td>
+		<td align="Right"><span class="FontRow">133,862</span></td>
+		<td align="Right"><span class="FontRow">136,454</span></td>
+		<td align="Right"><span class="FontRow">4,650</span></td>
+		<td align="Right"><span class="FontRow">217</span></td>
+		<td align="Right"><span class="FontRow">1,102</span></td>
+		<td align="Right"><span class="FontRow">755</span></td>
+		<td align="Right"><span class="FontRow">1,271</span></td>
+		<td align="Right"><span class="FontRow">718</span></td>
+		<td align="Right"><span class="FontRow">587</span></td>
+		<td align="Right"><span class="FontRow">56,862</span></td>
+		<td align="Right"><span class="FontRow">170</span></td>
+		<td align="Right"><span class="FontRow">2,279</span></td>
+		<td align="Right"><span class="FontRow">4,651</span></td>
+		<td align="Right"><span class="FontRow">213</span></td>
+		<td align="Right"><span class="FontRow">541</span></td>
+		<td align="Right"><span class="FontRow">1,408</span></td>
+		<td align="Right"><span class="FontRow">7,582</span></td>
+		<td align="Right"><span class="FontRow">35,535</span></td>
+		<td align="Right"><span class="FontRow">4,094</span></td>
+		<td align="Right"><span class="FontRow">4,074</span></td>
+		<td align="Right"><span class="FontRow">4,190</span></td>
+		<td align="Right"><span class="FontRow">4,233</span></td>
+		<td align="Right"><span class="FontRow">4,279</span></td>
+		<td align="Right"><span class="FontRow">4,195</span></td>
+		<td align="Right"><span class="FontRow">10,470</span></td>
+	</tr>
+	<tr>
+		<td colspan="56"><span class="Titulos_listas2" style="font-size:8pt;">¹ Conjunto de individuos adscritos a un centro de trabajo, de acuerdo a la función que realizan en el mismo. A cada uno se le considera tantas veces como en centros de trabajo esté adscrito.</span></td>
+	</tr>
+	<tr>
+		<td colspan="56"><span class="Titulos_listas2" style="font-size:8pt;">² Cifras Estimadas</span></td>
+	</tr>
+</tbody></table>
+
+                    <div id="divNoEncontrada" style="display:none">
+                        <section  >
+                            <div class="alert alert-danger">
+                                <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                                <br>
+                                <p>Verifica que hayas escrito bien el nombre o la clave de la escuela o bien verifica tus criterios de búsqueda y vuelve a intentarlo.</p>
+                                <br>
+                                <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);">Volver a intentarlo</button>
+                            </div>
+                            <!--br>
+                            <div class="alert alert-warning">
+                                <p>Si deseas puedes reportar ese problema en el módulo de <a href="contacto.html" title=""> Reporte de inconsistencias de información</a>.</p>
+                            </div-->
+                        </section>
+                    </div>
+                   
+                                     
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+
+        <script src="./js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script
+        src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src='js/velocity.min.js'></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/responsivetable.js"></script>
+
+        <script src="js/slideShow.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/principalesCifras_.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.fancybox.css?v=2.1.5" media="screen" />
+        <!-- Initializing the slider -->
+        <script>
+                                                    jQuery("#layerslider").layerSlider({
+                                                        pauseOnHover: true,
+                                                        autoPlayVideos: false,
+                                                        skinsPath: 'assets/layerslider/skins/',
+                                                        responsive: false,
+                                                        responsiveUnder: 1280,
+                                                        layersContainer: 1280,
+                                                        hoverPrevNext: true,
+                                                    });
+        </script>
+
+<!--Botón descargar excel -->        
+                <script language="javascript">
+$(document).ready(function() {
+    $(".botonExcel").click(function(event) {
+        $("#btn-concentrado").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
+        $("#exportar_excel").submit();
+});
+});
+</script>
+
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    </div>
+                    <div class="modal-body">
+                         <img data-ng-src="data:image/png;base64,{{ctImagen.imagen}}" alt="{{ctImagen.etiqueta}}" height="100%" width="100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+
+    </body>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            /*
+             *  Simple image gallery. Uses default settings
+             */
+            $('#boyka').fancybox();
+        });
+    </script>
+</html>

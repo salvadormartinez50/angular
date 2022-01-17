@@ -1,0 +1,1082 @@
+<!doctype html>
+<!--
+  /*****************************************************************************
+        OBJETO: Presentar Opciones principales del Portal
+        FECHA: 08/05/2021
+        LIDER TECNICO: OMAR FLORES MAURICIO
+        SCRUM MASTER: ERNESTO MARTINEZ ESPINOSA
+        DESARROLLO: ERNESTO MARTINEZ ESPINOSA
+        COMENTARIO: INDICE DEL PORTAL SIGED
+        Versi&oacute;n:    Fecha Modificaci&oacute;n  Desarrollador   Motivo
+        1.0.1       26/05/2021          Ernesto         Agregar Imagen de CT en Indice
+        1.0.2       27/05/2021          Ernesto         Agregar API de totales Alumno
+        1.0.4       27/05/2021          Ernesto         Ajuste de homolagado de estilado en botones principales index
+        1.0.5       27/05/2021          Ernesto         Agregar API de totales Alumno, docentes y escuelas
+        1.0.6       27/05/2021          Ernesto         Agregar Fecha Ãšltima actualizaci&oacute;n del alumno
+        1.0.7       29/06/2021          Ernesto         Ajuste del dato de fecha de carga en FN detalleAlumno Ultimo
+        1.0.8       07/07/2021          Ernesto         Ajuste Modulo docentes, agregar texto en cigras nacionales, cuadrito alumno y docente
+        1.0.9       16/07/2021          Ernesto         Eliminar opciones en Nivel Educativo cuando seleccionas el Tipo CT = Plantel (MS)
+        1.0.10      30/07/2021          Ernesto         Agregar fecha de actualizaci&oacute;n de la informaci&oacute;n estadistica
+        1.0.11      16/08/2021          Ernesto         Agregar API y redireccion del frontend a spd_resultados.html
+        1.0.12      24/08/2021          Ernesto         Agregar Leyendas o pie de grafica en estadisticas graficas
+        1.0.13      25/08/2021          Ernesto         Agregar manejo de Excepciones desde API(BD) para mostrar mensaje controlado
+        1.0.14      06/09/2021          Ernesto         Agregar fecha de actualización para información consultada en Art73
+  ******************************************************************************/
+
+-->
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SEP | SIGED</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300" />
+    <link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css"
+        media="all" />
+    <link rel="stylesheet" type="text/css" href="css/global-style.css">
+    <link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+    <!-- ACTIVOS-->
+    <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="css/sige.css">
+    <link rel="stylesheet" type="text/css" href="css/banner.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/flip.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/cambios.css" type="text/css">
+    <!-- END ACTIVOS-->
+
+    <!--link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css"-->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+
+
+</head>
+<style type="text/css">
+    .banner {
+        height: 240px;
+        background-image: url("ima/home1.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<body ng-app="indexApp" ng-controller="searchReferenceCtrl" ng-strict-di ng-init="inicializarIndex()">
+    <!--div id="banner" class="switch_style"><span style="height: 250px; background-image: url(ima/home1.png); background-position: center; background-repeat: no-repeat; background-size: cover"></span></div-->
+
+    <div id="header"></div>
+
+    <section id="info"></section>
+
+    <section id="slider-wrapper" class="layer-slider-wrapper " style="margin-bottom: -50px">
+
+        <div class="container-fluid banner row">
+            <div class="row col-md-12">
+                <div class="col-md-8" id="textos">
+                    <section id="textoSigedCol">
+                        <h4 class="header-main" id="textoSiged" style="margin-left:130px; margin-top:70px;color: white">
+                            SIGED</h4>
+                    </section>
+                    <section>
+                        <p id="textoSub"
+                            style="font-size: 1em;margin-left:130px;margin-top:-5px;color:white;text-transform:none">
+                            Sistema de Informaci&oacute;n y Gesti&oacute;n Educativa</p>
+                    </section>
+                </div>
+                <div class="col-md-4 info-adicional-banner">
+                    <p class="ls-l" id="caja"
+                        style="margin-left: -50px;margin-top: 60px;line-height:15px; text-align:center;">
+                        <img style="display:block; margin-left:auto;" class="logo-sep" src="images/logo_bco-sep.png"
+                            width="80%">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--	HEADER COVID	-->
+    <!--header class=" navbar navbar-inverse"-->
+    <header class="  navbar-inverse">
+        <nav class="navbar navbar-inverse  navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse"
+                        data-toggle="collapse">
+                        <span class="sr-only">Interruptor de Navegaci&oacute;n</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la p&aacute;gina inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+                </div>
+                <div id="navbarMainCollapse" class="collapse navbar-collapse">
+                    <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" href="/"
+                        alt="logo gobierno de m&eacute;xico" class="logo_footer"
+                        style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para
+                                vacunaci&oacute;n</a></li>
+                        <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a>
+                        </li>
+                        <li><a href="/tramites" title="Tr&aacute;mites">Tr&aacute;mites </a></li>
+                        <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+                        <li>
+                            <form accept-charset="UTF-8" action="/busqueda" method="get">
+                                <div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+                                <input type="hidden" name="site" value="sep">
+                                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search"
+                                    style="background-color: rgb(12, 35, 30)"><a data-v-6394873e=""
+                                        href="https://www.gob.mx/busqueda?utf8=âœ“" target="_blank" id="botbusca"
+                                        style="margin-top: 20px;"><img data-v-6394873e="" alt="Buscar"
+                                            src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--	END HEADER COVID	-->
+    <section id="cuadros">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3 col-sm-6 col-xs-6 " onclick="redir('alumnos.html')">
+                    <div class="boton boton-alumno">
+                        <!-- <p class="texto-descriptivo"> Informaci&oacute;n de alumnas y alumnos de Educaci&oacute;n B&aacute;sica y Educaci&oacute;n Media Superior</p>-->
+                        <p class="texto-descriptivo"> Informaci&oacute;n de alumnas y alumnos de Educaci&oacute;n
+                            B&aacute;sica</p>
+                    </div>
+                </div>
+
+                <div id="front_docente" class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="boton boton-docente">
+                        <p class="texto-descriptivo"> Plaza o plazas que ocupa un docente pagado por FONE, y Resultados
+                            de los procesos del Servicio Profesional Docente y la Unidad del Sistema para la Carrera de
+                            las Maestras y los Maestros</p>
+                    </div>
+                </div>
+                <div id="back_docente" class="col-md-3 col-sm-6 col-xs-6" align="center" style="display:none">
+                    <div class="boton boton-back-docente">
+                        <div onclick="redir('docentes.html')"
+                            class="option option-left option-docente col-md-6 col-sm-6 col-xs-6">
+
+                            <h5 class="boton-icon"><i class="fa fa-user align-top">
+                                    <h5 class="text-docente" style="font-family:Montserrat;">Consulta de docentes
+                                        pagados por FONE</h5>
+                                </i></h5>
+
+                            <p class="text-docente-mobil">Docentes</p>
+                        </div>
+                        <div onclick="redir('spd_resultados.html')"
+                            class="option option-right option-docente col-md-6 col-sm-6 col-xs-6">
+
+                            <h5 class="boton-icon"><i class="fa fa-search align-top">
+                                    <h5 class="text-docente" style="font-family:Montserrat;">Resultados SPD y USICAMM
+                                    </h5>
+                                </i></h5>
+
+                            <p class="text-docente-mobil">Servicio Profesional Docente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="front_escuela" class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="boton boton-escuela">
+                        <p class="texto-descriptivo"> Informaci&oacute;n de escuelas del Sistema
+                            Educativo Nacional y b&uacute;squeda de plazas</p>
+                    </div>
+                </div>
+                <div id="back_escuela" class="col-md-3 col-sm-6 col-xs-6" align="center" style="display:none">
+                    <div class="boton boton-back-escuela">
+                        <div onclick="redir('escuelas.html')" class="option option-left option-escuela col-md-6
+                                col-sm-6 col-xs-6">
+                            <h5 class="boton-icon"><i class="fa fa-university">
+                                    <h5 class="text-escuela" id="folio" style="font-family:Montserrat; font-size: 15px">
+                                        Consulta de Escuelas</h5>
+                                </i></h5>
+
+                            <p class="text-escuela-mobil">Escuelas</p>
+                        </div>
+                        <div onclick="redir('buscador_plazas.html')"
+                            class="option option-right option-escuela col-md-6 col-sm-6 col-xs-6">
+                            <h5 class="boton-icon"><i class="fa fa-search">
+                                    <h5 class="text-escuela" style="font-family:Montserrat;">Plazas vacantes del FONE
+                                    </h5>
+                                </i></h5>
+
+                            <p class="text-escuela-mobil">Plazas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--C1-inicia:Descomentar(mostrar) o Commentar(ocultar) este div para el botón CONSULTA DE CCTS-->
+                <!--
+-->
+                <div class="col-md-3 col-sm-6 col-xs-6 " onclick="redir('centrosTrabajo.html')">
+                    <div class="boton boton-centro">
+                        <p class="texto-descriptivo"> Informaci&oacute;n de centros de trabajo educativos del Sistema
+                            Educativo Nacional</p>
+                    </div>
+                </div>
+                <!--C1-fin-->
+
+                <!--C3:inicia:Pegar aquí el código del botón DOCUMENTOS cuando se oculte el botón CONSULTA DE CCTS-->
+                <!--C3:fin-->
+            </div>
+            <!--C4:inicia:Pegar aquí el código del botón DOCUMENTOS para mostrar el botón CONSULTA DE CCTS-->
+            <!--C2:Inicia Código del botón DOCUMENTOS-->
+            <!--Utilizar el siguiente div para ocultar el botón CONSULTA DE CCTS (cambia la configuración del style)
+                    <div class="rowcol-md-12"   style="" >
+                    -->
+            <!--Utilizar el siguiente div cuando se habilite el botón CONSULTA DE CCTS (cambia la configuración del style)
+                    -->
+            <div class="rowcol-md-12" style="display: flex; justify-content: center; margin-top: 30px;">
+                <div id="front_documento" class="col-md-3 col-sm-6 col-xs-6"
+                    style="align-items: center; width:275px; height: 165px;">
+                    <div class="boton boton-documento" style="  width:275px; height: 165px;">
+                        <p class="texto-descriptivo" style="  width:275px; height: 165px;"> Documentos electrónicos de
+                            educación básica,
+                            media superior e
+                            instituciones particulares de educación superior</p>
+                    </div>
+                </div>
+                <!--Utilizar el siguiente div cuando se oculte el botón CONSULTA DE CCTS (cambia la configuración del style)
+                        <div id="back_documento" class="col-md-3 col-sm-6 col-xs-6" align="center" style="display:none; align-items: center; width:275px; height: 165px;">
+                        -->
+                <!--Utilizar el siguiente div cuando se habilite el botón CONSULTA DE CCTS (cambia la configuración del style)
+                        -->
+                <div id="back_documento" class="col-md-3 col-sm-6 col-xs-6" align="center"
+                    style="display:none; align-items: center; width:'310px'">
+
+
+                    <div class="boton boton-back-documento" style="  width:275px; height: 165px;">
+                        <div onclick="redir('documentos.html')"
+                            class="option option-left option-documento col-md-6 col-sm-6 col-xs-6"
+                            style="height: 50%; width: 40%;">
+                            <h4 class="text-documento" id="folio" style="font-family:Montserrat;font-size:19.2px;">
+                                Consulta por folio</h4>
+                        </div>
+                        <div onclick="redir('documentosMasivo.html')"
+                            class="option option-left option-documento col-md-6 col-sm-6 col-xs-6"
+                            style="height: 50%; width: 40%; margin-top: 31%; margin-left: -40%">
+                            <h4 class="text-documento" id="masiva" style="font-family:Montserrat;font-size:19.2px;">
+                                Consulta masiva</h4>
+                        </div>
+                        <div onclick="redir('revalidaciones.html')"
+                            class="option option-right option-documento col-md-6 col-sm-6 col-xs-6"
+                            style="height: 100%; width: 60%; margin: 0px; padding: 0px;">
+                            <h4 class="text-documento" id="revalidaciones"
+                                style="font-family:Montserrat;font-size:18px;">Consulta Revalidaciones y Equivalencias
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--C2:Finaliza Código del botón DOCUMENTOS-->
+            <!--C4:fin-->
+        </div>
+    </section>
+
+    <section class="bread" style="margin-bottom: -80px">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-8">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="index.html">Inicio</a></li>
+                    </ol>
+                </div>
+            </div>
+            <main id="desc_siged">
+                <p class="text-justify fix-parrafos">El SIGED es un conjunto org&aacute;nico y articulado de procesos,
+                    lineamientos, normas, instrumentos, acciones y sistemas tecnol&oacute;gicos que permiten recabar,
+                    administrar, procesar y distribuir la informaci&oacute;n del Sistema Educativo Nacional (SEN),
+                    generada por los sujetos y autoridades del mismo, con la integridad, consistencia y oportunidad
+                    necesarias para apoyar a los procesos de operaci&oacute;n, administraci&oacute;n y evaluaci&oacute;n
+                    del SEN.
+                </p>
+                <p class="text-justify fix-parrafos">
+                    Tiene por objeto dotar al SEN de una sola Plataforma tecnol&oacute;gica de informaci&oacute;n que
+                    permita a la Autoridad Educativa Federal llevar a cabo su planeaci&oacute;n, operaci&oacute;n,
+                    administraci&oacute;n y evaluaci&oacute;n, facilitando la transparencia y rendici&oacute;n de
+                    cuentas.
+                </p>
+            </main>
+        </div>
+    </section>
+
+    <br><br><br>
+    <main class="page">
+        <section>
+            <div class="container">
+
+                <div id="ref" class="row">
+                    <h3>Referencias </h3>
+                    <hr class="red">
+                    <!--    Acerca del SIGED    -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default" style="margin-bottom:0px">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#panel-010" data-parent="#accordion"
+                                        data-toggle="collapse" style="text-decoration:none">
+                                        <h5 style="text-align:left; padding-right: 10% !important; ">Acerca del SIGED
+                                        </h5>
+                                    </a></h4>
+                            </div>
+                            <div id="panel-010" class="panel-collapse collapse">
+                                <div class="panel-body semblanza-direccion">
+                                    <!--Modelo Operativo-->
+                                    <div class="panel panel-default" style="margin-bottom:2px">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a href="#panel-01" data-parent="#accordion"
+                                                    data-toggle="collapse" style="text-decoration:none">
+                                                    <h5 style="text-align:left; padding-right: 10% !important">Modelo
+                                                        operativo del SIGED</h5>
+                                                </a></h4>
+                                        </div>
+                                        <div id="panel-01" class="panel-collapse collapse">
+                                            <div class="panel-body semblanza-direccion"><img class="img-responsive"
+                                                    src="images/ModeloOperativo.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Conformaci&oacute;n del SIGED-->
+                                    <div class="panel panel-default" style="margin-bottom:2px">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a href="#panel-11" data-parent="#accordion"
+                                                    data-toggle="collapse" style="text-decoration:none">
+                                                    <h5 style="text-align:left; padding-right: 10% !important">
+                                                        Conformaci&oacute;n del SIGED</h5>
+                                                </a></h4>
+                                        </div>
+                                        <div id="panel-11" class="panel-collapse collapse">
+                                            <div class="panel-body semblanza-direccion"><img class="img-responsive"
+                                                    src="images/conformacion_SIGED.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Enlaces (copiar y pegar aquí el código del html "boton_enlaces_backup01112021.html", se quitó para ocultar el botón porque no funcióno solo comentar el código para ocultarlo (la marca de comentarios se confundían con las que ya existían.))-->
+
+
+                                    <!--Servicios-->
+                                    <div class="panel panel-default" style="margin-bottom:2px">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a href="#panel-02" data-parent="#accordion"
+                                                    data-toggle="collapse" style="text-decoration:none">
+                                                    <h5 style="text-align:left; padding-right: 10% !important">Servicios
+                                                        que
+                                                        brinda el SIGED</h5>
+                                                </a></h4>
+                                        </div>
+                                        <div id="panel-02" class="panel-collapse collapse">
+                                            <div class="panel-body semblanza-direccion">
+                                                <div class="col-md-6">
+                                                    <h4>Servicios de informaci&oacute;n</h4>
+                                                    <p align="justify">Incorporar, crear, administrar y proveer
+                                                        informaci&oacute;n relevante y oportuna para la operaci&oacute;n
+                                                        del SEN.
+                                                        Proveer oportunamente informaci&oacute;n confiable y actualizada
+                                                        para contribuir al fortalecimiento del servicio profesional
+                                                        docente conforme a lo establecido en la Ley General del Servicio
+                                                        Profesional Docente.</p>
+                                                    <p align="justify">Custodiar y proteger la confidencialidad y
+                                                        consistencia de la informaci&oacute;n integrada en la Plataforma
+                                                        tecnol&oacute;gica de informaci&oacute;n, respecto de la
+                                                        identidad de los
+                                                        estudiantes, directivos, docentes, padres de familia o tutores y
+                                                        dem&aacute;s actores del SEN, con estricta observancia a los
+                                                        principios rectores de la protecci&oacute;n de datos personales
+                                                        y normativa aplicable en la materia.
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Servicios de gesti&oacute;n</h4>
+                                                    <p align="justify">Regular y/o proporcionar soluciones de
+                                                        automatizaci&oacute;n
+                                                        a las escuelas p&uacute;blicas de educaci&oacute;n b&aacute;sica
+                                                        que permitan establecer:
+                                                        una comunicaci&oacute;n directa entre los directores de las
+                                                        escuelas y las
+                                                        autoridades educativas, as&iacute; como fortalecer la
+                                                        autonom&iacute;a de gesti&oacute;n,
+                                                        reducir las cargas administrativas y resolver problemas
+                                                        b&aacute;sicos de
+                                                        las escuelas, entre otros.</p>
+                                                    <p align="justify">Coadyuvar al fortalecimiento y la
+                                                        simplificaci&oacute;n de
+                                                        tr&aacute;mites y procesos administrativos mediante el uso de
+                                                        registros
+                                                        electr&oacute;nicos que se encuentren bajo el resguardo del
+                                                        SIGED y que
+                                                        facilitan la consulta y verificaci&oacute;n de
+                                                        informaci&oacute;n.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Información Historica-->
+                                    <div class="panel panel-default" style="margin-bottom:0px">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a href="#panel-historico" data-parent="#accordion"
+                                                    data-toggle="collapse" style="text-decoration:none">
+                                                    <h5 style="text-align:left; padding-right: 10% !important">
+                                                        Descarga de información histórica del INIFED</h5>
+                                                </a></h4>
+                                        </div>
+                                        <div id="panel-historico" class="panel-collapse collapse">
+                                            <div class="panel-body semblanza-direccion">
+                                                <p align="justify">Información de infraestructura física educativa
+                                                    INIFED.</p>
+                                                <div class="col-md-12 col-lg-12 table-responsive">
+                                                    <!--id="tblDescargasHistorico"-->
+                                                    <table border="1"
+                                                        class="table table-siged table-select table-responsive"
+                                                        id="tblDescargasHistorico" style="width:100%">
+                                                        <thead class="header-order">
+                                                            <tr>
+
+                                                                <th class="col-md-6">Descripción</th>
+                                                                <th class="col-md-3">Fecha de Actualización</th>
+                                                                <th class="col-md-3">Descarga</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-group ficha-collapse  animated fadeInDown">
+                    <!--Estad&iacute;sticas-->
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-bottom:0px">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#panel-011" data-parent="#accordion"
+                                            data-toggle="collapse">
+                                            <h5 style="text-align:left; padding-right: 10% !important">
+                                                Estad&iacute;sticas</h5>
+                                        </a></h4>
+                                </div>
+                                <div id="panel-011" class="panel-collapse collapse">
+                                    <div class="panel-body semblanza-direccion">
+
+
+                                        <!--inicio Censo-->
+                                        <div class="panel panel-default" style="margin-bottom:0px">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="#panel-censo" data-parent="#accordion"
+                                                        data-toggle="collapse">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">Censo
+                                                        </h5>
+                                                    </a></h4>
+                                            </div>
+                                            <div id="panel-censo" class="panel-collapse collapse">
+                                                <div class="panel-body semblanza-direccion">
+                                                    <p align="justify">En esta sección podrás descargar la
+                                                        información
+                                                        correspondiente al Censo de Escuelas, Maestros y Alumnos de
+                                                        Educación Básica y Especial (CEMABE) realizado en 2013.</p>
+                                                    <div class="col-md-12 col-lg-12 table-responsive">
+                                                        <!--id="tblDescargasCenso"-->
+                                                        <table border="1"
+                                                            class="table table-siged table-select table-responsive"
+                                                            id="tblDescargasCenso" style="width:100%">
+                                                            <thead class="header-order">
+                                                                <tr>
+
+                                                                    <th class="col-md-6">Descripción</th>
+                                                                    <th class="col-md-3">Fecha de Actualización</th>
+                                                                    <th class="col-md-3">Descarga</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!--Estad&iacute;stica Educativa-->
+                                        <div class="panel panel-default" style="margin-bottom:0px">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="#panel-05" data-parent="#accordion"
+                                                        data-toggle="collapse">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            Estad&iacute;stica educativa</h5>
+                                                    </a></h4>
+                                            </div>
+                                            <div id="panel-05" class="panel-collapse collapse">
+                                                <div class="panel-body semblanza-direccion">
+                                                    <p align="justify">La estad&iacute;stica educativa captada mediante
+                                                        el formato 911, sus indicadores y productos derivados, tiene
+                                                        como unidad de observaci&oacute;n a la escuela por lo que, a
+                                                        diferencia de la informaci&oacute;n registral o censal, NO capta
+                                                        los datos individualizados de maestros y estudiantes. <a
+                                                            href="https://www.planeacion.sep.gob.mx/principalescifras/"
+                                                            target="_blank"><span class="glyphicon glyphicon-play"
+                                                                aria-hidden="true"></span></a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Glosario-->
+                                        <div class="panel panel-default" style="margin-bottom:0px">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="glosario.html" target="_blank">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            Glosario de t&eacute;rminos educativos</h5>
+                                                    </a></h4>
+                                            </div>
+                                        </div>
+
+                                        <!--Descarga Cat&aacute;logo de Centros de Trabajo-->
+                                        <div class="panel panel-default" style="margin-bottom:0px">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="#panel-13" data-parent="#accordion"
+                                                        data-toggle="collapse">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            Descarga
+                                                            cat&aacute;logo de centros de trabajo</h5>
+                                                    </a></h4>
+                                            </div>
+                                            <div id="panel-13" class="panel-collapse collapse">
+                                                <div class="panel-body semblanza-direccion">
+                                                    <p align="justify">El cat&aacute;logo de centros de trabajo contiene
+                                                        informaci&oacute;n general y de ubicaci&oacute;n de los centros
+                                                        de trabajo que son normados por la Secretar&iacute;a de
+                                                        Educaci&oacute;n P&uacute;blica, as&iacute; como los servicios
+                                                        que otorgan.
+                                                        <!--a href="descargaCatalogo.html"
+                                                            target="_blank"><span class="glyphicon glyphicon-play"
+                                                                aria-hidden="true"></span></a-->
+                                                    </p>
+                                                    <div class="col-md-12 col-lg-12 table-responsive">
+                                                        <!--id="tblDescargas"-->
+                                                        <table border="1"
+                                                            class="table table-siged table-select table-responsive"
+                                                            id="tblDescargas" style="width:100%">
+                                                            <thead class="header-order">
+                                                                <tr>
+
+                                                                    <th class="col-md-6">Descripción</th>
+                                                                    <th class="col-md-3">Fecha de Actualización</th>
+                                                                    <th class="col-md-3">Descarga</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Normatividad-->
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-bottom:0px">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#panel-012" data-parent="#accordion"
+                                            data-toggle="collapse">
+                                            <h5 style="text-align:left; padding-right: 10% !important">Normatividad</h5>
+                                        </a></h4>
+                                </div>
+                                <div id="panel-012" class="panel-collapse collapse">
+                                    <div class="panel-body semblanza-direccion">
+                                        <!--Marco Legal-->
+                                        <div class="panel panel-default" Style="margin-bottom:0px">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="marco_legal.html" target="_blank">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">Marco
+                                                            legal</h5>
+                                                    </a></h4>
+                                            </div>
+                                        </div>
+                                        <!--    TERMINOS   -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="#panel-07" data-parent="#accordion"
+                                                        data-toggle="collapse">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            T&eacute;rminos de uso</h5>
+                                                    </a></h4>
+                                            </div>
+                                            <div id="panel-07" class="panel-collapse collapse">
+                                                <div class="panel-body semblanza-direccion">
+                                                    <p align="justify">El uso del sitio del Sistema de
+                                                        Informaci&oacute;n y Gesti&oacute;n Educativa (SIGED) en
+                                                        Internet siged.sep.gob.mx o de cualquiera de sus componentes,
+                                                        implica la aceptaci&oacute;n expresa de los siguientes
+                                                        t&eacute;rminos <a href="terminos.html" target="_blank"><span
+                                                                class="glyphicon glyphicon-play"
+                                                                aria-hidden="true"></span></a>.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Art&iacute;culo 73 de la Ley General de Contabilidad Gubernamental-->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="articulo73.html">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            Art&iacute;culo 73 de la Ley General de Contabilidad
+                                                            Gubernamental</h5>
+                                                    </a></h4>
+                                            </div>
+                                        </div>
+                                        <!-- Estructuras ocupacionales-->
+                                        <!--
+                                        -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="estructurasOcupacionales.html">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">
+                                                            Estructuras ocupacionales</h5>
+                                                    </a></h4>
+                                            </div>
+                                        </div>
+                                        <!-- Aviso de Privacidad-->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><a href="aviso_privacidad.html">
+                                                        <h5 style="text-align:left; padding-right: 10% !important">Aviso
+                                                            de Privacidad</h5>
+                                                    </a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Enlaces-->
+                    <div class="row" align="center">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-bottom:0px">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#panel-enlaces" data-parent="#accordion"
+                                            data-toggle="collapse">
+                                            <h5 style="text-align:left; padding-right: 10% !important">Enlaces
+                                                Estratégicos</h5>
+                                        </a></h4>
+                                </div>
+                                <div id="panel-enlaces" class="panel-collapse collapse">
+
+                                    <div class="panel-body semblanza-direccion">
+
+                                        <div class="col-md-12 col-lg-12 table-responsive">
+                                            <!--id="tblEnlaces"-->
+                                            <table border="1" class="table table-siged table-select table-responsive"
+                                                id="tblEnlaces" style="width:100%">
+                                                <thead class="header-order">
+                                                    <tr class="col-ms-12">
+
+                                                        <th class="col-md-2">Entidad</th>
+                                                        <th class="col-md-4">Nombre</th>
+                                                        <th class="col-md-4">Puesto</th>
+                                                        <th class="col-md-2">Fecha de Actualización</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sitios">
+                    </div>
+                    <br><br>
+                    <section>
+                        <h3>Sitios de inter&eacute;s</h3>
+                        <hr class="red">
+                        <section class="col-md-12 list-article documents">
+                            <div class="container" align="left">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <article class="post mylink" tabindex="0">
+                                                    <h4 style="font-size: 1em"><span class="glyphicon glyphicon-book"
+                                                            aria-hidden="true"> </span><a class="mylink"
+                                                            href="https://www.gob.mx/sep" target="_blank"> SEP </a></h4>
+                                                    <p style="font-size:.7em">Secretar&iacute;a de Educaci&oacute;n
+                                                        P&uacute;blica</p>
+                                                </article>
+                                            </div>
+                                            <!--div class="col-sm-4"><article class="post mylink" tabindex="0"><h4 style="font-size: 1em"><span class="glyphicon glyphicon-book" aria-hidden="true"> </span><a class="mylink" href="http://www.presidencia.gob.mx/reformaeducativa/" target="_blank"> Reforma educativa </a></h4><p style="font-size:.7em">La base para transformar a M&eacute;xico</p></article></div-->
+                                            <!--div class="col-sm-4"><article class="post mylink" tabindex="0"><h4 style="font-size: 1em"><span class="glyphicon glyphicon-calendar" aria-hidden="true"> </span><a class="mylink" href="http://spec.sep.gob.mx" target="_blank"> SPEC </a></h4><p style="font-size:.7em">Subsecretar&iacute;a de Planeaci&oacute;n, Evaluaci&oacute;n y Coordinaci&oacute;n</p></article></div-->
+                                            <!--div class="col-sm-4"><article class="post mylink" tabindex="0"><h4 style="font-size: 1em"><span class="glyphicon glyphicon-hdd" aria-hidden="true"> </span><a class="mylink" href="http://spec.sep.gob.mx/web/?page_id=136" target="_blank"> DGSIGED </a></h4><p style="font-size:.7em">Direcci&oacute;n General del Sistema de Informaci&oacute;n y Gesti&oacute;n Educativa</p></article></div-->
+                                            <div class="col-sm-4">
+                                                <article class="post mylink" tabindex="0">
+                                                    <h4 style="font-size: 1em"><span class="glyphicon glyphicon-retweet"
+                                                            aria-hidden="true"> </span><a class="mylink"
+                                                            href="http://www.planea.sep.gob.mx/" target="_blank"> PLANEA
+                                                        </a></h4>
+                                                    <p style="font-size:.7em">Plan Nacional para la Evaluaci&oacute;n de
+                                                        los Aprendizajes</p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p style="font-size:.6em; text-align: center;"><br /><br />Versi&oacute;n 1.0.12
+                                            Fecha de Modificaci&oacute;n : 24/08/2021</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <br><br><br><br><br><br><br><br><br>
+                </div>
+            </div>
+        </section>
+    </main>
+    <main id="modal_dialog">
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+            data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i> Preparando archivo para la
+                            descarga,
+                            por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label> La descarga del archivo está tardando más de lo normal, al contar con toda la
+                                    información se descargará en automático.</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </main>
+    <main id="modal_dialog_file">
+        <div class="modal fade" id="modal-fileNotFound" role="dialog" 
+        aria-labelledby="myModalLabel" aria-hidden="true"
+            data-keyboard="false" data-backdrop="static">
+            <div class="modal-fileNotFound">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"> Falló la descarga del archivo,<br>
+                            por favor intentarlo más tarde...</h4>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                >Salir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="modal_fade">
+        <div class="modal fade" id="modal_datos_enlaces" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div id="dialog_enlaces" class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            <h4>Información adicional</h4>
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+
+
+                        <ul class="nav nav-tabs">
+                            <!--Inicio de pestañas-->
+                            <li class="active"><a data-toggle="tab" href="#homeModal" id="home-tab"><span
+                                        class="text">Contacto</span></a></li>
+                        </ul>
+                        <!--Fin de pestañas-->
+
+                        <div class="tab-content" style="padding-top:0;">
+                            <!--Inicio de contenido-->
+
+                            <div id="homeModalEnlace" class="tab-pane fade in active">
+
+                                <!--Contenido de referencia -->
+                                <div id="cont_escuela" class="row">
+                                    <br />
+                                    <div class="row especial">
+                                        <div class="col-md-3">Entidad:</div>
+                                        <div class="col-md-9">
+                                            <b>{{detailContact.entidad}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                    <div class="row especial">
+                                        <div class="col-md-3">Nombre:</div>
+                                        <div class="col-md-9">
+                                            <b>{{(detailContact.nombre)}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                    <div class="row especial">
+                                        <div class="col-md-3">Puesto:</div>
+                                        <div class="col-md-9">
+                                            <b>{{(detailContact.puesto)}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                    <div class="row especial">
+                                        <div class="col-md-3">Email:</div>
+                                        <div class="col-md-9">
+                                            <b>{{(detailContact.email)}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                    <div class="row especial">
+                                        <div class="col-md-3">Teléfono:</div>
+                                        <div class="col-md-9">
+                                            <b>{{(detailContact.telefono)}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                    <div class="row especial">
+                                        <div class="col-md-3">Dirección:</div>
+                                        <div class="col-md-9">
+                                            <b>{{(detailContact.direccion)}}</b><br /></b><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin de contenido Enlace -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+    <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <!-- Sripts for individual pages, depending on what plug-ins are used -->
+    <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+    <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+    <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+    <script src="js/siged.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/uri.js"></script>
+    <script src="js/save.js"></script>
+    <script src="js/base64.js"></script>
+    <!-- Initializing the slider -->
+    <script>
+        jQuery("#layerslider").layerSlider({
+            pauseOnHover: true,
+            autoPlayVideos: false,
+            layersContainer: 1280,
+            skin: 'borderlessdark3d',
+            hoverPrevNext: true,
+        });
+    </script>
+</body>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-83445936-1', 'auto');
+    ga('send', 'pageview');
+
+    $(function () {
+
+        $('#front_escuela').click(function () {
+            $('#front_escuela').hide();
+            $('#back_escuela').show();
+        })
+        $('#back_escuela').click(function () {
+            $('#back_escuela').hide();
+            $('#front_escuela').show();
+        })
+
+        $('#front_docente').click(function () {
+            $('#front_docente').hide();
+            $('#back_docente').show();
+        })
+        $('#back_docente').click(function () {
+            $('#back_docente').hide();
+            $('#front_docente').show();
+        })
+
+        $('#front_documento').click(function () {
+            $('#front_documento').hide();
+            $('#back_documento').show();
+        })
+        $('#back_documento').click(function () {
+            $('#back_documento').hide();
+            $('#front_documento').show();
+        })
+
+        // Setup - add a text input to each footer cell
+        $('#enlaces thead td').each(function () {
+            var title = $(this).text();
+            $(this).html('<input style="font-size: 14px; font-weight: normal;" type="text" placeholder="Buscar ' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#enlaces').DataTable({
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina.",
+                "zeroRecords": "No se encontraron registros.",
+                "info": " ",
+                "infoEmpty": "No hay registros a&uacute;n.",
+                "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+                "search": "B&uacute;squeda",
+                "LoadingRecords": "Cargando ...",
+                "Processing": "Procesando...",
+                "SearchPlaceholder": "Comience a teclear...",
+                "iDisplayLength": 20,
+                "sPaginationType": "full_numbers",
+                "sServerMethod": "POST",
+                "aLengthMenu": [[10, 15, 20, -1], [10, 15, 20, "All"]],
+                "iDisplayLength": 20,
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                }
+            }, responsive: true,
+            "order": false
+        });
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.header()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- 	ACCESIBILIDAD	-->
+<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+<!--	END ACCEBILIDAD	-->
+
+<script>
+    $(function () {
+        $("#header").load("header.html");
+    });
+    function redir(url) {
+        window.location.href = url;
+    }
+</script>
+<script>
+    function switch_style(barra_de_accesibilidad) {
+        // You may use this script on your site free of charge provided
+        // you do not remove this notice or the URL below. Script from
+        // http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
+        var i, link_tag;
+        for (i = 0, link_tag = document.getElementsByTagName("link");
+            i < link_tag.length; i++) {
+            if ((link_tag[i].rel.indexOf("stylesheet") != -1) &&
+                link_tag[i].title) {
+                link_tag[i].disabled = true;
+                if (link_tag[i].title == css_title) {
+                    link_tag[i].disabled = false;
+                }
+            }
+
+            set_cookie(style_cookie_name, css_title,
+                style_cookie_duration);
+        }
+    }
+</script>
+<script>
+    function switch_style(css_title) {
+        // You may use this script on your site free of charge provided
+        // you do not remove this notice or the URL below. Script from
+        // http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
+        var i, link_tag;
+        for (i = 0, link_tag = document.getElementsByTagName("link");
+            i < link_tag.length; i++) {
+            if ((link_tag[i].rel.indexOf("stylesheet") != -1) &&
+                link_tag[i].title) {
+                link_tag[i].disabled = true;
+                if (link_tag[i].title == css_title) {
+                    link_tag[i].disabled = false;
+                }
+            }
+
+            set_cookie(style_cookie_name, css_title,
+                style_cookie_duration);
+        }
+    }
+</script>
+
+<script>
+    function myFunctionModal(contacto) {
+
+        $("#modal_datos_enlaces").modal('show');
+    }
+
+</script>
+
+</html>

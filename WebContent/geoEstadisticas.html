@@ -1,0 +1,405 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+
+        <title>Highmaps Example</title>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style type="text/css">
+            #container {
+                height: 550px;
+                min-width: 310px;
+                margin: 0 auto;
+            }
+            .loading {
+                margin-top: 10em;
+                text-align: center;
+                color: gray;
+            }
+            .container-tabla{
+              height: 550px;
+              overflow-y: auto;
+            }
+
+        </style>
+        <script type="text/javascript">
+            $(function () {
+
+              // Prepare demo data
+             var datosPrueba = [
+                  { 'hc-key': 'mx-3622', value: 0 },
+                  { 'hc-key': 'mx-bc', value: 1 },
+                  { 'hc-key': 'mx-bs', value: 2 },
+                  { 'hc-key': 'mx-so', value: 3 },
+                  { 'hc-key': 'mx-cl', value: 4 },
+                  { 'hc-key': 'mx-na', value: 5 },
+                  { 'hc-key': 'mx-cm', value: 6 },
+                  { 'hc-key': 'mx-qr', value: 7 },
+                  { 'hc-key': 'mx-mx', value: 8 },
+                  { 'hc-key': 'mx-mo', value: 9 },
+                  { 'hc-key': 'mx-df', value: 10 },
+                  { 'hc-key': 'mx-qt', value: 11 },
+                  { 'hc-key': 'mx-tb', value: 12 },
+                  { 'hc-key': 'mx-cs', value: 13 },
+                  { 'hc-key': 'mx-nl', value: 14 },
+                  { 'hc-key': 'mx-si', value: 15 },
+                  { 'hc-key': 'mx-ch', value: 16 },
+                  { 'hc-key': 'mx-ve', value: 17 },
+                  { 'hc-key': 'mx-za', value: 18 },
+                  { 'hc-key': 'mx-ag', value: 19 },
+                  { 'hc-key': 'mx-ja', value: 20 },
+                  { 'hc-key': 'mx-mi', value: 21 },
+                  { 'hc-key': 'mx-oa', value: 22 },
+                  { 'hc-key': 'mx-pu', value: 23 },
+                  { 'hc-key': 'mx-gr', value: 24 },
+                  { 'hc-key': 'mx-tl', value: 25 },
+                  { 'hc-key': 'mx-tm', value: 26 },
+                  { 'hc-key': 'mx-co', value: 27 },
+                  { 'hc-key': 'mx-yu', value: 28 },
+                  { 'hc-key': 'mx-dg', value: 29 },
+                  { 'hc-key': 'mx-gj', value: 30 },
+                  { 'hc-key': 'mx-sl', value: 31 },
+                  { 'hc-key': 'mx-hg', value: 32 }];
+
+
+              catEntidad = [
+              { 'hc-key': 'mx-3622', value: 0 },
+              { 'hc-key': 'mx-ag', value: 1 },
+              { 'hc-key': 'mx-bc', value: 2 },
+              { 'hc-key': 'mx-bs', value: 3 },
+              { 'hc-key': 'mx-cl', value: 4 },
+              { 'hc-key': 'mx-co', value: 5 },
+              { 'hc-key': 'mx-cm', value: 6 },
+              { 'hc-key': 'mx-cs', value: 7 },
+              { 'hc-key': 'mx-ch', value: 8 },
+              { 'hc-key': 'mx-df', value: 9 },
+              { 'hc-key': 'mx-dg', value: 10 },
+              { 'hc-key': 'mx-gj', value: 11 },
+              { 'hc-key': 'mx-gr', value: 12 },
+              { 'hc-key': 'mx-hg', value: 13 },
+              { 'hc-key': 'mx-ja', value: 14 },
+              { 'hc-key': 'mx-mx', value: 15 },
+              { 'hc-key': 'mx-mi', value: 16 },
+              { 'hc-key': 'mx-mo', value: 17 },
+              { 'hc-key': 'mx-na', value: 18 },
+              { 'hc-key': 'mx-nl', value: 19 },
+              { 'hc-key': 'mx-oa', value: 20 },
+              { 'hc-key': 'mx-pu', value: 21 },
+              { 'hc-key': 'mx-qt', value: 22 },
+              { 'hc-key': 'mx-qr', value: 23 },
+              { 'hc-key': 'mx-sl', value: 24 },
+              { 'hc-key': 'mx-si', value: 25 },
+              { 'hc-key': 'mx-so', value: 26 },
+              { 'hc-key': 'mx-tb', value: 27 },
+              { 'hc-key': 'mx-tm', value: 28 },
+              { 'hc-key': 'mx-tl', value: 29 },
+              { 'hc-key': 'mx-ve', value: 30 },
+              { 'hc-key': 'mx-yu', value: 31 },
+              { 'hc-key': 'mx-za', value: 32 }
+              ];
+
+               function search(nameKey, myArray){
+                   for (var i=0; i < myArray.length; i++) {
+                       if (myArray[i].name === nameKey) {
+                           return myArray[i];
+                       }
+                   }
+               }
+
+               function getInfo(tipoFiltrado,total){
+                 var datosFiltrado = [],filtro;
+
+                  if(tipoFiltrado == 'TODOS')
+                     filtro ='http://10.8.20.191:8080/Core/graficas/graficasEstados'
+                  else
+                     filtro = 'http://10.8.20.191:8080/Core/graficas/graficasTipo/tipo='+tipoFiltrado;
+
+
+                    $.get(filtro, function( datos ) {
+                      console.log(datos.datos);
+                      $('#tablaMexico tbody').html('');
+                      datos.datos.forEach(function(estado){
+                        $('#tablaMexico tbody').append('<tr><td>'+estado.entidad+'</td><td>'+estado[total]+'</td></tr>')
+
+                        datosFiltrado.push({'hc-key': catEntidad[estado['idEntidad']]['hc-key'],value: estado[total]})
+                      });
+
+                      $('#container').highcharts().setTitle({text: total+' por tipo '+tipoFiltrado});
+                      $('#container').highcharts().series[0].setData(datosFiltrado)
+                  });
+
+             }
+
+             function dibujaGrafica(idEstado,nombreEstado){
+
+               $('html,body').animate({scrollTop: $('#grafica_estado').offset().top});
+
+               $.get('http://localhost:8080/Core/graficas/graficas1/idEstado='+idEstado, function( datos ) {
+
+                  var tipos = datos.datos;
+                  var leyenda = [];
+                  var infoTipos= $('#total').val()
+
+                  var grupo =  [{
+                      name: 'Privado',
+                      data: []
+
+                  }, {
+                      name: 'PUblico',
+                      data: []
+
+                  }]
+
+                  $('#tablaEstado tbody').html('')
+                  //primero hacemos una evaluacion de todos los tipos quey hay
+                  tipos.forEach(function(tipo){
+                    console.log(tipo)
+                    $('#tablaEstado tbody').append('<tr><td>'+tipo.tipo+'</td><td>'+tipo.control+'</td><td>'+tipo[infoTipos]+'</td></tr>')
+                    var coincidencia = 0;
+
+                    leyenda.forEach(function(nombre){
+                      if(nombre == tipo['tipo'])
+                        coincidencia = 1;
+                    });
+
+                    if(tipo['control'] == 'PRIVADO')
+                        grupo[0]['data'].push(tipo[infoTipos]);
+                    else if(tipo['control'] == 'PÚBLICO')
+                        grupo[1]['data'].push(tipo[infoTipos]);
+
+
+
+                    if(coincidencia != 1)
+                      leyenda.push(tipo['tipo'])
+                  });
+
+                  console.log(leyenda);
+                  var privado = leyenda
+                  var publico = leyenda
+
+                  Highcharts.chart('grafica_estado', {
+                           chart: {
+                               type: 'column'
+                           },
+                           title: {
+                               text: 'Resultados en '+nombreEstado
+                           },
+                           subtitle: {
+                               text: 'Fuente'
+                           },
+                           xAxis: {
+                               categories: leyenda,
+                               crosshair: true
+                           },
+                           yAxis: {
+                               min: 0,
+                               title: {
+                                   text: 'Alumnos'
+                               }
+                           },
+                           tooltip: {
+                               headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                               pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                   '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                               footerFormat: '</table>',
+                               shared: true,
+                               useHTML: true
+                           },
+                           plotOptions: {
+                               column: {
+                                   pointPadding: 0.2,
+                                   borderWidth: 0
+                               }
+                           },
+                           series: grupo
+                       });
+
+
+               });
+             }
+
+
+
+                  // Initiate the chart
+                  $('#container').highcharts('Map', {
+
+                      title : {
+                          text : 'Distribución de escuelas en el país'
+                      },
+
+                      subtitle : {
+                          //text : 'Source map: <a href="https://code.highcharts.com/mapdata/countries/mx/mx-all.js">countries/mx/mx-all</a>'
+                      },
+
+                      mapNavigation: {
+                          enabled: true,
+                          buttonOptions: {
+                              verticalAlign: 'bottom'
+                          }
+                      },
+
+                      colorAxis: {
+                          min: 0
+                      },
+
+                      series : [{
+                          data : datosPrueba,
+                          mapData: Highcharts.maps['countries/mx/mx-all'],
+                          joinBy: 'hc-key',
+                          name: 'Escuelas en méxico',
+                          states: {
+                              hover: {
+                                  color: '#a4edba'
+                              }
+                          },
+                          dataLabels: {
+                              enabled: true,
+                              format: '{point.name}'
+                          }
+                      }],
+                      plotOptions:{
+                        series:{
+                            point:{
+                                events:{
+                                    click: function(){
+                                      var seleccion = this
+                                      var estadoSeleccionado = null;
+
+                                        catEntidad.forEach(function(estado){
+
+                                          if(estado['hc-key'] == seleccion['hc-key'])
+                                              estadoSeleccionado = estado['value'];
+
+                                        });
+                                      dibujaGrafica(estadoSeleccionado,seleccion.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  });
+
+                  //$('#container').highcharts().series[0].setData(datosPrueba)
+                  var datosFiltrado = getInfo('TODOS','totalInsc');
+                     //datosFiltrados = getInfo(datos.datos,'totalInsc');
+
+                  //console.log(datosFiltrado);
+
+              $('#buscarDatos').click(function(){
+                   getInfo($('#tipo').val(),$('#total').val())
+              });
+
+            });
+        </script>
+    </head>
+    <body>
+        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/mapdata/countries/mx/mx-all.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+
+      <br>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <label>Selecciona el tipo de educación</label>
+              <select id="tipo" class="form-control">
+                    <option value="TODOS"> Cualquier tipo</option>
+                    <option value="INICIAL">INICIAL</option>
+                    <option value="BASICA">BASICA</option>
+                    <option value="NO ESCOLARIZADA">NO ESCOLARIZADA</option>
+                    <option value="ESPECIAL">ESPECIAL</option>
+              </select>
+            </div>
+          <div class="col-md-4">
+            <label>¿qué es lo que quieres ver? </label>
+            <select id="total" class="form-control">
+                <option value="totalInsc"> Total de alumnos inscritos</option>
+                <option value="totalDoc"> Total de docentes </option>
+                <option value="totalEsc">Total de escuelas </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <br>
+              <button id="buscarDatos" class="btn btn-success">Buscar</button>
+          </div>
+        </div>
+          <hr class="red">
+          <section style="height: 600px;">
+            <div class="row">
+              <div class="col-md-8">
+                <div id="container"></div>
+              </div>
+              <div class="col-md-4 container-tabla" >
+                  <table id="tablaMexico" class="table table-striped" >
+                    <thead>
+                      <tr>
+                          <th>
+                            Estado
+                          </th>
+                          <th>
+                            Total
+                          </th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </section>
+          <section style="height: 600px;">
+            <div class="row">
+              <div class="col-md-4">
+                <label>Información</label>
+                <table id="tablaEstado" class="table table-striped" >
+                  <thead>
+                    <tr>
+                        <th>
+                          Tipo
+                        </th>
+                        <th>
+                          Control
+                        </th>
+                        <th>
+                          Total
+                        </th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-8">
+                  <div id="grafica_estado" style=" height: 400px; margin: 0 auto"></div>
+              </div>
+            </div>
+
+        <form method="POST" action="http://10.8.20.191:8080/FMexico/home.html" target="_blank">
+				  <input name="sc" class="input_debug" value="CONSTITUCION DE 1857">
+				  <input name="cv" class="input_debug" value="09DES0017H">
+				  <input name="et" class="input_debug" value="09">
+				  <input name="dn" class="input_debug" value="MENOR">
+				  <button type="submit" class="disfraz">
+  					<i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
+	  			</button>
+		  	</form>
+          </section>
+        </div>
+    </body>
+</html>
+
+FALTAN
+-Identificador de la modalidad que paga recursos
+-Descripción del Ramo que paga Recursos
+-"Descripción del Programa Presupuestario o Instrumento específico que paga los recursos.
+-ID de financiamiento
+SOBRA
+ID de financiamiento
+
+
+ricardo.ruiz
+uQQih5gdkbt

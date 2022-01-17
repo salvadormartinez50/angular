@@ -1,0 +1,211 @@
+h1,h2,h3,h4,h5{
+   text-transform: none
+}
+
+
+.header-text{
+  color: white;
+  text-shadow: 2px 2px black;
+}
+/*
+.navbar-nav > li>a:hover{
+    text-decoration: underline;
+    color:black;
+    
+}
+*/
+.navbar-siged{
+    position:fixed;
+    z-index:100;
+    width:100%;
+    display:none;
+	/*margin-top: -200px;*/
+}
+
+.navbar-siged{
+    background-color: rgb(12, 35, 30);
+    position:fixed;
+    z-index:100;
+    width:100%;
+    display:none;
+	/*margin-top: -100px;*/
+}
+
+.layer-slider-wrapper{
+  margin-top: 40px;
+}
+.search-radio>div{
+    text-align: center
+}
+.header-sige{
+    color:white;
+    text-shadow: 2px 2px  black;
+    text-transform: none;
+    padding:0px;
+}
+.header-main{
+    text-shadow: 2px 2px  black;
+    padding:0px;
+}
+.span_dato_curioso{
+
+    display:inline-block;
+    text-align: center
+}
+.icono_curioso{
+    width:40%;
+    font-size:2em;
+}
+.info_curioso{
+    text-align: center;
+
+    padding:0.75em;
+    font-size:1em;
+    width:50%;
+}
+
+.wp-section{
+    background-color: #545454;
+}
+
+.search-radio >div> input{
+    width: 1.5em; height: 1.5em
+}
+.input-busqueda{
+    width:100%;
+    background:rgb(225,225,225);
+    color:black;
+
+}
+
+.input-busqueda[placeholder],[placeholder], *[placeholder]{
+    color:black;
+}
+.btn-buscar,.btn-full{
+    width:100%;
+}
+
+.top-buffer-submenu{
+    margin-top:0px;
+}
+
+.text-center{
+    text-align:center;
+}
+/*
+.fuente>p{
+    padding: 0px;
+    margin: 0px;
+    font-size:14px;
+}*/
+#calificaciones_grupo>tbody>tr>td{
+    padding:5px;
+}
+.form_sige input, .form_sige select, .form_sige select option {
+    background: rgb(225,225,225);
+    color: gray;
+}
+#divSchoolResults{
+    margin-top: 0;
+}
+
+.table-select>tbody>tr>td{
+    cursor:pointer;
+}
+.table-siged>tbody>tr>td{
+    font-size: 14px;
+    font-family: arial;
+}
+.table-siged>tbody>tr:hover{
+
+    background-color:#4D92DF;
+    color: white;
+}
+
+.table-siged>thead>tr>th{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+.table-calificaciones>thead>tr th:not(:first-child),.table-calificaciones>tbody>tr td:not(:first-child){
+  text-align: center;
+}
+
+.header-order>tr>th:hover{
+    cursor:pointer;
+    background-color: #545454;
+    color: white;
+}
+
+.header-order>tr>th>i{
+    position: absolute;
+}
+
+.inline-form-filters .optional-form-filters-trigger:after {
+    background-color: #545454;
+}
+.pagination{
+	margin-top:30px;
+}
+
+.youtube{
+    background-color:red;
+    color:white;
+}
+
+.btn-icon:before{
+    line-height: 40px
+}
+
+.input-error{
+    background-color: #FFCDCD;
+}
+
+.error{
+    color:red;
+    font-weight: 500;
+    display:none;
+}
+
+.cont_tabla{
+    min-height:300px;
+}
+
+.pagination{
+    display:block;
+}
+.datos-calendario p{
+    font-size: 14px;
+    font-family: arial;
+}
+#main-search{
+    display:none
+}
+
+/*angular */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* Small Devices, Tablets */
+
+@media (max-width : 768px) {
+    .logo-sep{
+        width:100px;
+    }
+
+}
+
+
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 992px) {
+    #subenlaces ul > li > a{
+           font-size: 12px
+    }
+}
+
+.btn-reset{
+    background:FEFF6E;
+}

@@ -1,0 +1,113 @@
+<style>
+.img-programa{
+  width: 80%;
+  height: 200px;
+  display: block;
+  margin: auto;
+}
+#hayescuela, #nohayescuela{
+  display:none;
+}
+.filtro-gris{
+    -webkit-filter: grayscale(100%) blur(5px); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) blur(5px);
+}
+</style>
+<img class="img img-responsive" style="width:100%" src="../images/escuela.png">
+<section >
+    <div class="container" >
+        <div class="wp-section relative"  >
+            <form class="form-inline" role="form" id="form_id" name="myform" ng-submit="buscar();">
+                <div class="inline-form-filters over-top-element base" style="background:#1B5E20">
+                    <!-- Optional filters tigger button -->
+                    <!-- Main filters -->
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group form-group-lg">
+                                <label class="sr-only">Search text</label>
+                                <input class="form-control" size="30" maxlength="18" onkeyup="javascript:this.value = this.value.toUpperCase();"   ng-model="cct" type="text" placeholder="Ingresa la clave de tu CT..." style="background:rgb(225,225,225);color:black;" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="col-md-12"><button class="btn btn-success  btn-buscar" style="background-color:#3bb372">Buscar</button></div>
+                            <!--div class="col-md-6"><button type="reset" class="btn btn-warning btn-buscar">Restablecer</button></div-->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="container" style="padding:40px 0px;" >
+<div class="row">
+
+  <div class="row" ng-if="escuela.length > 0">
+    <div class="row"  ng-if="escuela[0].dano == 'ABIERTA'">
+      <div class="alert alert-success">
+          <h4><i class="fa fa-check"></i></h4>
+          <p> Tu escuela está en buenas condiciones</p>
+      </div>
+    </div>
+    <div class="row" ng-if="escuela[0].dano != 'ABIERTA'" >
+        <div class="col-md-6">
+            <div class="col-md-12">
+              <label>Nombre de la escuela</label>
+              <p>{{escuela[0].nombre}}</p>
+            </div>
+            <div class="col-md-12">
+              <label>Clave de la escuela</label>
+              <p>{{escuela[0].clave}}</p>
+            </div>
+            <div class="col-md-12">
+              <label>Clave del inmueble</label>
+              <p>{{escuela[0].cv_inmueble}}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="alert alert-{{escuela[0].alertdanio}}">
+            <p> El daño en tu escuela es <br> <b>{{escuela[0].dano}}</b></p>
+            <br>
+          </div>
+        </div>
+      <div class="col-md-12">
+        <br>
+        <p>Selecciona la opción que te corresponde:</p>
+        <br>
+      </div>
+
+      <div class="col-md-4">
+        <a href="#">
+          <img class="img img-responsive img-programa img-parcial" src="https://www.gob.mx/cms/uploads/image/file/167817/outstanding_CIENNN.jpg">
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <img class="img img-responsive img-programa img-menor " src="http://www.mejoratuescuela.org/templates/mtev2/img/programas/37.jpg">
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="#">
+          <img class="img img-responsive img-programa img-total" src="http://www.cecytcampeche.edu.mx/images/siged.png">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div  class="row " ng-if="escuela.length == 0">
+      <section>
+          <div class="alert alert-danger">
+              <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+              <br>
+              <p>Verifica que hayas escrito bien el nombre o la clave de la escuela o bien verifica tus criterios de búsqueda y vuelve a intentarlo.</p>
+              <br>
+              <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);">Volver a intentarlo</button>
+          </div>
+          <!--br>
+          <div class="alert alert-warning">
+              <p>Si deseas puedes reportar ese problema en el módulo de <a href="contacto.html" title=""> Reporte de inconsistencias de información</a>.</p>
+          </div-->
+      </section>
+  </div>
+</div>
+</section>

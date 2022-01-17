@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es" ng-app="revalidaciones">
+<!--meta http-equiv="refresh" content="0; url=https://www.siged.sep.gob.mx/certificados/" /-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- 	ACCESIBILIDAD	-->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300"  />
+		<link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+		<link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css" media="all" />
+		<!--	END ACCESIBILIDAD	--> 
+        <!--link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico"-->
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/banner.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+    <link rel="stylesheet" href="calendar/simbologia/StyleSheet.css" type="text/css">
+    <script src="js/Chart.js"></script>
+    <!--script src="https://maps.googleapis.com/maps/api/js"></script->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+    <![endif]-->
+    <style>
+		/*
+            .banner{
+            height: 240px;
+            background-image: url("ima/DocumentosCerti.png"); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+		*/
+
+
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .periodo{
+          background-color: #eee;
+          padding: 10px;
+          margin: 10px;
+        }
+        .alert-datos-incial{
+          height: 125px;
+        }
+
+            #curp{
+                display:none;
+            }
+            #divSchoolResults{
+                display:none;
+            }
+            input:required {
+                box-shadow:none;
+            }
+            input:invalid {
+                box-shadow:0 0 3px none;
+            }
+
+        @media print {
+    aside#sidebar,#subenlaces,#sliderWrapper, #mainSearch, #encabezado,#informacion,footer,#siged,#Imprimir,#bloque1 {
+        display: none;
+       margin-left: 25cm;
+    }
+
+     .col-md-3 {
+        width: 228px;
+        float: left;
+      margin-left: 5%;
+   }
+
+}
+
+
+/*Responsive with button*/
+    @media (max-width: 1010px) { 
+    #bloque1 { 
+        /*border: 2px solid blue;*/
+        margin-top:230px; 
+    }
+
+/*Responsive without button*/
+    /*@media (max-width: 990px) { 
+    #bloque1 { 
+        margin-top:150px; 
+    }   
+
+}*/
+
+/*PARA IPHONE*/
+    @media screen and (max-width: 320px) {
+    #detalle { 
+        width: 100%; 
+        font-size: 21px;
+    } 
+
+    #icono{
+       margin-left: 30px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+
+    @media screen and (max-width: 375px) {
+    #detalle { 
+        width: 100%; 
+        font-size: 24px;
+    } 
+
+    #icono{
+       margin-left: 60px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+
+    @media screen and (max-width: 414px) {
+    #detalle { 
+        width: 100%; 
+        font-size: 26px;
+    } 
+
+    #icono{
+       margin-left: 70px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+
+/*PARA IPAD*/
+    @media screen and (max-width: 768px) {
+    #detalle { 
+        width: 100%; 
+        
+    } 
+
+    #icono{
+       margin-left: 250px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+
+/*PARA GALAXY*/
+    @media screen and (max-width: 360px) {
+    #detalle { 
+        width: 100%; 
+        
+    } 
+
+    #icono{
+       margin-left: 50px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+
+/*PARA GALAXY*/
+    @media screen and (max-width: 411px) {
+    #detalle { 
+        width: 100%; 
+        
+    } 
+
+    #icono{
+       margin-left: 70px;
+       margin-top: -80px;
+           }
+
+    #colNombre{
+        margin-top: -70px;
+    }
+}
+    </style>
+    <script type="text/javascript">
+
+        function cambiar() {
+            console.info("cambia");
+            var indice = 0;
+            frases = new Array();
+            frases[0] = "25,897,636 Niños <br> Cursan educación básica en todo el país";
+            frases[1] = "Texto2";
+            frases[2] = "Texto3";
+            frases[3] = "Texto4";
+            frases[4] = "Texto5";
+            frases[5] = "Texto6";
+            frases[6] = "Texto7";
+
+
+
+            indice = Math.random()*(frases.length);
+            indice = Math.floor(indice);
+
+            if (indice == frases.length) {indice = 0;}
+            document.getElementById("frase").innerHTML = frases[indice];
+            document.getElementById("frase2").innerHTML = frases[indice];
+            indice++;
+            setTimeout("cambiar();", 5*1000);
+        }
+</script>
+
+<link rel="stylesheet" href="css/cambios.css" type="text/css">
+</head>
+    <body ng-app="revalidaciones" ng-controller="revalidacionesController">
+
+    <div id="header"></div>
+	<div class="section" data-type="background" style=" background-size: cover; height: 260px; text-align: center;">
+		  <img class="responsive" src="ima/DocumentosCerti.png" style=" background-size: cover; height: 100%; width: 100%; text-align: center;">
+		  <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		  </div>
+	</div>
+    
+<!--	HEADER COVID	-->
+  <!--header class=" navbar navbar-inverse"-->
+  <header class="  navbar-inverse" >
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse" data-toggle="collapse">
+            <span class="sr-only">Interruptor de Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la página inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+        </div>
+        <div id="navbarMainCollapse" class="collapse navbar-collapse">
+         <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg"  href="/" alt="logo gobierno de méxico" class="logo_footer" style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para vacunación</a></li>
+            <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a></li>
+            <li><a href="/tramites" title="Trámites">Trámites </a></li>
+            <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+            <li><form accept-charset="UTF-8" action="/busqueda" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div><input type="hidden" name="site" value="sep">
+                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search" style="background-color: rgb(12, 35, 30)"><a data-v-6394873e="" href="https://www.gob.mx/busqueda?utf8=✓" target="_blank" id="botbusca" style="margin-top: 20px;" ><img data-v-6394873e="" alt="Buscar" src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button></form></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!--	END HEADER COVID	-->                      
+
+    <div class="container-fluid banner row">
+        <div class="row col-md-12">
+            <div class="col-md-12" id="textos">
+                <section id="textoSigedCol"><h4 class="header-main" id="textoSiged" style="margin-left:117px; margin-top:-170px;color: white" >Sistema de Información y Gestión Educativa</h4></section>
+                <section><h3 class=" header-main" id="textoSub" style="margin-left:117px;margin-top:1px;color:white;text-transform:none" >Validación de documentos de Revalidaciones y Equivalencias</h3></section>
+            </div>
+        </div>
+  </div>
+	<main id="main_search">
+  <section id="mainSearch" class="slice bg-white" style="margin-top:0px; padding-top: 0px; z-index: 20">
+        <div class="container" >
+            <div class="wp-section relative" >
+                <form class="form-inline" role="form" id="form_id" name="myform" ng-submit="getConsultaByFOLIO();">
+                    <div class="inline-form-filters over-top-element base" style="background-color: #545454">
+                        <!-- Optional filters tigger button -->
+
+                        <!-- Main filters -->
+                        <div class="row">
+                            <div class="col-md-7" id="nombre">
+                                <div class="form-group form-group-lg">
+                                    <label class="sr-only">Search text</label>
+                                     <input id="buscaFolio" class="form-control" ng-model="folio" type="text" placeholder="*Folio" style="font-size: 18px;background:rgb(225,225,225);color:black" required>
+                                </div>
+                            </div>
+
+                            <div id="curp" class="col-md-7">
+                                      <div class="form-group form-group-lg">
+                                          <input id="buscaCurp" type="text" ng-model="curp" pattern="^[A-Z]{1}[AEIOUX]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"  onkeyup="javascript:this.value = this.value.toUpperCase();" class=" input-lg input-busqueda" placeholder="*CURP" style="background:rgb(225,225,225);color:black;font-size: 18px" >
+                                      </div>                                 
+                                </div>
+
+                            <div class="col-md-5">
+                                <div class="col-md-6"><button type="submit"  class="btn btn-info  btn-buscar" id="buscar">Buscar</button></div>
+                                <div class="col-md-6"><button type="reset" ng-click="newSearch()" class="btn btn-warning btn-buscar">Restablecer</button></div>
+                            </div>
+                        </div>
+                        <div><a target="_blank" href="archivos/UbicaFolioEquivalencias.pdf">Ubica el folio en tu documento de revalidación o equivalencia</a>
+                        </div>                          
+                    </div>
+                           <!-- div class="row search-radio" style="margin-bottom:10px;color: white">
+                                <div class="col-md-4">
+                                    <input   class="tipo_busqueda" name="tipo_busqueda" type="radio" ng-model="tipo_busqueda" value="1" ng-checked="true" style="color:white"> Búsqueda por Folio
+                                </div>
+                                <div class="col-md-4">
+                                    <input  class="tipo_busqueda" name="tipo_busqueda" type="radio" ng-model="tipo_busqueda" value="2" style="color:white"> Búsqueda por CURP
+                                </div>
+                                <div class=" col-md-4">
+                                    <small class="form-text form-text-error" style="color: white;margin-left: 120px">*Campo obligatorio</small>
+                                </div>
+                            </div-->
+                </form>
+            </div>
+        </div>
+
+    </section>
+          </main>
+           <div class="container">
+        <section id="encabezado">
+            <div class="row">
+                <div class="col-sm-8">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#info">Consultas</a></li>
+                        <li><a href="revalidaciones.html">Revalidaciones y Equivalencias</a></li>
+                        <!--li class="active">Formulario básico</li-->
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+	<div class="row">
+	  <div class="col-md-12">
+                      	<div class="alert alert-info">
+							<p><i class="fa fa-lightbulb-o"></i> Las Revalidaciones y Equivalencias estarán disponibles para su consulta un día después de su emisión.</p>
+						</div>
+                      </div>
+	</div><br>
+	<section ng-cloak ng-if="datos != null && datos != 0 "  id="Encontrada">
+	<!--section-->
+ 
+                   <div class="container">
+                  	<div class="row">
+                  	  <div class="col-md-12">
+                             <h4>Detalle del documento</h4>
+                             <hr class="red">
+                      </div>
+                    </div>
+                </div>
+	<div class="container" >
+      
+   <div class="row">
+    <div class="col-md-4">
+        <h5><b>Nombre:</b></h5>
+        <p>{{datos.nombres}} {{datos.apellido1}} {{datos.apellido2}}</p>
+    </div>
+    <div class="col-md-4" ng-if="datos.dependecia != null || datos.dependecia !== undefined">
+        <h5><b>Dependencia:</b></h5>
+        <p>{{datos.dependecia}}</p>
+    </div>
+    <div class="col-md-4" ng-if="datos.unidadAdmin != null || datos.unidadAdmin !== undefined">
+             <h5><b>Descripción autoridad:</b></h5>
+            <p>{{datos.unidadAdmin}}</p>
+    </div>
+   </div>
+
+   <div class="row">
+        <div class="col-md-4">
+            <h5><b>Fecha emisión:</b></h5>
+            <p>{{fechaEmision}}</p>
+        </div>
+        <div class="col-md-4">
+            <h5><b>Folio:</b></h5>
+            <!--p style="text-transform: lowercase">{{datos.folioDocto}}</p-->
+            <p>{{datos.folioDocto}}</p>
+        </div>
+        <div class="col-md-4" id="colFolio" ng-if="datos.expediente != null || datos.expediente !== undefined">
+
+            <h5><b>Expediente: </b></h5>
+        <p>{{datos.expediente}}</p>
+      </div>
+   </div>
+
+
+   <div class="row">
+        <div class="col-md-4" ng-if="datos.descripcionAutoridad != null || datos.descripcionAutoridad !== undefined">
+            <h5><b>Autoridad emisora:</b></h5>
+            <p id="colAutoridad2">{{datos.descripcionAutoridad}}<p/>
+        </div>
+        <div class="col-md-4" ng-if="datos.descripcionNivel != null || datos.descripcionNivel !== undefined">
+            <h5><b>Nivel de estudios:</b></h5>
+            <p id="colAutoridad2">{{datos.descripcionNivel}}<p/>
+      </div>
+      <div class="col-md-4" ng-if="datos.descripcionTipoDocto != null || datos.descripcionTipoDocto !== undefined">
+            <h5><b>Descripción documento:</b></h5>
+            <p>{{datos.descripcionTipoDocto}}</p>
+      </div>
+   </div>
+
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 alert-datos-incial alert alert-success text-center" ng-if="activoEstatus == 'ACTIVO' ">
+            <h5><b>Estatus del documento:</b></h5>
+            <h5> {{activoEstatus}}</h5>
+      </div>
+        <div class="col-md-4 alert alert-danger text-center" ng-if="activoEstatus == 'RECHAZADO' ">
+            <h5><b>Estatus del documento:</b></h5>
+            <h6> {{activoEstatus}}</h6>
+            <h5><b>Observaciones:</b></h5>
+            <h6> {{rechazObservaciones}}</h6>
+      </div>
+      <div class="col-md-4"></div>
+   </div>
+
+</div>
+
+<br>
+	<!--
+    <section id="informacion">
+            <h4>¿Problemas con la información?</h4>
+            <hr class="red">
+            <div class="alert alert-warning" style="margin-top:-6vh">
+                <p>En caso de que la información presentada no coincida con tus resultados del ciclo escolar ponte en contacto con la autoridad de tu centro escolar.</p>
+                <!p>Si deseas puedes reportar este problema en el módulo de <a href="contacto.html" title="Reporte de inconsistencias de información"> Reporte de inconsistencias de información</a>.</p>
+            </div>
+    </section>
+    -->
+    <section id="informacion">
+            <hr class="red">
+            <div style="margin-top:-6vh">
+                <p>La información de las equivalencias/revalidacion que se muestran en este portal, son el resultado de la integración de información que envían las autoridades educativas de los estados y la Ciudad de México. "En caso de que la información presentada no coincida con el resultado de la dictaminación o no esté disponible, por favor ponte en contacto con la autoridad."</p>
+                <p>La información presentada es de carácter informativa y para verificar la validez del documento impreso. Es una representación de la información contenida en el certificado (documento impreso). </p>
+                <p>El documento oficial es el que la autoridad o institución Educativa entrega al interesado.</p>
+            </div>
+    </section>
+    
+</section>
+
+ <section  ng-cloak  ng-if="datos !=  null  && (datos.idCertificado == 0 || datos == 0 || datos.certificadoId == 0)" >
+            <!-- /inicial -->
+            <!-- CURP no encontrada -->
+            <div data-role="page" >
+                <div class="top-buffer-submenu">
+                	
+                    <h4>Información no encontrada</h4>
+                    <hr class="red">
+                    
+                    <section>
+                        <div class="alert alert-danger">
+                            <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                            <br>
+                            <p>Verifica que hayas escrito bien  el FOLIO y vuelve a intentarlo.</p>
+                            <p>Si después de intentarlo nuevamente, el FOLIO no es localizado o si los datos que presenta no coinciden, deberás notificarlo a la autoridad de tu centro educativo.</p>
+                            <br>
+                            <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);" type="reset" ng-click="newSearch()">Volver a intentarlo</button>
+                        </div>
+                        <!--br>
+                        <div class="alert alert-warning">
+                            <p>Si deseas puedes reportar ese problema en el módulo de <a href="contacto.html" title="Reporte de inconsistencias de información"> Reporte de inconsistencias de información</a>.</p>
+                        </div-->
+                    </section>
+   
+                </div>
+            </div>
+          </section>
+      <br>
+                </div>
+
+         
+
+        <!-- /modal curp error -->
+        <script src="js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src="js/velocity.min.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+
+
+        <script src="js/slideShow.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/revalidaciones.js"></script>
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+        <main id="modal_loading">
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+	 <main id="modal_error">
+          <div class="modal fade" id="modalCurpError">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formato incorrecto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>El formato de la CURP ingresada no es válido.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+	</main>
+</body>
+<!-- 	ACCESIBILIDAD	-->
+<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+<!--	END ACCEBILIDAD	-->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-83445936-1', 'auto');
+    ga('send', 'pageview');
+
+
+</script>
+
+   <script> 
+     $(function(){
+  		$("#header").load("header.html"); 
+
+});
+   </script>
+
+</html>

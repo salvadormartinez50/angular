@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+ <!--
+  /*****************************************************************************
+        OBJETO: Presentar Opciones de consulta docentes por CURP o por Nombre
+        FECHA: 08/05/2021
+        LIDER TECNICO: OMAR FLORES MAURICIO
+        SCRUM MASTER: ERNESTO MARTINEZ ESPINOSA
+        DESARROLLO: ERNESTO MARTINEZ ESPINOSA
+        COMENTARIO: INDICE DEL PORTAL SIGED - Modulo Consulta docentes
+        Versión:    Fecha Modificación  Desarrollador   Motivo
+        1.0.8       07/07/2021          Ernesto         Ajuste Modulo docentes, agregar texto en cigras nacionales, cuadrito alumno y docente
+  ******************************************************************************/
+
+-->
+
+
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico"-->
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/banner.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="css/cambios.css" type="text/css">
+
+    <!-- 	ACCESIBILIDAD	-->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300"  />
+    <link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+	<link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css" media="all" />
+	<!--	END ACCESIBILIDAD	-->                
+        
+    </head>
+        <style>
+            #curp{
+                display:none;
+            }
+            #divSchoolResults{
+                display:none;
+            }
+            input:required {
+                box-shadow:none;
+            }
+            input:invalid {
+                box-shadow:0 0 3px none;
+            }
+		/*
+        .banner{
+            height: 240px;
+            background-image: url("ima/bannerDocentes.png"); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+		*/
+        </style>
+<body ng-app="docentes" ng-controller="docentesController"  ng-init="getGlobales()">
+<div id="header"></div>		
+<div class="section" data-type="background" style=" background-size: cover; height: 270px; text-align: center;">
+  <img class="responsive" src="ima/bannerDocentes.png" style=" background-size: cover; height: 100%; width: 100%; text-align: center;">
+  <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  </div>
+</div>			
+		
+<!--	HEADER COVID	-->
+  <!--header class=" navbar navbar-inverse"-->
+  <header class="  navbar-inverse" >
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse" data-toggle="collapse">
+            <span class="sr-only">Interruptor de Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la página inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+        </div>
+        <div id="navbarMainCollapse" class="collapse navbar-collapse">
+         <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg"  href="/" alt="logo gobierno de méxico" class="logo_footer" style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para vacunación</a></li>
+            <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a></li>
+            <li><a href="/tramites" title="Trámites">Trámites </a></li>
+            <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+            <li><form accept-charset="UTF-8" action="/busqueda" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div><input type="hidden" name="site" value="sep">
+                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search" style="background-color: rgb(12, 35, 30)"><a data-v-6394873e="" href="https://www.gob.mx/busqueda?utf8=✓" target="_blank" id="botbusca" style="margin-top: 20px;" ><img data-v-6394873e="" alt="Buscar" src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button></form></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!--	END HEADER COVID	-->
+    <div class="container-fliud banner row">
+        <div class="row col-md-12">   
+            <div class="col-md-8" id="textos">
+                <section id="textoSigedCol"><h5 class="header-main" id="textoSiged" style="margin-left:130px; margin-top:-170px;color: white" >Sistema de Información y Gestión Educativa</h5></section>
+                <section><h2 class=" header-main" id="textoSub" style="margin-left:130px;margin-top:-5px;color:white;text-transform:none" >Consulta de docentes</h2></section>
+            </div>
+            <main id="datoCurioso">
+            <div class="col-md-4 info-adicional-banner" style="align-content: right;">
+                <p class="ls-l" id="caja"
+                    style="width:245px;height:90px;margin-left:105px;margin-right:50px;margin-top:-170px;color:white;background:rgba(0,0,0,0.5);padding:10px 20px;">
+                    <span class="span_dato_curioso icono_curioso">
+                        <p
+                            style=" font-family:Montserrat; font-size: 15px ; width: 100%; text-align: left;margin-top: -100px;color: white;margin-left: 110px;">
+                            Para el ciclo escolar (2019-2020)<br/>
+                            Se reportan <b class="numero">{{cifraAnualDocentesGlobales}} docentes</b><br/> de educación básica.<br/>
+                            <span style=" font-family:Montserrat; font-size: 12px;text-align: left; color: white;margin-left: 0px;margin-top:-80px;">Fuente: Cuestionarios del formato 911</span>
+                        </p>
+                    </span>
+                </p>
+            </div>
+            </main>
+        </div>
+        <div class="row col-md-12">
+            <section>
+                    <p class="header-main" style="margin-left:145px;margin-right:60px;margin-top:-90px;color:white;font-size:0.9em;"><strong>Consulta de docentes que ocupan una o más plazas pagadas por FONE*</strong></p>
+            </section>
+        </div>       
+    </div>
+    <br><br>
+    <main id="main_search">
+	<section  id="main-search" class="slice bg-white" style="margin-top:-40px; padding-top: 0px; z-index: 20">
+            <div class="container" >
+                <div class="wp-section relative" >
+                    <div class="inline-form-filters over-top-element base" style="background-color:#545454">
+                        <form class="form-inline form-base" ng-submit="getConsultaDocentes(myVar);" >
+                            <!-- Optional filters tigger button -->
+                            <!-- Main filters -->
+                            <div class="row">
+                                <div id="nombre" class="col-md-7">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-lg" role="form">
+
+                                            <input id="nom" type="text" ng-model="busca" class="input-lg input-busqueda" placeholder="*Nombre" required style="font-size: 18px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-lg">
+
+                                            <input id="ap_pate" type="text" ng-model="buscaAP" class="input-lg input-busqueda" placeholder="*Primer apellido" required style="font-size: 18px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-lg">
+
+                                            <input id="ap_mate" type="text" ng-model="buscaAM" class=" input-lg input-busqueda" placeholder="Segundo apellido" style="font-size: 18px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="curp" class="col-md-7">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-lg">
+                                            <input type="text" ng-model="buscaCurp" maxlength="18" onkeyup="javascript:this.value = this.value.toUpperCase();" class=" input-lg input-busqueda" placeholder="*CURP" style="background:rgb(225,225,225);color:black;font-size: 18px">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-6"><button type="submit"  class="btn btn-info  btn-buscar" >Buscar </button></div>
+                                    <div class="col-md-6"><button ng-click="newSearch()" class="btn btn-warning btn-buscar ">Restablecer</button></div>
+                                </div>
+                            </div>
+
+                            <div class="row search-radio" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <input   class="tipo_busqueda" type="radio" ng-model="myVar" value="1" ng-checked="true" > Búsqueda por nombre
+                                </div>
+                                <div class="col-md-4">
+                                    <input  class="tipo_busqueda" type="radio" ng-model="myVar" value="2" > Búsqueda por CURP
+                                </div>
+                                <div class=" col-md-4">
+                                    <small class="form-text form-text-error pull-right" style="color: white;">*Campo obligatorio</small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+		</main>
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="index.html#info">Consultas</a></li>
+                            <li><a href="#">Consulta de docentes</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+            <main id="datosLimpios">
+            <section  ng-if="datosLimpios ==  null">
+                <div data-role="page" id="noEncontrada" style="display: none">
+                    <div class="top-buffer-submenu">
+                        <h4>Información no encontrada</h4>
+                        <hr class="red">
+                        <section>
+                            <div class="alert alert-danger">
+                                <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                                <!--    <br>
+                                        <p>Verifica que la hayas escrito bien y vuelve a intentarlo.</p>
+                                        <p>Si después de intentarlo nuevamente, el docente no es localizado o si los datos que presenta no coinciden con los del docente, deberás notificarlo a la autoridad de tu centro educativo.</p>
+                                --> <br>
+                                <p>Verifica tus criterios de búsqueda y vuelve a intentarlo.</p>
+                                <br>
+                                <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);" type="reset" ng-click="newSearch()">Volver a intentarlo</button>
+                            </div>
+                            <!--br>
+                            <div class="alert alert-warning">
+                                <p>Si deseas puedes reportar ese problema en el módulo de <a href="contacto.html" title=""> Reporte de inconsistencias de información</a>.</p>
+                            </div-->
+                        </section>
+                        <br>
+                    </div>
+                </div>
+            </section>
+            </main>
+            <main id="cont_tabla">
+            <section class="cont_tabla"  ng-if="datosLimpios != 0">
+                <div class="row" id="divSchoolResults"  >
+                       <div class="col-md-12 col-lg-12" >
+                          <form> 
+                              <button  id="btn-concentrado" type="submit" ng-click="generaExcel()" class="btn pull-right" style="color:white; background-color: green"><i class="fa fa-file-excel-o"></i> Obtener concentrado</button>
+                          </form>
+                       </div>
+                    <div class="col-lg-12 col-offset-12 centered">
+                        <a href="#" name="aschoolResults"></a>
+                    </div>
+                    <div class="col-md-12 col-lg-12 table-responsive" >
+                               <table border="1" class="table table-siged table-select table-responsive"
+                                   id="tblSchoolResults" style="width:100%" >
+                                <thead class="header-order">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Entidad</th>
+                                    <th>Municipio</th>
+                                    <th>Localidad</th>
+                                    <th>Escuela</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+			</main>
+            <main id="modal_fade_docente">
+            <div class="modal fade" id="modal_docente" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                <div  id="dialog_docente" class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <h4>Detalle del docente</h4>
+                                <h5>Fecha de actualización: {{plazas[0].fechaCarga}}</h5>
+                            </h4>
+                        </div>
+                        <div class="modal-body" ><!--style="overflow-x: scroll"-->
+                            <h4  id="cargando_docente" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                            <div id="cont_docente" class="row">
+                                <div class="col-md-2">
+                                    <img class="img img-responsive" src="images/avatar_teacher.png">
+                                </div>
+                                <div class="col-md-10 alert alert-info" >
+                                    <div class="row" ng-show="docente.nombre != null">
+                                        <div class="col-md-4" style="text-align: left;"><strong>Nombre:</strong></div>
+                                        <div class="col-md-8" style="text-align: left;">{{docente.nombre}}</div>
+                                    </div>
+                                    <br>
+                                    <div class="row" ng-show="docente.formacion != null">
+                                        <div class="col-md-4" style="text-align: left;"><strong>Formación académica :</strong></div>
+                                        <div class="col-md-8" style="text-align: left;" >{{docente.formacion}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 table-responsive" >
+                                    <table id="idDtPlazas"  class="table table-siged table-select " border="1" ng-show="plazas != null" style="width:100%;">
+                                        <thead class="header-order" >
+                                            <tr >
+                                                <th>Escuela</th>
+                                                <th>Categoría</th>
+                                                <th>Plaza</th>
+                                                <!-- <th>Estatus</th> -->
+                                                <th>Entidad</th>
+                                                <th>Municipio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br><br>
+                                <div class="fuente col-md-12" ng-if="fuentePlazaCCT != null && fuentePlazaCCT !== undefined">
+                                    <br>
+                                    <p><b>Fuente de información:</b></p>
+                                    <p>{{fuentePlazaCCT.fuenteNominaPersonal}}, Quincena <b>{{fuentePlazaCCT.quincena}}</b>, de <b>{{fuentePlazaCCT.ciclo}}</b>.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Salir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fuente" style="text-align: left; ">*FONE: Fondo de Aportaciones para la Nómina Educativa y Gasto Operativo</div>
+                    </div>
+                </div>
+            </section>            
+</main>
+
+        </div>
+        <!-- /inicial -->
+        <!-- CURP no encontrada -->
+        <script src="./js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src="js/velocity.min.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/docentes.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <!-- DataTables -->
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/responsivetable.js"></script>
+        <!-- Initializing the slider -->
+        <script>
+                                                jQuery("#layerslider").layerSlider({
+                                                    pauseOnHover: true,
+                                                    autoPlayVideos: false,
+                                                    skinsPath: 'assets/layerslider/skins/',
+                                                    responsive: false,
+                                                    responsiveUnder: 1280,
+                                                    layersContainer: 1280,
+                                                    hoverPrevNext: true,
+                                                });
+        </script>
+        <main id="modal_fade">
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalCurpError">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formato incorrecto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>El formato de la CURP ingresada no es válido.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        </main>
+        <br>
+        
+    </body>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+<!-- 	ACCESIBILIDAD	-->
+	<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+	<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+<!--	END ACCEBILIDAD	-->    
+  
+   <script> 
+     $(function(){
+            $("#header").load("header.html"); 
+      });
+   </script>
+
+</html>

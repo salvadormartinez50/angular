@@ -1,0 +1,689 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <!--link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css"-->
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/calendar.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <!--script src='https://www.google.com/recaptcha/api.js'></script-->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+    </head>
+    <body ng-app="contacto" ng-controller="contactoController" onLoad="disable_button()">
+      <nav class="navbar navbar-inverse navbar-siged">
+          <div class="container">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                      <span class="sr-only">Interruptor de Navegación</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="index.html">SIGED</a>
+              </div>
+              <div class="collapse navbar-collapse" id="subenlaces">
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                          <li><a href="index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                          <li><a href="estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                          <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                          <li><a href="index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                          <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                          <!--li><a href="contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                      </ul>
+                  </div>
+          </div>
+        </nav>
+        <section id="slider-wrapper" class="layer-slider-wrapper " >
+            <!-- <div id="layerslider" style="width: 100%; height: 150px;z-index:0">
+                <div class="ls-slide"  data-ls="transition2d:1;timeshift:-1000;" > -->
+                    <!-- slide background -->
+                    <!-- <img src="images/Banner_Cantactanos.jpg" class="ls-bg" style="width: 100%;"  alt="Slide background"/>-->
+                    <!-- Left Text -->
+                    <!--<h4 class="ls-l header-sige " style="width:900px; top:15%; left:80px;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Sistema de Información y Gestión Educativa</h4>
+                    <h2 class="ls-l header-main" style="width:600px; top:50%;  left:80px;color:white;text-transform:none" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Contáctanos</h2> -->
+                    <!--p class="ls-l" style="width:450px; top:60%;line-height:25px;left:80%;color:white;background:rgba(0,0,0,0.5);padding:10px 20px;  text-align:justify" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:2500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                        <span class="span_dato_curioso icono_curioso"  >
+                            <i class="fa fa-book" style="color:#25DDDA;"></i>
+                            <b class="numero">10,000</b>
+                            <br>
+                            <b class="texto" style="font-size:0.6em">Libros</b>
+                        </span>
+                        <span class="span_dato_curioso info_curioso" style="">Se han entregado a lo largo de la república este año</span>
+                    </p
+                </div>
+            </div>-->
+        </section>
+        <!-- inicial -->
+        <!--div class="main-banner">
+            <img src="images/Recurso22.png" alt="" width="100%">
+        </div-->
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-sm-8 col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="https://siged.sep.gob.mx/SIGED/"><i class="fa fa-home"></i></a></li>
+                            <li><a href="https://siged.sep.gob.mx/SIGED/">Inicio</a></li>
+                            <li><a href="#">Biblioteca</a></li>
+                        </ol>
+                    </div>
+                </div>
+				<div class="row">
+					<label class="alert" style="background-color: #eee; margin: auto; display:block;text-align:right" >Mesa de Ayuda SIGED: <a href="mailto:mesadeayudasiged@nube.sep.gob.mx"> mesadeayudasiged@nube.sep.gob.mx</a> <br> Tel. 01 (55) 3601-3247 <br> Yammer - <a href="https://www.yammer.com/">https://www.yammer.com/</a>
+<br>Horarios de atención: Lunes a viernes de 09:00 a 18:00 hrs.
+</label >
+
+<h5>CALENDARIO PARA LA TRANSFERENCIA DE INFORMACIÓN DE NÓMINA ESTATAL A SIGED</h5>
+
+<p>En relación al proceso de actualización e integración permanente del Sistema de Información y Gestión Educativa (SIGED), en específico para la transferencia electrónica periódica y sistemática de la información de movimientos de personal, referentes a los sujetos del Servicio Profesional Docente regulados en el artículo 3 de la Ley General del Servicio Profesional Docente, en lo correspondiente al tipo de educación básica con fuente de pago estatal, se establecen los siguientes plazos para la transferencia de información, períodos a reportar y especificaciones de cada campaña:</p>
+				</div>
+				<br><br>
+				<div >
+	<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable" id="tabs-225772">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#panel-178270" data-toggle="tab">Vista normal</a>
+					</li>
+					<li>
+						<a href="#panel-881463" data-toggle="tab">Vista dinámica</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane " id="panel-881463" >
+						<div class="row">
+						     <div class="col-md-12">
+							   <div class="page-header">
+									<div class="pull-right form-inline">
+										<div class="btn-group">
+											<button class="btn btn-primary br-enlace-o" data-calendar-nav="prev"><< Anterior</button>
+											<button class="btn" data-calendar-nav="today">Hoy</button>
+											<button class="btn btn-primary br-enlace-o" data-calendar-nav="next">Siguiente >></button>
+										</div>
+										<div class="btn-group">
+											<button class="btn btn-warning br-enlace" data-calendar-view="year">Año</button>
+											<button class="btn btn-warning br-enlace active" data-calendar-view="month">Mes</button>
+											<button class="btn btn-warning br-enlace" data-calendar-view="week">Semana</button>
+										</div>
+
+									</div>
+
+									<h3></h3>
+								</div>
+
+								<div class="row">
+									<div class="span9">
+										<div id="calendar"></div>
+									</div>
+
+								</div>
+
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane active" id="panel-178270" >
+					<table class="table table-striped" style="width:70%;margin: auto">
+ <tr >
+  <td width=215 valign=top >
+  <p class=MsoListParagraphCxSpFirst align=center style='margin-left:0cm;
+  mso-add-space:auto;text-align:center'><b style='mso-bidi-font-weight:normal'><span
+  >Información
+  a reportar<o:p></o:p></span></b></p>
+  </td>
+  <td width=215 valign=top>
+  <p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+  mso-add-space:auto;text-align:center'><b style='mso-bidi-font-weight:normal'><span
+  >Periodo a
+  reportar<o:p></o:p></span></b></p>
+  </td>
+  <td width=186 valign=top>
+  <p class=MsoListParagraphCxSpLast align=center style='margin-left:0cm;
+  mso-add-space:auto;text-align:center'><b style='mso-bidi-font-weight:normal'><span
+  >Plazo para
+  transferir información<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+
+ <tr style='mso-yfti-irow:2;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Plantilla completa
+  de personal identificado en su entidad.<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Total
+  de personal con corte al 15 de octubre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de octubre 2017<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 20
+  - 2017<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16-31 de octubre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de noviembre de 2017<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 21
+  - 2017<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de noviembre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al 30
+  de noviembre 2017<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 22
+  – 2017<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16-30 de noviembre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de diciembre de 2017 <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 23
+  -2017<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de diciembre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de diciembre de 2017<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 24
+  -2017<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16-31 de diciembre de 2017<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de enero del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 1
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de enero de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de enero de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 2
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16-31 de enero de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de febrero del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 3
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de febrero de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  28 de febrero de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 4
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16- 29 de febrero de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de marzo del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr >
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 5
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de marzo de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al 31
+  de marzo de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr >
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 6
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16- 31 de marzo de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de abril del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 7
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01- 15 de abril de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al 30
+  de abril de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 8
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16- 30 de abril de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de mayo del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 9
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de mayo de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de mayo de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 10
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16- 31 de mayo de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de junio del 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 11
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  01-15 de junio de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  30 de junio de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 12
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 30 de junio de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de julio de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:20;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 13
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de julio de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de julio de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:21;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 14
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 31 de julio de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de agosto de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:22;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 15
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de agosto de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de agosto de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:23;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 16
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 31 de agosto de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de septiembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:24;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 17
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de septiembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  30 de septiembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:25;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 18
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 30 de septiembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span >Del
+  1 al 15 de octubre de<o:p></o:p></span></p>
+  <p ><span
+  >2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:26;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 19
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de octubre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al 31
+  de octubre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:27;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 20
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 31 de octubre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de noviembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:28;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 21
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de noviembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  30 de noviembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:29;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 22
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 30 de noviembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de diciembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:30;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 23
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  1 al 15 de diciembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 16 al
+  31 de diciembre de 2018<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:31;mso-yfti-lastrow:yes;height:24.85pt'>
+  <td width=215 valign=top >
+  <p ><span
+  >Quincena 24
+  -2018<o:p></o:p></span></p>
+  </td>
+  <td width=215 valign=top >
+  <p ><span >Del
+  16 al 31 de diciembre de 2018<o:p></o:p></span></p>
+  </td>
+  <td width=186 valign=top >
+  <p ><span
+  >Del 1 al 15
+  de enero de 2019<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+						</p>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+            </section>
+        </div>
+
+        <!-- /modal NO enviado -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+
+        <script type="text/javascript" src="js/calendar/underscore-min.js"></script>
+          <script type="text/javascript" src="js/calendar/jstz.min.js"></script>
+          <script type="text/javascript" src="js/calendar/es-MX.js"></script>
+          <script type="text/javascript" src="js/calendar/calendar.js"></script>
+          <script type="text/javascript" src="js/calendar/app_calendar.js"></script>
+
+
+    </body>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</html>

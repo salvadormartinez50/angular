@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SEP | SIGED</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link href="assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/global-style.css">
+	<link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="css/sige.css">
+
+</head>
+<body>
+		<nav-component>
+		</nav-component>
+
+		<section ng-view  ></section>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.5/angular-resource.js" charset="utf-8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/route.js"></script>
+	<script src="app/topNavComponent/navCtrl.js"></script>
+	<script src="app/fuerzaMexicoComponent/fuerzaCtrl.js"></script>
+	<script src="app/fondoEscuelaComponent/fondoCtrl.js"></script>
+	<script src="app/estadisticasComponent/estadisticasCtrl.js"></script>
+
+
+
+	<script>
+			(function (i, s, o, g, r, a, m) {
+					i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+							(i[r].q = i[r].q || []).push(arguments)
+					}, i[r].l = 1 * new Date();a = s.createElement(o),
+									m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+			ga('create', 'UA-83445936-1', 'auto');
+			ga('send', 'pageview');
+
+	</script>
+
+</body>
+</html>

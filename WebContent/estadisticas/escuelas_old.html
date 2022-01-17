@@ -1,0 +1,154 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/sige.css">
+        <style>
+        .navbar-siged{
+          top: 135px;
+        }
+        </style>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+    </head>
+    <nav class="navbar navbar-inverse navbar-siged">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                    <span class="sr-only">Interruptor de Navegación</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">SIGED</a>
+            </div>
+            <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="../index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="../index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="../estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="../index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li><a href="../contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+        </div>
+    </nav>
+
+    <body ng-app="estadisticas" >
+        <div class="row" style="height: 220px;z-index:0;background-image: url('../ima/general.png');background-size: cover" >
+          <div class="container" >
+            <div class="col-md-12">
+              <br>
+              <h4 class="ls-l header-sige " style="width:900px; top:15%; left:80px;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Sistema de Información y Gestión Educativa</h4>
+              <h2 class="ls-l header-main" style="width:600px; top:30%;  left:80px;color:white;text-transform:none" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Estadísticas de escuela</h2>
+          </div>
+          </div>
+        </div>
+        <div  ng-controller="buscarEstadisticas" data-role="page" class="container-fluid" >
+            <div class="row">
+                <div class="col-md-3">
+                    <div   class="panel panel-default panel-sidebar-1">
+                        <div style="display: none" class=" header-stats">Por alumno</div>
+                        <div style="display: none" class=" header-stats">Por docente</div>
+                        <div class="panel-body">
+                            <form class="form-light" role="form" ng-submit="search()">
+                                <div class="form-group cont-graficas">
+                                    <p  id="error_tipo" class="error">Selecciona una opción de gráfica</p>
+                                    <label>Gráficar los siguientes datos:</label><br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="1"> Tipo educativo <br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="3"> Sostenimiento educativo <br>
+                                    <input name="tipo_grafica" ng-model="tipo" type="radio" ng-value="5"> Tipo y sostenimiento educativo<br>
+                                </div>
+                                <div class="form-group">
+                                    <p id="error_estado" class="error">Selecciona una ubicación</p>
+                                    <label>Selecciona una opción:</label><br>
+                                    <input id="estado" ng-model="estado" ng-value="-1" style="display:none">
+                                    <div  class="alert alert-zona" >
+                                        <button id="pais" type="button" ng-click="getZona(0)" class="btn-zona btn btn-default btn-full"> Nacional</button>
+                                    </div>
+                                    <div  class="alert alert-zona">
+                                        <button id="entidad" type="button" ng-click="getStates()" class="btn-zona btn btn-default btn-full"> Entidad</button>
+                                        <div id="sub_entidad" style="display:none" >
+                                            <label>Selecciona entidad:</label><br>
+                                            <select name="lstStates" id="select_entidad" class="form-control" ng-model="user.state"
+                                                    ng-options="state.des for state in states track by state.id"
+                                                    ng-change="getZona(user.state.id)"
+                                                    >
+                                                <option label="selecciona una opción" value="">selecciona
+                                                    una tipo</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-block btn-success">
+                                            <span>Generar gráfica</span><i class="fa fa-bar-chart btn-icon-graph"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <h4 id="descripcion_grafica"></h4>
+                    <h4 id="mensaje_estadisticas"></h4>
+                    <div class="tabbable" id="tabs-653558">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-189331" data-toggle="tab"><i class="fa fa-bar-chart-o"></i> Gráfica</a>
+                            </li>
+                            <li>
+                                <a href="#panel-806421" data-toggle="tab"><i class="fa fa-table"></i> Detalles </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-189331">
+                                <div class="row">
+                                    <div id="cont_graficas">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="panel-806421">
+                                <div id="cont_tablas">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <table id="tabla_nueva" class="table table-siged table-responsive" >
+                                                <thead ></thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /inicial -->
+        <!-- CURP no encontrada -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src='../js/velocity.min.js'></script>
+        <script src="../js/angular.js"></script>
+        <script src="../js/angular-resource.js"></script>
+        <script src="../js/Chart.js"></script>
+        <script src="../js/grafica.js"></script>
+        <script src="../js/siged.js"></script>
+        <script src="../js/estadisticasEscuela.js"></script>
+    </body>
+</html>

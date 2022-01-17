@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="author" content="Ernesto Martínez Espinosa" />
+    <meta name="copyright" content="SEP - SIGED" />
+    <title>SEP | SIGED</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+</head>
+
+<body>
+    <div id="mapid" style="height: 600px;"></div>
+    <script>
+        var mymap = L.map('mapid', { language: 'es' }).setView([19.432608, -99.133209], 5);
+        let markerSchool;
+        var greenIcon = L.icon({
+            iconUrl: '../images/icono_escuela.png',
+
+            iconSize: [25, 25], // size of the icon
+        });
+        
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
+        	maxZoom: 18,
+        	foo: 'bar',
+        	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        }).addTo(mymap);
+        
+        
+        mymap.attributionControl.setPosition('topright')
+        /**/
+
+        function crearMarker(latC, lngC, pCT, infoEscuela) {
+
+            mymap.setView([latC, lngC], 12);
+            markerSchool = L.marker([latC, lngC], { icon: greenIcon }).addTo(mymap)
+                .on('click', function (e) {
+                    
+                    window.parent.postMessage([pCT,infoEscuela],"*");
+
+                });;
+            //markerSchool.bindPopup(`<b>${info}</b><br><a onclick = "top.contentWindow.postMessage('${info}', '*');">Ver escuela.</a>`).openPopup();
+        }
+
+        window.addEventListener('message', event => {
+
+            resultado = eval(event.data);
+
+        }); 
+    </script>
+</body>
+
+</html>

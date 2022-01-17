@@ -1,0 +1,185 @@
+.boton{
+	border-radius: 10px;
+	padding: 0px;
+	background-position: center;
+	background-repeat: no-repeat; /* Do not repeat the image */
+  	background-size: 100% 100%; /* Resize the background image to cover the entire container */
+  	cursor:pointer;
+  	height: 150px;
+}
+
+.boton-alumno{
+	background-color: rgb(254,147,95);
+	border: 2px solid rgb(245,102,46);
+	background-image: url("../ima/alumnos.png");
+	
+}
+.boton-docente{
+	background-color: rgb(83,197,247);
+	border: 2px solid rgb(73,169,206);
+	background-image: url("../ima/docentes.png");
+	
+}
+.boton-centro{
+	background-color: rgb(217, 90, 211);
+	border: 2px solid rgb(184,80,128);
+	background-image: url("../ima/centroTrabajo.png");
+	
+}
+.boton-escuela{
+	background-color: rgb(217,90,141);
+	border: 2px solid rgb(94, 61, 76);
+	background-image: url("../ima/escuelas.png");
+	
+}
+.option-escuela:hover{
+  background: #ea6b9e;
+}
+    
+.boton-back-escuela{
+	background-color: rgb(217,90,141);
+	border: 2px solid rgb(73,169,206);
+}
+.boton-docente{
+	background-color: rgb(83,197,247);
+	border: 2px solid rgb(73,169,206);
+	background-image: url("../ima/docentes.png");
+	
+}
+.boton-back-docente{
+	background-color: rgb(83,197,247);
+	border: 2px solid rgb(73,169,206);
+}
+
+.option-docente:hover{
+     background-color: rgb(183,195,249);
+
+   }
+
+.boton-documento{
+	background-color: rgb(120,216,118);
+	border: 2px solid rgb(121,188,117);
+	background-image: url("../ima/documentos.png");
+}
+.boton-back-documento{
+	background-color: rgb(120,216,118);
+	border: 2px solid rgb(121,188,117);
+}
+
+.option-documento:hover{
+     background-color: rgb(136,232,144);
+     height: 100%;
+   }
+
+.texto-descriptivo{
+	justify-content:center;
+	align-items:center;
+	color: white;
+	line-height:1.2em;
+	font-weight: bold;
+	background-color: rgba(50,50,50,0.8);
+	border: 2px solid rgba(50,50,50,0.8);
+	text-align: center;
+	font-size:0.7em; 
+	height: 150px;
+	padding:20px;
+	margin:0px;
+	border-radius: 10px;
+	display:none;
+}
+.option{
+	color:white;
+	height: 100%;
+	text-decoration:none;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.option-left{
+		border-radius: 10px 0px 0px 10px;	
+}
+.option-right{
+		border-radius: 0px 10px 10px 0px;	
+}
+.option:hover{
+	color:white;
+	text-decoration:none;
+	
+}
+
+.boton:hover .texto-descriptivo{
+	border:0px;
+	display:flex;
+}
+
+.boton:hover{
+	border:0px;
+}
+
+.text-escuela{
+	font-size:0.8em;
+}
+
+.text-escuela-mobil{
+	display:none;
+}
+
+.text-docente{
+	font-size:0.8em;
+}
+
+.text-docente-mobil{
+	display:none;
+}
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 350px){
+	.boton-icon{
+		display:none;
+	}
+
+  .boton,.texto-descriptivo{
+    height: 100px;
+  }
+      
+} 
+
+@media only screen and (min-width: 350px) and (max-width: 600px){
+	.boton,.texto-descriptivo{
+    	height: 120px;
+  	}
+  	.boton-icon{
+		display:none;
+	}
+
+      
+} 
+
+
+@media only screen and (min-width: 600px)and (max-width: 767px){
+  .boton,.texto-descriptivo{
+    height: 195px;
+  }
+
+}
+@media only screen and (min-width: 768px)and (max-width: 1023px){
+  .boton,.texto-descriptivo{
+    height: 215px;
+  }
+
+}
+@media only screen and (min-width: 1024px)and (max-width: 1199px){
+
+  .boton,.texto-descriptivo{
+    height: 135px;
+  }
+}
+@media only screen and (min-width: 1200px){
+  
+  .boton,.texto-descriptivo{
+    height: 165px;
+  }
+}

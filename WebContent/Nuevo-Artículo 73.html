@@ -1,0 +1,324 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+
+        <link rel="stylesheet" href="css/cambios.css" type="text/css">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SIGED</a>
+                </div>
+                <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://www.siged.sep.gob.mx/SIGED/index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="https://www.siged.sep.gob.mx/SIGED/index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="https://www.siged.sep.gob.mx/SIGED/estadisticas/escuelas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="https://www.siged.sep.gob.mx/SIGED/index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="https://siged.sep.gob.mx/SIGED/principalesCifras.html/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!--li><a href="https://www.siged.sep.gob.mx/SIGED/contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div data-role="page">
+             <section id="slider-wrapper" class="layer-slider-wrapper ">
+                <div id="layerslider" style="width: 100%; height: 220px;z-index:0; ">
+                    <div class="ls-slide"  data-ls="transition2d:1;timeshift:-1000;" >
+                        <!-- slide background -->
+                        <img src="ima/general1.png" class="ls-bg" style="width:100%;"  alt="Slide background"/>
+
+                        <!-- Left Text -->
+                        <h4 class="ls-l header-sige " style="width:900px; top:15%; left:80px;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Sistema de Información y Gestión Educativa</h4>
+                        <h3 class="ls-l header-main" style="width:900px; top:40%;  left:80px;color:white;text-transform:none" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Artículo 73 de la Ley General de Contabilidad Gubernamental</h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+<BR><BR>             
+    <!-- Contenido -->
+    <main class="page">
+      <div class="container container-login">
+
+        <div class="container">
+        <div class="row">
+<br>
+        <div class="container ng-scope" ng-controller="searchSchoolCtrl">
+              <section id="main-search" class="slice bg-white" style="display: block;margin-top: -95px" >
+
+                  <div class="wp-section relative">
+                      <form class="form-inline form-base ng-pristine ng-invalid ng-invalid-required" id='formulario_principal' role="form" ng-submit="search()">
+                          <div class="inline-form-filters over-top-element base" style="background:#545454">
+                              <!-- Optional filters tigger button -->
+                              <!-- <a id="btnToggleOptionalFIlters" class="optional-form-filters-trigger" title="Toggle advanced search" style="background-color:#545454" rel="0"></a> -->
+
+                              <!-- Main filters -->
+                              <div class="row">
+                                  <div class="col-md-10">
+                                      <div class="row">
+
+
+
+                                          <div class="col-md-8">
+                                            <div class="form-group form-group-lg">
+                                                  <label id="lblCCT" for="txtCCT">Nombre o clave de la escuela</label>
+                                                  <input type="text" class="from-group form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" ng-model="user.schoolName" name="CLAVE_CENTRO_TRABAJO" id="txtCCT" style="background:rgb(225,225,225);color:black; " >
+                                              </div>
+                                          </div>
+
+                                                                      <div class="col-md-4">
+                                              <div class="form-group form-group-lg field_select">
+                                                  <label id="lblMunicipalities" for="lstMunicipalities">Estado</label><br>
+                                                  <select name="UR" id="lstMunicipalities" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="user.municipality" ng-options="municipality.nombre for municipality in municipalities track by municipality.id" ng-change="getLocations()" style="background:rgb(225,225,225);color:black;"><option label="selecciona una opción" selected="selected" value="" class="">selecciona
+                                                          una opción</option>
+                                                                                                                            <option label="AGUASCALIENTES" value="1">AGUASCALIENTES</option>
+                                                                                                                                  <option label="BAJA CALIFORNIA" value="2">BAJA CALIFORNIA</option>
+                                                                                                                                  <option label="BAJA CALIFORNIA SUR" value="3">BAJA CALIFORNIA SUR</option>
+                                                                                                                                  <option label="CAMPECHE" value="4">CAMPECHE</option>
+                                                                                                                                  <option label="CHIAPAS" value="7">CHIAPAS</option>
+                                                                                                                                  <option label="CHIHUAHUA" value="8">CHIHUAHUA</option>
+                                                                                                                                  <option label="COAHUILA" value="5">COAHUILA</option>
+                                                                                                                                  <option label="COLIMA" value="6">COLIMA</option>
+                                                                                                                                  <option label="DURANGO" value="10">DURANGO</option>
+                                                                                                                                  <option label="GUANAJUATO" value="11">GUANAJUATO</option>
+                                                                                                                                  <option label="GUERRERO" value="12">GUERRERO</option>
+                                                                                                                                  <option label="HIDALGO" value="13">HIDALGO</option>
+                                                                                                                                  <option label="JALISCO" value="14">JALISCO</option>
+                                                                                                                                  <option label="MÉXICO" value="15">MÉXICO</option>
+                                                                                                                                  <option label="MICHOACÁN" value="16">MICHOACÁN</option>
+                                                                                                                                  <option label="MORELOS" value="17">MORELOS</option>
+                                                                                                                                  <option label="NAYARIT" value="18">NAYARIT</option>
+                                                                                                                                  <option label="NUEVO LEÓN" value="19">NUEVO LEÓN</option>
+                                                                                                                                  <option label="OAXACA" value="20">OAXACA</option>
+                                                                                                                                  <option label="PUEBLA" value="21">PUEBLA</option>
+                                                                                                                                  <option label="QUERÉTARO" value="22">QUERÉTARO</option>
+                                                                                                                                  <option label="QUINTANA ROO" value="23">QUINTANA ROO</option>
+                                                                                                                                  <option label="SAN LUIS POTOSÍ" value="24">SAN LUIS POTOSÍ</option>
+                                                                                                                                  <option label="SINALOA" value="25">SINALOA</option>
+                                                                                                                                  <option label="SONORA" value="26">SONORA</option>
+                                                                                                                                  <option label="TABASCO" value="27">TABASCO</option>
+                                                                                                                                  <option label="TAMAULIPAS" value="28">TAMAULIPAS</option>
+                                                                                                                                  <option label="TLAXCALA" value="29">TLAXCALA</option>
+                                                                                                                                  <option label="VERACRUZ" value="30">VERACRUZ</option>
+                                                                                                                                  <option label="YUCATÁN" value="31">YUCATÁN</option>
+                                                                                                                                  <option label="ZACATECAS" value="32">ZACATECAS</option>
+                                                                
+                                                  </select>
+                                              </div>
+                                          </div>
+
+                        
+                                      </div>
+                                      <div class="row">
+
+                          <div class="col-md-4">
+                                              <div class="form-group form-group-lg field_select">
+                                                  <label id="lblState" for="lstStates">Trimestre</label>
+
+                                                  <select name="ID_TRIMESTRE" id="lstStates" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="user.state" ng-options="state.nombre for state in states track by state.id" ng-change="getMunicipalities()" style="background:rgb(225,225,225);color:black;"><option label="selecciona una opción" selected="selected" value="" class="">selecciona
+                                                          una opción</option>
+                                                                                                                            <option label="2018/01" value="1">2018/01</option>
+                                                                
+
+                                                        </select>
+                                              </div>
+                                          </div>
+     
+                                          <div class="col-md-4">
+                                              <div class="form-group form-group-lg field_select">
+                                                  <label id="lblLocations" for="lstLocations">Tipo de plaza</label><br>
+                                                  <select name="TIPO_PLAZA" id="lstLocations" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="user.olocation" ng-options="location.nombre for location in locations track by location.id" style="background:rgb(225,225,225);color:black;"><option label="selecciona una opción" selected="selected" value="" class="">selecciona
+                                                          una opción</option>
+                                                                                                                            <option label="HORA" value="&#39HORA&#39">HORA</option>
+                                                                                                                                  <option label="PLAZA" value="&#39PLAZA&#39">PLAZA</option>
+                                                                
+
+                                                  </select>
+                                              </div>
+                                          </div>
+                                                  <div class="col-md-4">
+                                              <div class="form-group form-group-lg field_select">
+                                                  <label id="lblLevels" for="lstLevels">Descripción de modelo</label><br>
+                                                  <select name="ID_DESCRIPCION_MODELO" id="lstLocations" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="user.olocation" ng-options="location.nombre for location in locations track by location.id" style="background:rgb(225,225,225);color:black;"><option label="selecciona una opción" selected="selected" value="" class="">selecciona
+                                                          una opción</option>
+                                                                                                                            <option label="ADMINISTRATIVO UPN" value="7">ADMINISTRATIVO UPN</option>
+                                                                                                                                  <option label="DOCENTE EDUCACIÓN BÁSICA" value="2">DOCENTE EDUCACIÓN BÁSICA</option>
+                                                                                                                                  <option label="DOCENTE EDUCACIÓN SUPERIOR" value="5">DOCENTE EDUCACIÓN SUPERIOR</option>
+                                                                                                                                  <option label="DOCENTE UPN" value="3">DOCENTE UPN</option>
+                                                                                                                                  <option label="MANDO" value="4">MANDO</option>
+                                                                                                                                  <option label="MANDO UPN" value="8">MANDO UPN</option>
+                                                                                                                                  <option label="PAAE EDUCACIÓN  SUPERIOR" value="6">PAAE EDUCACIÓN  SUPERIOR</option>
+                                                                                                                                  <option label="PAAE EDUCACIÓN BÁSICA" value="1">PAAE EDUCACIÓN BÁSICA</option>
+                                                                
+
+                                                  </select>
+                                              </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                                  <div class="col-md-2">
+										<br>
+                                      <button type="button" id="btnFindSchool" class="btn btn-info btn-buscar"> Buscar</button>
+                                      <br>
+                                      <br>
+                                      <button type="reset" id="reset"  class="btn btn-warning btn-buscar"> Restablecer</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </section>
+                     <section>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="https://www.siged.sep.gob.mx/SIGED/index.html"><i class="icon icon-home"></i></a></li>
+                            <li><a href="https://www.siged.sep.gob.mx/SIGED/index.html">Inicio</a></li>
+                            <li><a href="http://143.137.111.97/SIGED/art73/">Artículo 73</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+
+              <!--Exportando datos-->
+              <div class="excel" style="display: none">
+                  <form action="src/ficheroExcel.php" method="post" target="_blank" id="FormularioExportacion">
+                      <p>Exportar a Excel  <i class = "fa fa-file-excel-o botonExcel" style="cursor: pointer; color: green; font-size: 30px"></i></p>
+                      <input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
+                  </form>
+              </div>
+              <section class="resultado">
+
+              </section>
+              <!--Datos de la escuela seleccionada-->
+          </div>
+
+       </div>
+ </div>
+ </div>
+        </div>
+
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-body">
+                       <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                   </div>
+                   <div class="tiempo_fuera modal-footer" style="display:none">
+                       <div class="row">
+                           <div class="col-md-7">
+                               <label > La consulta está tardando más de lo normal</label>
+                           </div>
+                           <div class="col-md-5">
+                               <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+<!--Modal de que no se encontraron datos-->
+                <div class="container">
+                      <div data-role="page" id="noEncontrada" style="display: none">
+                    <div class="top-buffer-submenu">
+                        <h4>Información no encontrada</h4>
+                        <hr class="red">
+                        <section>
+                            <div class="alert alert-danger">
+                                <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                                <br>
+                                <p>Verifica que hayas escrito bien la clave del centro de trabajo o bien verifica tus criterios de búsqueda y vuelve a intentarlo.</p>
+                                <br>
+                                <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);" type="reset">Volver a intentarlo</button>
+                            </div>
+                        </section>
+                        <br>
+                    </div>
+                </div>
+                 </div>
+
+        <br><br><br>
+        <script src="js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+
+
+
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+        <script src="js/siged.js"></script>
+
+
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/jquery.ui.touch-punch.min.js"></script>
+        <script src="js/custom.js"></script>
+
+           <script src="js/slideShow.js"></script>
+
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.5"></script>
+            <link rel="stylesheet" type="text/css" href="js/jquery.fancybox.css?v=2.1.5" media="screen" />
+                <!-- Initializing the slider -->
+        <script>
+                                                    jQuery("#layerslider").layerSlider({
+                                                        pauseOnHover: true,
+                                                        autoPlayVideos: false,
+                                                        skinsPath: 'assets/layerslider/skins/',
+                                                        responsive: false,
+                                                        responsiveUnder: 1280,
+                                                        layersContainer: 1280,
+                                                        hoverPrevNext: true,
+                                                    });
+        </script>
+
+
+                <script language="javascript">
+$(document).ready(function() {
+    $(".botonExcel").click(function(event) {
+        $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
+        $("#FormularioExportacion").submit();
+});
+});
+</script>
+    </body>
+    
+</html>

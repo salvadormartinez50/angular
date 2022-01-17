@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="no-js" lang="es" ng-app="registroUsuario">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+        <style>
+          .header-text{
+            color: white;
+            margin-left: 80px;
+            text-shadow: 2px 2px black;
+
+          }
+          @media (max-width: 767px) {
+            .header-text{
+              margin-left: 10px;
+              text-align: center;
+            }
+          }
+
+        </style>
+    </head>
+    <body ng-controller="registroUsuarioController" ng-init="getEstados()">
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SIGED</a>
+                </div>
+                <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!--li><a href="contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       <div class="row col-md-12" style="margin-top: 30px; height: 270px;z-index:0;background-image: url('images/padres.png');background-size: cover" >
+          <br><br>
+          <h4 class="header-text">Sistema de Información y Gestión Educativa</h4>
+          <h2 class="header-text">Registro de padres de familia</h2>
+        </div>
+        <!--div class="main-banner">
+            <img src="images/Recurso22.png" alt="" width="100%">
+        </div-->
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-sm-8 col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="#">Registro de padres de familia</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <section class="slice bg-white">
+                    <div class="w-section inverse">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="section-title-wr">
+                                        <h3 class="section-title left"><span> <i class="fa fa-envelope"></i> Registro de padres de familia</span></h3>
+                                    </div>
+                                    <p>
+                                        En esta sección podrás registrarte para poder acceder al portal interno.
+                                    </p>
+
+                                    <!-- form id="formTutor" class="form-light mt-20" role="form" ng-submit="validaMail()" -->
+                                    <form id="formTutor" class="form-light mt-20" role="form" ng-submit="validaMail();insertarTutor();">
+
+                                        <div class="form-group">
+                                            <label>CURP del solicitante *</label>
+                                            <input type="text" class="form-control" maxlength="18" ng-model="curp" placeholder="Ingresa la CURP" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-user"></i> Nombre del solicitante *</label>
+                                            <input type="text" class="form-control" ng-model="nombre" placeholder="Ingresa tu nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-user"></i> Primer apellido del solicitante *</label>
+                                            <input type="text" class="form-control" ng-model="primerAp" placeholder="Ingresa tu primer apellido" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-user"></i> Segundo apellido del solicitante *</label>
+                                            <input type="text" class="form-control" ng-model="segundoAp" placeholder="Ingresa tu segundo apellido" required>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label id="lblState" for="lstStates">Entidad</label>
+                                            <select  id="estados" class="form-control" ng-model="entidad"
+                                                    ng-options="estado.des for estado in estados track by estado.id"
+                                                    >
+                                                <option label="Selecciona una opción" selected="selected" value="">Selecciona una opción</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-envelope"></i> Correo electrónico *</label>
+                                            <input type="email" class="form-control" ng-model="correo" placeholder="Ingresa tu correo" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Crea tu Contraseña *</label>
+                                            <input type="password" id="pass1" pattern=".{8,}"   required title="8 caracteres mínimo" class="form-control" placeholder="Ingresa tu contraseña" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirma tu contraseña *</label>
+                                            <input type="password" id="pass2" class="form-control" ng-model="password" placeholder="Reingresa tu contraseña"  required>
+                                            <p id="validaPass"></p>
+                                        </div>
+                                        <div class="form-group">
+                                                * Campo obligatorio
+                                        </div>
+                                        <div class="form-group">
+                                                <input type="checkbox" name="vehicle" value="true" required> Estoy de acuerdo
+                                                <br>
+                                                <p><a href="aviso_privacidad.html" title="Aviso de privacidad"  target="popup" onClick="window.open(this.href, this.target, 'width=620,height=370');">Leer aviso de privacidad </a></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <br>
+                                            <button type="submit" class="btn btn-base btn-icon btn-icon-center btn-fly pull-center" id="submit_btn">
+                                                <span>Enviar mensaje</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <img class="img img-responsive" src="http://bhaktivedantacollege.com/wp-content/uploads/2012/01/contact-1.jpg">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <!-- /inicial -->
+        <!-- modal enviado -->
+        <div class="modal fade" id="modalEnviado"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Mensaje enviado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-envelope"></i><br>Se ha completado el formulario</h4>
+                        <p>Para continuar con el proceso de registro, por favor verifica tu correo. </p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /modal enviado -->
+        <!-- modal NO enviado -->
+        <div class="modal fade" id="modalNoEnviado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Mensaje no enviado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lo sentimos, por el momento el servicio no se encuentra disponible, por favor inténtalo más tarde.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /modal NO enviado -->
+         <!-- modal procesando -->
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Enviando email, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La información se está procesando, favor de no cerrar o recargar esta página </label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /modal procesando -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src='js/velocity.min.js'></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script src="js/registroUsuario.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <script>
+            function disable_button() {
+                document.getElementById("submit_btn").disabled = true;
+
+            }
+
+            function enableBtn(){
+                document.getElementById("submit_btn").disabled = false;
+            }
+        </script>
+        <script>
+                                                        jQuery("#layerslider").layerSlider({
+                                                            pauseOnHover: true,
+                                                            autoPlayVideos: false,
+                                                            responsive: false,
+                                                            responsiveUnder: 1280,
+                                                            layersContainer: 1280,
+                                                            skin: 'borderlessdark3d',
+                                                            hoverPrevNext: true,
+                                                        });
+        </script>
+    </body>
+</html>

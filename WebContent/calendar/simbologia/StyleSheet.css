@@ -1,0 +1,250 @@
+body {
+}
+
+.mainTableFrame
+{
+    /*border-right: #808080 thin solid;
+    border-top: #808080 thin solid;
+    border-left: #808080 thin solid;
+    border-bottom: #808080 thin solid;*/
+    width: 800px;
+}
+
+.subHeader
+{
+    text-transform: capitalize;
+    color: white;
+    font-family: Arial, Verdana;
+    font-weight: normal;
+    font-size: 1.3em;
+    background-color: #232222;
+    vertical-align: top;
+    text-align: left;
+    page-break-after: auto;
+}
+
+.calendarFrame
+{
+    /*border-right: #c2c2c2 thin solid;
+    border-top: #c2c2c2 thin solid;
+    border-left: #c2c2c2 thin solid;
+    border-bottom: #c2c2c2 thin solid;*/
+}
+
+.calendarMonthYear
+{
+    font-size: 0.8em;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    letter-spacing: 1px;
+}
+
+.calendarDay
+{
+    font-size: 0.7em;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+    background-color: #c2c2c2;
+}
+
+.hasEvent
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/event.gif);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+
+.Consejo
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Consejo.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+
+
+
+
+
+.vacaciones
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Vacaciones.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.suspension
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Suspencion.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.hasNoEvent
+{
+    font-size: 0.7em;
+    font-family: Verdana, Arial;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+}
+
+
+.AjustesCal
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Ajuste.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+
+.FinCurso
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/FinCurso.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+
+.IncioCurso
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/InicioCurso.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.planeaprim4
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/PlaneaP4.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.planeaprim6
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Planeap6.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.planeasec
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/PlaneaSec.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.RecesoClases
+{
+    font-size: 0.7em;
+    color: #ffffff;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/Receso.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+.SolPreinsc
+{
+    font-size: 0.7em;
+    color: #000000;
+    font-family: Verdana, Arial;
+    background-position: center center;
+    background-image: url(Images/SolPreinsc.png);
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle
+}
+

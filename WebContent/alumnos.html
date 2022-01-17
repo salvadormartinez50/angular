@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<!--
+  /*****************************************************************************
+        OBJETO: Modulo de Alumnos SIGED
+        FECHA: 08/05/2021
+        LIDER TECNICO: OMAR FLORES MAURICIO
+        SCRUM MASTER: ERNESTO MARTINEZ ESPINOSA
+        DESARROLLO: ERNESTO MARTINEZ ESPINOSA
+        COMENTARIO: SE UTILIZA LA BASE DE DATOS EN PLANEACIÓN PARA DATOS MOSTRADOS
+        Versión:    Fecha Modificación  Desarrollador   Motivo
+        1.0.2       27/05/2021          Ernesto         Agregar API de totales Alumno
+        1.0.7       29/06/2021          Ernesto         Ajuste del dato de fecha de carga en FN detalleAlumno Ultimo
+        1.0.8       07/07/2021          Ernesto         Ajuste Modulo docentes, agregar texto en cigras nacionales, cuadrito alumno y docente
+        ******************************************************************************/
+
+-->
+<html class="no-js" lang="es" ng-app="alumnos">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico"-->
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/banner.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+		<link rel="stylesheet" href="calendar/simbologia/StyleSheet.css" type="text/css">
+		<!-- 	ACCESIBILIDAD	-->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300"  />
+		<link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+		<link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css" media="all" />
+		<!--	END ACCESIBILIDAD	-->
+
+		<script src="js/Chart.js"></script>
+		<!--script src="https://maps.googleapis.com/maps/api/js"></script->
+
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+    <![endif]-->
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .periodo{
+          background-color: #eee;
+          padding: 10px;
+          margin: 10px;
+        }
+		/*
+        .banner{
+            height: 240px;
+            background-image: url("ima/BannerAlumnos.jpg"); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+		*/
+}
+
+    </style>
+    <script type="text/javascript">
+
+        function cambiar() {
+            console.info("cambia");
+            var indice = 0;
+            frases = new Array();
+            frases[0] = "25,897,636 Niños <br> Cursan educación básica en todo el país";
+            frases[1] = "Texto2";
+            frases[2] = "Texto3";
+            frases[3] = "Texto4";
+            frases[4] = "Texto5";
+            frases[5] = "Texto6";
+            frases[6] = "Texto7";
+
+
+
+            indice = Math.random()*(frases.length);
+            indice = Math.floor(indice);
+
+            if (indice == frases.length) {indice = 0;}
+            document.getElementById("frase").innerHTML = frases[indice];
+            document.getElementById("frase2").innerHTML = frases[indice];
+            indice++;
+            setTimeout("cambiar();", 5*1000);
+        }
+</script>
+<link rel="stylesheet" href="css/cambios.css" type="text/css">
+
+</head>
+<body ng-controller="alumnosController" onload="cambiar();">
+<div id="header"></div>	
+		<div class="section" data-type="background" style=" background-size: cover; height: 260px; text-align: center;">
+              <img class="responsive" src="ima/BannerAlumnos.jpg" style=" background-size: cover; height: 100%; width: 100%; text-align: center;">
+              <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              </div>
+		</div>
+<!--	HEADER COVID	-->
+  <!--header class=" navbar navbar-inverse"-->
+  <header class="  navbar-inverse" >
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse" data-toggle="collapse">
+            <span class="sr-only">Interruptor de Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la página inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+        </div>
+        <div id="navbarMainCollapse" class="collapse navbar-collapse">
+         <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg"  href="/" alt="logo gobierno de méxico" class="logo_footer" style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para vacunación</a></li>
+            <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a></li>
+            <li><a href="/tramites" title="Trámites">Trámites </a></li>
+            <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+            <li><form accept-charset="UTF-8" action="/busqueda" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div><input type="hidden" name="site" value="sep">
+                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search" style="background-color: rgb(12, 35, 30)"><a data-v-6394873e="" href="https://www.gob.mx/busqueda?utf8=✓" target="_blank" id="botbusca" style="margin-top: 20px;" ><img data-v-6394873e="" alt="Buscar" src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button></form></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!--	END HEADER COVID	-->    
+<!--section id="slider-wrapper" class="layer-slider-wrapper " >
+        <div id="layerslider" style="width: 100%; height: 220px;z-index:0">
+            <div data-ls="transition2d:1;timeshift:-1000;">
+                // < slide background >
+                <img src="ima/BannerAlumnos.jpg " class="ls-bg" style="width: 100%;object-fit: cover;height: 220px"  alt="Slide background"/>
+
+                // < Left Text >
+                <h4 class="ls-l header-sige " style="width:900px; top:5%; left:120px;position: absolute; ">Sistema de Información y Gestión Educativa</h4>
+                <h2 class="ls-l header-main" style="width:600px; top:15%;  left:120px;color:white;text-transform:none;position: absolute;" >Consulta de alumnos</h2>
+
+                <p class="ls-l" style="width:470px; top:55px;line-height:65px;left:55%;color:white;background:rgba(0,0,0,0.5);padding:10px 20px;  text-align:justify;position: absolute;" >
+                    <span class="span_dato_curioso icono_curioso"  >
+                        <i class="fa fa-child" style="color:#25DDDA; font-size:0.6em;position: absolute;left:8%;top: 18px"></i>
+                        <b class="numero" style="font-size:0.5em;position: absolute;;left:14%;bottom:30px">25,897,636</b>
+                        <br>
+                        <b class="texto" style="font-size:0.5em;position: absolute;;left:14%;top:30px">Niños</b>
+                    </span>
+                    <p style="position: absolute;top: 80px;left: 70%;color: white; text-align: center">Cursan educación básica <br>en todo el país</p>
+                </p>
+
+            </div>
+        </div>
+</section-->    
+    <!-- inicial -->
+
+    <div id="header" ng-init="getAlumnosGlobales()"></div>
+    <main>
+    <div class="container-fluid banner row">
+       
+        <div class="row col-md-12">
+            <div class="col-md-8" id="textos">
+                <section id="textoSigedCol"><h4 class="header-main" id="textoSiged" style="margin-left:130px; margin-top:-170px;color: white" >Sistema de Información y Gestión Educativa</h4></section>
+                <section><h2 class=" header-main" id="textoSub" style="margin-left:130px;margin-top:-5px;color:white;text-transform:none" >Consulta del alumnado</h2></section>
+            </div>      
+            <div class="col-md-4 info-adicional-banner" >
+                <p class="ls-l" id="caja" style="width:700px;height:90px;margin-left:40px;margin-right:50px;margin-top:-170px;color:white;background:rgba(0,0,0,0.5);padding:10px;20px;">
+                    <span class="span_dato_curioso icono_curioso">
+                        <p style=" font-family:Montserrat; font-size: 15px ; width: 100%; text-align: left;margin-top: -100px;color: white;margin-left: 45px;">
+                            Para el ciclo escolar ({{cifraAnualPeriodo}})
+                            <br/>Se reportan <b class="numero">{{cifraAnualAlumnosGlobales}} alumnas y alumnos</b><br /> de educación básica.<br />
+                            <span style=" font-family:Montserrat; font-size: 12px;text-align: left; color: white;margin-left: 0px;margin-top:-80px;">Fuente:
+                                Cuestionarios del formato 911</span>
+                        </p>
+                
+                    </span>
+                </p>
+            </div>
+            <div class="row col-md-12">
+                <section>
+                        <!--<p class="header-main" style="margin-left:120px;margin-right:60px;margin-top:10px;color:white;font-size:0.9em;"><strong>Información de calificaciones de alumnas y alumnos de primaria y secundaria, información de alumnas y alumnos de preescolar, e información de los promedios y créditos de alumnas y alumnos de Educación Media Superior (servicios coordinados por la Subsecretaría de Educación Media Superior)</strong></p>-->
+                        <p class="header-main" style="margin-left:150px;margin-right:60px;margin-top:-80px;color:white;font-size:0.9em;"><strong>Información de calificaciones de alumnas y alumnos de primaria y secundaria e información de alumnas y alumnos de preescolar</strong></p>
+                </section>
+            </div>        
+        </div>
+    </div>
+	</main>
+   <main id="search">
+    <div class="container">
+        <section id="main-search" class="slice bg-white" style="margin-top:10px; padding-top: 0px; z-index: 20">
+            <div class="container" >
+                <div class="wp-section relative" id="formulario">
+                    <form class="form-inline" role="form" id="form_id" name="myform" ng-submit="getConsultaByCURP();">
+                        <div class="inline-form-filters over-top-element base" style="background-color: #545454">
+                            <!-- Optional filters tigger button -->
+
+                            <!-- Main filters -->
+                            <div class="row">
+
+                                <div class="col-md-8">
+                                    <div class="form-group form-group-lg">
+                                        <label class="sr-only">Search text</label>
+                                        <input id="curpAlumno" class="form-control" size="30" maxlength="18" onkeyup="javascript:this.value = this.value.toUpperCase();"   ng-model="curp" type="text" placeholder="CURP" style="background:rgb(225,225,225);color:black;font-size: 18px" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="col-md-6"><button type="submit" ng-click="Search()" class="btn btn-info  btn-buscar">Buscar</button></div>
+                                    <div class="col-md-6"><button type="reset" ng-click="newSearch()" class="btn btn-warning btn-buscar" id="Restablecer">Restablecer</button></div>
+                                </div>
+                            </div>
+                            <div><a href="https://www.gob.mx/curp/">Verifica la CURP de la alumna o del alumno (ir al sitio del RENAPO)</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+	</main>
+    <div class="container">
+        <section id="home">
+            <div class="row">
+                <div class="col-sm-8">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#info">Consultas</a></li>
+                        <li><a href="#">Consulta del alumnado</a></li>
+                        <!--li class="active">Formulario básico</li-->
+                    </ol>
+                </div>
+            </div>
+        </section>
+	</div>
+                  <!--section  ng-if="ciclos == null && datos == null && datos == 0 && datosUltimo == null && datosUltimo == 0" id="noEncontrada"-->
+        <main id="resultados_busqueda">
+            <section ng-cloak ng-if="ciclos == null && primeraBusqueda == 0 && datosUltimo == null" id="noEncontrada">
+            <!-- /inicial -->
+            <!-- CURP no encontrada -->
+            <div data-role="page" >
+                <div class="top-buffer-submenu">
+                    <h4>Información no encontrada</h4>
+                    <hr class="red">
+                    <section>
+                        <div class="alert alert-danger">
+                            <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                            <br>
+                            <p>Verifica la CURP de la alumna o del alumno y vuelve a intentarlo.</p>
+                            <br>
+                            <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" type="reset" ng-click="newSearch()" onclick="$('html,body').scrollTop(0);">Volver a intentarlo</button>
+                        </div>
+                    </section>
+                    <h4>Acerca de la Clave Única de Registro de Población (CURP)</h4>
+                    <hr class="red">
+                    <section>
+                        <p>La CURP es indispensable para llevar un registro en empresas, escuelas, afiliación en los servicios de salud, solicitud de pasaportes, y otras dependencias gubernamentales.</p>
+                        <p>Si no tienes una puedes consultar cómo tramitarla <a target="_blank" href="https://www.gob.mx/segob/acciones-y-programas/clave-unica-de-registro-de-poblacion-curp" title="Tramita CURP">aquí</a>.</p>
+                        <p>Si no la recuerdas puedes consultarla <a target="_blank" href="https://consultas.curp.gob.mx/CurpSP/" title="Consulta CURP">aquí</a>.</p>
+                        <br>
+                    </section>
+                </div>
+            </div>
+          </section>
+		</main>
+		<main id="resultados_encontrada">
+        <section id="Encontrada" style="display: none">
+   
+            <section  ng-if="datosUltimo != null || (datosUltimo != null && ciclos != null)">
+            
+                      <hr class="red">
+                        <div style="margin-top:-6vh">
+                            <p>La información de las calificaciones que se muestran en este portal, son el resultado de la integración de información que envían las autoridades educativas de los estados y la Ciudad de México. "En caso de que la información presentada no coincida con tus resultados obtenidos en el ciclo escolar o no esté disponible, por favor ponte en contacto con la autoridad de tu centro escolar."</p>
+                            <p>La información presentada es de carácter informativa, toda vez que es una representación de las calificaciones registradas en las boletas. El documento oficial es el que se entrega a los padres o tutores de los educandos en sus centros escolares.</p>
+                        </div>
+                      <br>
+            
+                      <div class="row">
+                          <div class="col-md-12">
+                              <h4>Última información de la alumna o del alumno</h4>
+                              <h5>Fecha de actualización: {{datos.datos.fechaCarga.length===10?datos.datos.fechaCarga:datosUltimo.datos.fechaCarga}}</h5>
+                          </div>
+                      </div>
+                      <hr class="red">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 alert-datos-incial alert alert-info text-center"  ng-show="datosUltimo.controlEscolar.cicloEscolar != null">
+                                    <p>Ciclo</p>
+                                    <h5> {{datosUltimo.controlEscolar.cicloEscolar}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-success text-center"  ng-show="datosUltimo.controlEscolar.nivelEduc != null">
+                                    <p>Nivel</p>
+                                    <h5> {{datosUltimo.controlEscolar.nivelEduc}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-warning text-center"  ng-show="datosUltimo.controlEscolar.turno != null">
+                                    <p>Turno</p>
+                                    <h5>{{datosUltimo.controlEscolar.turno}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-success text-center"  ng-show="datosUltimo.controlEscolar.grado != null">
+                                    <p>Grado</p>
+                                    <h5>{{datosUltimo.controlEscolar.grado}}</h5>
+                                </div>
+                                  <div class="col-md-2 alert-datos-incial alert alert-warning text-center" ng-show="datosUltimo.controlEscolar.grupo != null">
+                                    <p>Grupo</p>
+                                    <h5>{{datosUltimo.controlEscolar.grupo}}</h5>
+                                </div>
+                                 <div class="col-md-2 alert-datos-incial alert alert-info text-center" ng-show="calificacionFinalUltima">
+                                    <p>Promedio</p>
+                                    <h5>{{calificacionFinalUltima}}</h5>
+						</div>
+					</div>
+				</div>
+                    </section><br>
+            <!-- CURP encontrada -->
+      
+       
+                    <section ng-if="ciclos != null">
+                    <div class="row">
+                          <div class="col-md-12">
+                          	<br>
+                              <h4>Información histórica de la alumna o del alumno</h4>
+                          </div>
+                      </div>
+                      <hr class="red">
+	                   	<ul class="nav nav-tabs" id="profile">
+						  <li  ng-repeat="ciclo in ciclos" ><a data-toggle="tab"  class="detalleAlumno" ng-click="detalleAlumnos(ciclo.id)" >Boleta  {{ciclo.nombre}}</a></li>
+						</ul>
+						<div ng-if="buscandoBoleta">
+							<br>
+							<i class="fa fa-spin fa-spinner"></i> Buscando información por favor espere
+						</div>
+						<div ng-if="!buscandoBoleta" class="tab-content">
+						
+						  <div class="row" style="margin-bottom:10px" ng-if="datos.controlEscolar.cicloEscolar != datosUltimo.controlEscolar.cicloEscolar">
+                            <div class="col-md-2 alert-datos-incial alert alert-info text-center"  ng-show="datos.controlEscolar.nivelEduc != null">
+                                	<p>Ciclo</p>
+                                    <h5> {{datos.controlEscolar.cicloEscolar}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-success text-center"  ng-show="datos.controlEscolar.nivelEduc != null">
+                                	<p>Nivel</p>
+                                    <h5> {{datos.controlEscolar.nivelEduc}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-warning text-center"  ng-show="datos.controlEscolar.nivelEduc != null">
+                                	<p>Turno</p>
+                                    <h5> {{datos.controlEscolar.turno}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-success text-center"  ng-show="datos.controlEscolar.grado != null">
+                                    <p>Grado</p>
+                                    <h5>{{datos.controlEscolar.grado}}</h5>
+                                </div>
+                                <div class="col-md-2 alert-datos-incial alert alert-info text-center"  ng-show="datos.controlEscolar.grupo != null">
+                   					<p>Grupo</p>
+                                    <h5>{{datos.controlEscolar.grupo}}</h5>
+                                </div>
+                                
+                           </div>
+						  <div id="home" class="tab-pane fade in active">
+                            <div class="row">
+							
+						     <table class="table table-striped table-calificaciones table-responsive" ng-repeat="materia in materias | limitTo : 1">
+	                            <thead>
+	                              <tr>
+	                                <th style="font-size: 14px;text-align: center;">Periodo</th>
+	                                <th ng-repeat="materia in materias"><p style="font-size: 14px;">{{materia.asignatura}}</p> </th>
+	                              </tr>
+	                            </thead>
+	                          <tbody>
+	                            <tr ng-repeat="periodo in boleta" >
+	                                <td ng-repeat="calificacion in periodo"> {{calificacion.dato}} </td>
+	                            </tr>
+	                          </tbody>
+	                        </table><br>
+						    </div>
+						      	<div class="row" id="mensajeAbajo">
+							   <div class="col-md-6 " ng-show= "calificacionFinal"> 
+	                             <div class="col-md-6 alert text-center" >
+	                             	    <p ><b>Promedio del estudiante</b></p>
+	                                    <h5 >{{calificacionFinal}}</h5>
+	                             </div>
+	                            <div class="col-md-6 alert text-center" ng-show="promedioGrupal && calificacionFinal">
+	                            	 <p><b>Promedio en escuela</b></p>
+	                                 <h5 >{{promedioGrupal}}</h5>
+	                            </div>
+	                            <div class="col-md-6 alert text-center" ng-show="!promedioGrupal && calificacionFinal">
+									<p><i class="fa fa-spin fa-spinner"></i> Buscando información por favor espere</p>
+	                            </div>
+                            </div>
+                            <div class="col-md-6" ng-if="calificacionFinal">
+                                <div id="promedio" ng-class="mensajeFinal.alerta" style="margin-bottom:10px">
+                                    <p id="mensaje" >
+                                      <i ng-class="mensajeFinal.icon"></i>
+                                      <br>
+                                      {{mensajeFinal.mensaje}}
+                                    </p>
+                                </div>
+                            </div>
+                            </div>
+						  </div>
+						</div>
+                    </section>
+
+
+                    
+                  <br>
+                    <section ng-if="datosUltimo != null && datosUltimo != 0 && fuentePlazaCurp != null && fuentePlazaCurp !== undefined">
+
+                        <div class="fuente">
+                            <p><b>Fuente de información</b></p>
+                            
+                            <p>La información exhibida en este portal es proporcionada directamente por la entidad.</p>
+                            <!--<p> <section ng-if="fuentePlazaCurp.fuentePlaza != null && fuentePlazaCurp.fuentePlaza != '' && fuentePlazaCurp !== undefined">{{fuentePlazaCurp.fuentePlaza}}, </section><b>{{fuentePlazaCurp.fuenteInformacion}}</b>, Ciclo escolar <b>{{datosUltimo.controlEscolar.cicloEscolar}}</b> </p>-->
+                            <p> <section ng-if="fuentePlazaCurp.fuentePlaza != null && fuentePlazaCurp.fuentePlaza != '' && fuentePlazaCurp !== undefined">{{fuentePlazaCurp.fuentePlaza}}, </section><b>{{fuentePlazaCurp.fuenteInformacion}}</b></p>
+                        </div>
+
+                    </section>
+                    <br><br>
+			</section>
+        </main>
+        <!-- /CURP encontrada -->
+        <!-- modal cupr error -->
+	<main id="modal_fade">
+        <div class="modal fade" id="modalCurpError">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formato incorrecto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>El formato de la CURP ingresada no es válido.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        </main>
+        <!-- /modal cupr error -->
+        <script src="js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src="js/velocity.min.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+
+
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/alumnos.js"></script>
+        <script src="js/banner.js"></script>
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+		
+       <main id="modal_loading">
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+</body>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-83445936-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<!-- 	ACCESIBILIDAD	-->
+	<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+	<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+<!--	END ACCEBILIDAD	-->
+    
+   <script charset="UTF-8"> 
+     $(function(){
+        $("#header").load("header.html");
+         /*$("#banner").load("banner.html");  */
+
+    });
+   </script>
+
+</html>

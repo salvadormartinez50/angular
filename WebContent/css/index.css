@@ -1,0 +1,54 @@
+    /*IPHONE X*/
+    @media screen and (min-width: 375px) and (max-width: 768px) {
+
+    #folio{
+        font-size: 0.6em;
+    }
+
+    #masiva{
+        font-size: 0.6em;
+    }
+
+    #revalidaciones{
+        font-size: 0.55em;
+        margin-top: -8%
+    }
+
+}
+
+    /*IPAD*/
+    @media screen and (min-width: 760px) and (max-width: 1020px) {
+
+    #folio{
+        font-size: 1em;
+    }
+
+    #masiva{
+        font-size: 1em;
+    }
+
+    #revalidaciones{
+        font-size: 1em;
+        margin-top: -8%
+    }
+
+}
+
+
+    /*IPAD PRO*/
+    @media screen and (min-width: 1024px) and (max-width: 1360px) {
+
+    #folio{
+        font-size: 0.7em;
+    }
+
+    #masiva{
+        font-size: 0.7em;
+    }
+
+    #revalidaciones{
+        font-size: 0.7em;
+        margin-left: -15%;
+    }
+
+}

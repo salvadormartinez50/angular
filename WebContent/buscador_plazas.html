@@ -1,0 +1,909 @@
+<html class="no-js" lang="es" ng-app="myApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SEP | SIGED</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<!--link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico"-->
+	<!-- 	ACCESIBILIDAD	-->
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300"  />
+	<link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+	<link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css" media="all" />
+	<!--	END ACCESIBILIDAD	--> 
+	<link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/global-style.css">
+	<link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="css/sige.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+	<link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+	<link rel="stylesheet" href="calendar/simbologia/StyleSheet.css" type="text/css">
+
+	<link href="css/sige.css" rel="stylesheet">
+	<link href="css/map.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/cambios.css" type="text/css">
+	
+</head>
+
+<body ng-controller="myCtrl">
+
+	<div id="header"></div>
+<!--	HEADER COVID	-->
+  <!--header class=" navbar navbar-inverse"-->
+  <header class="  navbar-inverse" >
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse" data-toggle="collapse">
+            <span class="sr-only">Interruptor de Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la página inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+        </div>
+        <div id="navbarMainCollapse" class="collapse navbar-collapse">
+         <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg"  href="/" alt="logo gobierno de méxico" class="logo_footer" style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para vacunación</a></li>
+            <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a></li>
+            <li><a href="/tramites" title="Trámites">Trámites </a></li>
+            <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+            <li><form accept-charset="UTF-8" action="/busqueda" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div><input type="hidden" name="site" value="sep">
+                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search" style="background-color: rgb(12, 35, 30)"><a data-v-6394873e="" href="https://www.gob.mx/busqueda?utf8=✓" target="_blank" id="botbusca" style="margin-top: 20px;" ><img data-v-6394873e="" alt="Buscar" src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button></form></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!--	END HEADER COVID	--> 
+	<div><br/><br/>
+		<iframe id="mapIFrame" src="./maps/plazasOSM.html" style="width: 100%; height: 75%;" scrolling="no" style="overflow: hidden">
+			</iframe>
+	</div>
+	<main id="buscador">
+		<div class="container">
+			<div id="box-search" >			
+				<form ng-submit="buscar()">
+					<div class="buscador_caja row col-md-12" style=" position:relative;top:-30px;"><!---div0003-->
+
+						<div class="col-md-9"><!---div0002-->
+
+							<div class=""><!---div0001-->
+								<div class="col-md-4">
+									<div class="form-group">
+										<label id="estado2">* Entidad </label> <select name="* estado" id="estado" class="form-control" ng-model="user.state"
+											ng-options="state.nombre for state in states track by state.id"
+											ng-change="getMunicipios()" required style="height:46px">
+											<option label="selecciona una opción" selected="selected" value="">selecciona una
+												opción</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label id="etiqueta_municipio">* Municipio</label> <select name="municipio"
+											id="municipio" class="form-control" ng-model="user.municipality"
+											ng-options="municipality.municipioDTO.nombre for municipality in municipalities track by municipality.municipioDTO.id"
+											required style="height:46px">
+											<option label="selecciona una opción" selected="selected" value="">selecciona una
+												opción</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>* Nivel educativo</label>
+										<select name="lstLevels" id="lstLevels" class="form-control" ng-model="user.nivel"
+											ng-options="level.nombre for level in levels track by level.id"
+											style="background:rgb(225,225,225);color:black; height:46px" required>
+											<option label="selecciona una opción" selected="selected" value="">selecciona
+												una opción</option>
+										</select>
+									</div>
+								</div>
+
+							</div><!---div0001-->
+
+							<div class="">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>* Categoría</label>
+										<select name="clasificacion" id="clasificacion" class="form-control"
+											ng-model="user.clasificacion" required
+											ng-options="clasificacion.nombre for clasificacion in clasificaciones track by clasificacion.id"
+											style="background:rgb(225,225,225);color:black; height:46px">
+											<option label="selecciona una opción" selected="selected" value="">selecciona una opción</option>
+										</select>
+									</div>
+								</div>
+
+								<div id="curp_container" class="input_container col-md-12" style="padding-bottom: 5px">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1"><i class="fa fa-child"></i></span> 
+										<input type="text" class="form-control" placeholder="Ingresa la CURP" aria-describedby="basic-addon1">
+									</div>
+								</div>	
+							</div>
+						</div><!---div0002-->
+
+						<div class="col-md-3">
+							<br>
+							<button type="submit" id="buscar_plaza" class="btn btn-info btn-buscar"
+								style="display:block; margin-top:1vh"> Buscar</button>
+							<br>
+							<p id="mensaje_apartados">(*)Campo obligatorio</p>
+						</div>
+
+					</div><!---div0003-->
+				</form>
+			</div>
+			<div>
+				<form ng-submit="restoreFilters()">
+					<div id="box-restore">
+						<div class="background_restore_box row col-md-3"><!---div0004-->
+	                        <button type="submit" id="btn-show-filters" class="btn btn-warning btn-buscar">
+	                        	Nueva Búsqueda
+	                        </button>			
+						</div>			
+					</div><!---div0004-->
+				</form>				
+			</div>
+		</div>
+	</main>
+
+	<!--Modal buscar-->
+	<main id="modal_loading">
+	<div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+
+					<h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor
+						espera un momento...</h4>
+					<div class="tiempo_fuera modal-footer" style="display:none">
+						<div class="row">
+							<div class="col-md-9 text-left">
+								<label> La consulta está tardando más de lo normal</label>
+							</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-default" data-dismiss="modal"
+									onclick="$('.tiempo_fuera').hide()">Salir</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<!--Modal no se encotraron plazas-->
+	<main id="modal_no_plazas">
+	<div class="modal fade" id="modal-no-plazas" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h4 style="text-align:center">No se encontraron plazas disponibles con los parámetros de búsqueda.
+					</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<main id="modal_dialog">
+	<div id="modalCt" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg modal-ct">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Información de escuela</h4>
+				</div>
+				<div class="modal-body">
+					<div class="ct_cargando">
+						<h5>
+							<i class="fa fa-spinner fa-spin"></i> Cargando información de
+							plazas, espera un momento...
+						</h5>
+					</div>
+					<div class="ct_container">
+
+						<div class="row">
+							<div class="col-md-8">
+								<h4>
+									{{nombreEsc}} <br> <small> Clave: {{claveEsc}}</small>
+								</h4>
+								<div><h5>Fecha de actualización: {{fechaActualizacionEsc}}</h5></div>
+							</div>
+							<div class="col-md-4">
+								<button id="informacion_extra" class="btn btn-info pull-right"
+									ng-click="mas_informacion2()">Ver más información</button>
+								<br><br><br>
+								<!--p align="right"><i class="fa fa-2x fa-print" aria-hidden="true"></i></p-->
+							</div>
+						</div>
+						<hr class="red">
+						<h5>Plazas vacantes:</h5>
+						<div class="tabla_ct">
+							<table class="table ">
+								<thead>
+									<tr>
+										<th>Clave</th>
+										<!-- th>Categoría</th-->
+										<th>Plaza</th>
+										<!-- th>Inicio vigencia</th>
+										<th>Fin vigencia</th-->
+										<th>Tipo</th>
+										<th>Contratación</th>
+										<!-- th>Estatus</th-->
+									</tr>
+									</tr>
+								</thead>
+								<tbody ng-repeat="plaza in plazas">
+									<tr>
+										<td>{{plaza.categoriaDTO.cveCateogira}}</td>
+										<!-- td>{{plaza.categoriaDTO.nombre}}</td-->
+										<td>{{plaza.plazaDTO.codigoPlaza}}</td>
+										<!-- td>{{plaza.plazaDTO.inicioVigencia | formatDate:
+											plaza.plazaDTO.inicioVigencia:'d/M/yyyy'}}</td>
+										<td>{{plaza.plazaDTO.finVigencia | formatDate:
+											plaza.plazaDTO.finVigencia:'d/M/yyyy'}}</td-->
+										<td>{{plaza.plazaDTO.tipoPlaza}}</td>
+										<td>{{plaza.plazaDTO.tipocontratacion}}</td>
+										<!-- td class="estatus"><i class="fa fa-check fa-2x"
+											style="color: green"></i>{{plaza.plazaDTO.estatusPlaza}}</td-->
+									</tr>
+								</tbody>
+							</table>
+							<section
+								ng-if="fuenteNominaCct != null && fuenteNominaCct !== undefined && quincenaPlaza != null && quincenaPlaza !== undefined && cicloListaPlaza != null && cicloListaPlaza !== undefined">
+								<p class="pull-right" ng-if="cicloListaPlaza">
+								<p><b>Fuente de información:</b></p>{{fuenteNominaCct}}, Quincena
+								<b>{{quincenaPlaza}}</b>, Ciclo escolar <b>{{cicloListaPlaza}}</b></p>
+							</section>
+						</div>
+					</div>
+					<div class="ct_container_extra">
+						<button class="btn btn-default" style="margin:10px" ng-click="atras()">Atrás</button>
+
+						<div class="ct_container">
+							<div class="row">
+								<div class="col-md-8">
+									<h4>
+										{{nombreEsc}} <br> <small> Clave: {{claveEsc}}</small>
+									</h4>
+								</div>
+								<div class="col-md-4">
+									<button id="informacion_extra" class="btn btn-info pull-right"
+										ng-click="mas_informacion2()">Ver más información</button>
+									<br><br><br>
+									<!--p align="right"><i class="fa fa-2x fa-print" aria-hidden="true"></i></p-->
+								</div>
+							</div>
+							<hr class="red">
+							<h5>Plazas disponibles:</h5>
+							<div class="tabla_ct">
+								<table class="table ">
+									<thead>
+										<tr>
+											<th>Clave</th>
+											<!-- th>Categoría</th-->
+											<th>Plaza</th>
+											<!-- th>Inicio vigencia</th>
+											<th>Fin vigencia</th-->
+											<th>Tipo</th>
+											<th>Contratación</th>
+											<th>Estatus</th>
+										</tr>
+
+									</thead>
+									<tbody ng-repeat="plaza in plazas">
+										<tr>
+											<td>{{plaza.categoriaDTO.cveCateogira}}</td>
+											<!-- td>{{plaza.categoriaDTO.nombre}}</td-->
+											<td>{{plaza.plazaDTO.codigoPlaza}}</td>
+											<!-- td>{{plaza.plazaDTO.inicioVigencia | formatDate:
+												plaza.plazaDTO.inicioVigencia:'d/M/yyyy'}}</td>
+											<td>{{plaza.plazaDTO.finVigencia | formatDate:
+												plaza.plazaDTO.finVigencia:'d/M/yyyy'}}</td-->
+											<td>{{plaza.plazaDTO.tipoPlaza}}</td>
+											<td>{{plaza.plazaDTO.tipocontratacion}}</td>
+											<td class="estatus"><i class="fa fa-check fa-2x"
+													style="color: green"></i>{{plaza.plazaDTO.estatusPlaza}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="ct_container_extra">
+							<div id="cont_escuela" class="row">
+
+								<a href="#" name="aDetails"></a>
+								<div class="panel-group ficha-collapse" id="accordion">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">Escuela {{school.nombreCT}} <sup>(1)</sup></h4>
+										</div>
+										<div class="panel-collapse collapse in" id="panel-01">
+											<div class="panel-body">
+												<div class="row">
+													<div class="col-lg-8">
+														<div class="row" ng-show="school.claveCct != null">
+															<div class="col-md-3">Clave de escuela:</div>
+															<div class="col-md-9"><b>{{school.claveCct}}</b></div>
+														</div>
+														<div class="row" ng-show="school.director != null">
+															<div class="col-md-3">Director:</div>
+															<div class="col-md-9"><b>{{school.director}}
+																	{{school.apellido1}} {{school.apellido2}} </b></div>
+														</div>
+														<div class="row" ng-show="school.nombreNiv != null">
+															<div class="col-md-3">Nivel:</div>
+															<div class="col-md-9"><b>{{school.nombreNiv}}</b></div>
+														</div>
+														<div class="row" ng-show="school.nombreTur != null">
+															<div class="col-md-3">Turno:</div>
+															<div class="col-md-9"><b>{{school.nombreTur}}</b></div>
+														</div>
+														<div class="row" ng-show="school.nombreCont != null">
+															<div class="col-md-3">Sostenimiento:</div>
+															<div class="col-md-9"><b>{{school.nombreCont}}</b></div>
+														</div>
+														<div class="row" ng-show="school.nombreTipo != null">
+															<div class="col-md-3">Tipo:</div>
+															<div class="col-md-9"><b>{{school.nombreTipo}}</b></div>
+														</div>
+														<div class="row" ng-show="school.vigencia != null">
+															<div class="col-md-3">Situación:</div>
+															<div class="col-md-9"><b>{{school.vigencia}}</b></div>
+														</div>
+													</div>
+													<div class="col-md-4" ng-show="ctImagen.imagen != null">
+														<img data-ng-src="data:image/png;base64,{{ctImagen.imagen}}"
+															alt="" class="img img-responsive" />
+														<p class="pull-right">Fotografía de la escuela<sup>(2)</sup></p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-group ficha-collapse" id="accordionLocation">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-parent="#accordionLocation" data-toggle="collapse"
+													href="#panelLocation" aria-expanded="true"
+													aria-controls="panelLocation">
+													<h4>Dirección <sup>(1)</sup></h4>
+												</a>
+											</h4>
+											<button type="button" class="collpase-button collapsed"
+												data-parent="#accordionLocation" data-toggle="collapse"
+												href="#panelLocation"></button>
+										</div>
+										<div class="panel-collapse collapse" id="panelLocation">
+											<div class="panel-body" align="left">
+												<div class="row"
+													ng-show="school.nombreEnt != null && school.nombreEnt.length > 1">
+													<div class="col-md-3">Entidad:</div>
+													<div class="col-md-9"><b>{{school.nombreEnt}}</b></div>
+												</div>
+												<div class="row"
+													ng-show="school.nombreMun != null && school.nombreMun.length > 1">
+													<div class="col-md-3">Municipio:</div>
+													<div class="col-md-9"><b>{{school.nombreMun}}</b></div>
+												</div>
+												<div class="row"
+													ng-show="school.nombreLoc != null && school.nombreLoc.length > 1">
+													<div class="col-md-3">Localidad:</div>
+													<div class="col-md-9"><b>{{school.nombreLoc}}</b></div>
+												</div>
+												<div class="row"
+													ng-show="school.domicilio != null && school.domicilio.length > 1">
+													<div class="col-md-3">Domicilio:</div>
+													<div class="col-md-9"><b>{{school.domicilio}}</b></div>
+												</div>
+												<div class="row"
+													ng-show="school.entreCalle != null && school.entreCalle.length > 1">
+													<div class="col-md-3">Entre calle y calle:</div>
+													<div class="col-md-9"
+														ng-show="school.entreCalle != null && school.yCalle">
+														<b>{{ school.entreCalle + " y " + school.yCalle }}</b>
+													</div>
+												</div>
+												<div class="row"
+													ng-show="school.entreCalle != null && school.nombreCol.length > 1">
+													<div class="col-md-3">Colonia:</div>
+													<div class="col-md-9"><b>{{school.nombreCol}}</b></div>
+												</div>
+												<div class="row"
+													ng-show="school.codPost != null && school.codPost.length > 1">
+													<div class="col-md-3">Código Postal:</div>
+													<div class="col-md-9"><b>{{school.codPost}}</b></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-group ficha-collapse" id="accordionMap">
+									<div class="panel panel-map panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-parent="#accordionMap" data-toggle="collapse"
+													href="#panelLocationMap" aria-expanded="true"
+													aria-controls="panelLocationMap">
+													<h4>Mapa<sup>(1)</sup></h4>
+												</a>
+											</h4>
+											<button type="button" class="collpase-button collapsed"
+												data-parent="#accordionLocation" data-toggle="collapse"
+												href="#panelLocationMap"></button>
+										</div>
+										<div class="panel-collapse collapse " id="panelLocationMap">
+											<div class="panel-body" align="center">
+												<iframe id="mapIFrame2" src="./maps/escuelasPlazas.html"
+                                                                    height="380px" width="100%" scrolling="no"
+                                                                    style="overflow: hidden"></iframe>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="display: none">
+									<div id="divTeachers" class="col-md-12">
+										<h4>Docentes de la escuela</h4>
+										<hr class="red" />
+										<table class="table table-siged table-responsive" border="1" id="tblTeachers">
+											<thead class="header-order">
+												<tr>
+													<th>Nombre del Docente</th>
+													<th>Categoría</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+										<!--div class="fuente" align="right" ng-show="showTeachers">
+															<p><b>Fuente de información</b></p>
+															<p>Control Escolar Cierre de ciclo 2016-2017</p>
+															<p>Última actualización: Inicio Escolar 2016-2017</p>
+													</div-->
+									</div>
+								</div>
+								<div class="row" id="divSchoolStats">
+									<div class="col-md-12">
+										<h4>Estadísticas en la escuela<sup>(3)</sup></h4>
+										<hr class="red" />
+									</div>
+									<div class="col-md-4" ng-if="stats.alumnosM !== undefined">
+										<div id="girls">
+											Número de niñas
+											<div class="progress">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{girls}}" aria-valuemin="0" aria-valuemax="100"
+													style="min-width: 2em; width: {{girls}}%">
+													{{stats.alumnosM}}</div>
+											</div>
+										</div>
+
+										<div id="boys" ng-if="stats.alumnosH !== undefined">
+											Número de niños
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{boys}}" aria-valuemin="0" aria-valuemax="100"
+													style="min-width: 2em; width: {{boys}}%">
+													{{stats.alumnosH}}</div>
+											</div>
+										</div>
+										<div id="men" ng-if="stats.docenteH !== undefined">
+											Número de maestros
+											<div class="progress">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{men}}" aria-valuemin="0" aria-valuemax="100"
+													style="min-width: 2em; width: {{men}}%">
+													{{stats.docenteH}}</div>
+											</div>
+										</div>
+										<div id="women" ng-if="stats.docenteM !== undefined">
+											Número de maestras
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{women}}" aria-valuemin="0" aria-valuemax="100"
+													style="min-width: 2em; width: {{women}}%">
+													{{stats.docenteM}}</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-7">
+										<div class="col-md-4 alert alert-info" ng-if="stats.grdT !== undefined">
+											<h2>{{stats.grdT}}</h2>
+											<h5><i class="fa fa-pencil"></i> Grados</h5>
+										</div>
+										<div class="col-md-4 alert alert-warning" ng-if="stats.gposT !== undefined">
+											<h2>{{stats.gposT}}</h2>
+											<h5><i class="fa fa-users"></i> Grupos</h5>
+										</div>
+										<div class="col-md-4 alert alert-success" ng-if="stats.aulaExi !== undefined">
+											<h2>{{stats.aulaExi}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas</h5>
+										</div>
+										<div class="col-md-4 alert alert-success"
+											ng-if="stats.numCanchas !== undefined">
+											<h2>{{stats.numCanchas}}</h2>
+											<h5><i class="fa fa-soccer-ball-o"></i> Canchas</h5>
+										</div>
+										<div class="col-md-4 alert alert-default"
+											ng-if="stats.numCanchas !== undefined">
+											<h2>{{stats.numComp}}</h2>
+											<h6><i class="fa fa-desktop"></i> Computadoras</h6>
+										</div>
+										<div class="col-md-4 alert alert-info" ng-if="stats.numPatios !== undefined">
+											<h2>{{stats.numPatios}}</h2>
+											<h5><i class="fa fa-child"></i> Patios</h5>
+										</div>
+									</div>
+								</div>
+								<p align="right"><i id="mas2" class="fa fa-plus-circle" aria-hidden="true"></i> <a
+										href="javascript:verMas();" id="texotMas"> ver más</a></p>
+								<div class="row" id="divSchoolStats2" style="display: none">
+									<!-- infofrmacion de alumnos por grupo -->
+									<div class="col-md-4">
+										<div id="" ng-show="stats.alumprimero != 0 && stats.aulasprimero !== undefined">
+											Alumnos en primero
+											<div class="progress">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum1}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum1}}%">
+													{{stats.alumprimero}}</div>
+											</div>
+										</div>
+										<div id="" ng-show="stats.alumsegundo != 0 && stats.alumsegundo !== undefined">
+											Alumnos en segundo
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum2}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum2}}%">
+													{{stats.alumsegundo}}</div>
+											</div>
+										</div>
+										<div id="" ng-show="stats.alumtercero != 0 && stats.alumtercero !== undefined">
+											Alumnos en tercero
+											<div class="progress">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum3}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum3}}%">
+													{{stats.alumtercero}}</div>
+											</div>
+										</div>
+										<div id="" ng-show="stats.alumcuarto != 0  && stats.alumcuarto !== undefined">
+											Alumnos en cuarto
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum4}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum4}}%">
+													{{stats.alumcuarto}}</div>
+											</div>
+										</div>
+										<div id="" ng-show="stats.alumquinto != 0  && stats.alumquinto !== undefined">
+											Alumnos en quinto
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum5}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum5}}%">
+													{{stats.alumquinto}}</div>
+											</div>
+										</div>
+										<div id="" ng-show="stats.alumsexto != 0 && stats.alumsexto !== undefined">
+											Alumnos en sexto
+											<div class="progress ">
+												<div class="progress-bar progress-bar-striped" role="progressbar"
+													aria-valuenow="{{totalesAlum6}}" aria-valuemin="0"
+													aria-valuemax="100"
+													style="min-width: 2em; width: {{totalesAlum6}}%">
+													{{stats.alumsexto}}</div>
+											</div>
+										</div>
+									</div>
+									<!-- informaciond de aulas para cada grupo -->
+									<div class="col-md-7">
+										<div class="col-md-4 alert alert-info"
+											ng-show="stats.aulasprimero != 0 && stats.aulasprimero !== undefined"
+											style="margin-bottom: 1px">
+											<h2>{{stats.aulasprimero}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de primero</h5>
+										</div>
+										<div class="col-md-4 alert alert-warning"
+											ng-show="stats.aulassegundo != 0  && stats.aulassegundo !== undefined "
+											style="margin-bottom: 1px">
+											<h2>{{stats.aulassegundo}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de segundo</h5>
+										</div>
+										<div class="col-md-4 alert alert-success"
+											ng-show="stats.aulastercero != 0 && stats.aulastercero !== undefined "
+											style="margin-bottom: 1px">
+											<h2>{{stats.aulastercero}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de tercero</h5>
+										</div>
+										<div class="col-md-4 alert alert-success"
+											ng-show="stats.aulascuarto != 0  && stats.aulascuarto !== undefined"
+											style="margin-top: -1px">
+											<h2>{{stats.aulascuarto}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de cuarto</h5>
+										</div>
+										<div class="col-md-4 alert alert-default"
+											ng-show="stats.aulasquinto != 0  && stats.aulasquinto !== undefined"
+											style="margin-top: -1px">
+											<h2>{{stats.aulasquinto}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de quinto</h5>
+										</div>
+										<div class="col-md-4 alert alert-info"
+											ng-show="stats.aulassexto != 0 && stats.aulassexto !== undefined"
+											style="margin-top: -1px">
+											<h2>{{stats.aulassexto}}</h2>
+											<h5><i class="fa fa-university"></i> Aulas de sexto</h5>
+										</div>
+									</div>
+								</div>
+								<!-- informaciond de maestros por materia y demas -->
+								<br>
+								<div class="row" id="divSchoolStats3" style="display: none">
+									<div class="col-md-12">
+										<div class="col-md-4 alert alert-info" ng-show="stats.docFisica >= 0"
+											style="height:170px;margin-bottom: 1px">
+											<h2>{{stats.docFisica}}</h2>
+											<h5><i class="fa fa-users"></i> Docente especial de educación física</h5>
+										</div>
+										<div class="col-md-4 alert alert-warning" ng-show="stats.docArtistica >= 0"
+											style="height:170px;margin-bottom: 1px">
+											<h2>{{stats.docArtistica}}</h2>
+											<h5><i class="fa fa-users"></i> Docente especial de educación artística</h5>
+										</div>
+										<div class="col-md-4 alert alert-success" ng-show="stats.doctecnologias >= 0"
+											style="height:170px;margin-bottom: 1px">
+											<h2>{{stats.doctecnologias}}</h2>
+											<h5><i class="fa fa-users"></i> Docente especial de educación en tecnologías
+											</h5>
+										</div>
+										<div class="col-md-4 alert alert-success" ng-show="stats.docIdiomas >= 0"
+											style="height:170px;margin-top: -2px">
+											<h2>{{stats.docIdiomas}}</h2>
+											<h5><i class="fa fa-users"></i> Docente especial de idiomas</h5>
+										</div>
+										<div class="col-md-4 alert alert-default" ng-show="stats.laborat >= 0"
+											style="height:170px;margin-top: -25px">
+											<h2>{{stats.laborat}}</h2>
+											<h6><i class="fa fa-users"></i> No. de laboratorios</h6>
+										</div>
+										<div class="col-md-4 alert alert-info" ng-show="stats.taller >= 0"
+											style="height:170px;margin-top: -25px">
+											<h2>{{stats.taller}}</h2>
+											<h5><i class="fa fa-users"></i> No. de talleres</h5>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div id="DocentesEsc" class="col-md-12">
+										<h4>Docentes de la escuela <sup>(4)</sup></h4>
+										<hr class="red" />
+										<table class="table " border="1" id="tblTeachers">
+											<thead>
+												<tr>
+													<th>Nombre del Docente</th>
+													<th>Curp</th>
+													<th>Categoría</th>
+												</tr>
+											</thead>
+											<tbody ng-repeat="docente in docentes">
+												<tr>
+													<td>{{docente.nombre}}</td>
+													<td>{{docente.curp}}</td>
+													<td>{{docente.categoria}}</td>
+												</tr>
+											</tbody>
+										</table>
+										<!--div class="fuente" align="right" ng-show="showTeachers">
+                                                    <p><b>Fuente de información</b></p>
+                                                    <p>Control Escolar Cierre de ciclo 2016-2017</p>
+                                                    <p>Última actualización: Inicio Escolar 2016-2017</p>
+                                                </div-->
+									</div>
+								</div>
+								<div class="row" id="plazasDis">
+									<h4>Plazas vacantes<sup>(4)</sup></h4>
+									<hr class="red">
+									<div class="tabla_ct">
+										<table class="table ">
+											<thead>
+												<tr>
+													<th>Clave</th>
+													<th>Categoría</th>
+													<!--th>Plaza</th>
+                                    <th>Inicio vigencia</th>
+                                    <th>Fin vigencia</th>
+                                    <th>Tipo</th>
+                                    <th>Contratación</th-->
+													<th>Estatus</th>
+												</tr>
+											</thead>
+											<tbody ng-repeat="plaza in plazasEsc">
+												<tr>
+													<td>{{plaza.codigoPlaza}}</td>
+													<td>{{plaza.tipoPlaza}}</td>
+													<!-- td>{{plaza.plazaDTO.codigoPlaza}}</td>
+                                    <td>{{plaza.plazaDTO.inicioVigencia}}</td>
+                                    <td>{{plaza.plazaDTO.finVigencia}}</td>
+                                    <td>{{plaza.plazaDTO.tipoPlaza}}</td>
+                                    <td>{{plaza.plazaDTO.tipocontratacion}} {{plaza.plazaDTO.estatusPlaza}}</td-->
+													<td>{{plaza.estatusPlaza}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--div class="col-md-12 fuente" align="right">
+                            <p><b>Fuente de información</b></p>
+                            <p>Control Escolar Cierre de ciclo 2016-2017</p>
+                            <p>Última actualización: Inicio Escolar 2016-2017</p>
+                            <br>
+                      </div-->
+								</div>
+								<div>
+									<section>
+										<small>
+											<p><b>Fuente de información:</b></p>
+											<p>La información exhibida en esta sección es proporcionada directamente por
+												la Autoridad Educativa Local.</p>
+											<p>(1) Catálogo Nacional de Centros de Trabajo</p>
+											<p ng-if="ctImagen.imagen">(2) Censo de Escuelas, Maestros y Alumnos de
+												Educación Básica y Especial, 2013</p>
+											<p ng-if="stats && stats != null && stats !== undefined">(3) Cuestionarios
+												del formato 911, fuente <b>{{stats.fuente}}</b></p>
+											<p
+												ng-if="plazas !== undefined && plazas != null && fuentePlazaCCT != null && fuentePlazaCCT !== undefined">
+												(4) {{fuentePlazaCCT.fuenteNominaCct}}, Quincena
+												<b>{{fuentePlazaCCT.quincena}}</b>, Ciclo escolar
+												<b>{{fuentePlazaCCT.ciclo}}</b>
+											</p>
+										</small>
+									</section>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</main>
+	<!-- Modal -->
+	<main id="modal_fade">
+	<div id="modalMultipleCt" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">Plazas Vacantes</div>
+				<div class="modal-body">
+					<div class="cts_cargando">
+						<h5>
+							<i class="fa fa-spinner fa-spin"></i> Cargando información de
+							plazas, espera un momento...
+						</h5>
+					</div>
+					<div class="cts_container">
+						<p>En este lugar se han encontrado las siguientes escuelas</p>
+						<div class="row">
+							<div class="col-md-6" ng-repeat="escuela in claveEscCluster">
+								<div class="alert alert-info alert-escuela"
+									ng-click="abrir_escuela_alt(escuela.ct, escuela.idTurno)">
+									<i class=" fa fa-university"></i><br> <b>{{escuela.ct}}</b><br>
+									{{escuela.nombre}}
+									<br>
+									<small>{{escuela.nombreTurno}}</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+	<main id="modal_imagen">
+	<div id="modal-imagen" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<img class="img img-responsive" data-ng-src="data:image/png;base64,{{ctImagen.imagen}}"
+						alt="{{ctImagen.etiqueta}}" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</main>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<script src="js/siged.js" rel="stylesheet"></script>
+	<script src="js/uri.js" rel="stylesheet"></script>
+	<script src="js/buscadorPlazas.js"></script>
+	<script src="js/funciones.js"></script>
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-83445936-1', 'auto');
+		ga('send', 'pageview');
+
+		$(function () {
+			$('#boyka').fancybox();
+		});
+
+	</script>
+</body>
+
+<!-- 	ACCESIBILIDAD	-->
+<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+<!--	END ACCEBILIDAD	-->
+
+<script>
+	$(function () {
+		$("#header").load("header.html");
+
+	});
+
+</script>
+<script>
+ 
+	var iframe = document.getElementById("mapIFrame");
+	
+	//window.addEventListener('message', receiveMessage, false); 
+</script>
+
+</html>

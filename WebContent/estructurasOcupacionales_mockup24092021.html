@@ -1,0 +1,489 @@
+<!doctype html>
+<html class="no-js" lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="css/cambios.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <link rel="stylesheet" href="calendar/simbologia/StyleSheet.css" type="text/css">
+        <style type="text/css">
+            tr td {
+                cursor: pointer;
+            }
+            .navbar-siged{
+              position: fixed;
+            }
+
+
+        </style>
+        <!--[if lt IE 9]>
+                          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+                        <![endif]-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnkqJjLVH2s2pXhNisTMC0KKr_JBA-dPo"></script>
+        <!--script src="https://maps.googleapis.com/maps/api/js"></script-->
+    </head>
+    <body ng-app="estructurasOcupacionales">
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SIGED</a>
+                </div>
+               <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!--li><a href="contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <div id="header"></div>
+        <!-- inicial -->
+        <div data-role="page">
+          <section id="slider-wrapper" class="layer-slider-wrapper ">
+                <div id="layerslider" style="width: 100%; height: 220px;z-index:0">
+                    <div class="ls-slide"  data-ls="transition2d:1;timeshift:-1000;" >
+                        <!-- slide background -->
+                        <img src="ima/general.png" class="ls-bg" style="width:100%;"  alt="Slide background"/>
+                        <!-- Left Text -->
+                        <h4 class="ls-l header-sige " style="width:900px; top:15%; left:80px;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Sistema de Información y Gestión Educativa</h4>
+                        <h2 class="ls-l header-main" style="width:600px; top:30%;  left:80px;color:white;text-transform:none" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">Estructuras ocupacionales</h2>
+                    </div>
+                </div>
+            </section>
+            <div class="container" ng-controller="estructurasOcupacionalesCtrl" >
+                <section id="main-search" class="slice bg-white" style="margin-top: -80px" >
+
+                    <div class="wp-section relative">
+                        <form class="form-inline form-base" role="form" ng-submit="search()">
+                            <div class="inline-form-filters over-top-element1 base" style="background:#545454">
+                                <!-- Optional filters tigger button -->
+                                <!-- <a id="btnToggleOptionalFIlters" class="optional-form-filters-trigger" title="Toggle advanced search" style="background-color:#545454" rel="0"></a> -->
+
+                                <!-- Main filters -->
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-lg">
+                                                    <label id="lblCCT" for="txtCCT">Clave de la escuela</label> 
+                                                    <input
+                                                        type="text" class="from-group form-control"
+                                                        ng-model="user.schoolName" name="txtCCT" id="txtCCT" style="background:rgb(225,225,225);color:black; "  required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblState" for="lstStates">Entidad</label>
+                                                    <select name="lstStates" id="lstStates" class="form-control" ng-model="user.state"
+                                                            ng-change="getMunicipalities()" ng-options="state.nombre for state in states track by state.id"
+                                                             style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblMunicipalities" for="lstMunicipalities">Municipio</label><br />
+                                                    <select name="lstMunicipalities" id="lstMunicipalities"
+                                                            class="form-control" ng-model="user.municipality"
+                                                            ng-options="municipality.nombre for municipality in municipalities track by municipality.id"
+                                                            ng-change="getLocations()" style="background:rgb(225,225,225);color:black;" >
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                                                                       <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblLocations" for="lstLocations">Localidad</label><br />
+                                                    <select name="lstLocations" id="lstLocations"
+                                                            class="form-control" ng-model="user.olocation"
+                                                            ng-options="location.nombre for location in locations track by location.id" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblLevels" for="lstLevels">Nivel educativo</label><br />
+                                                    <select name="lstLevels" id="lstLevels" class="form-control"
+                                                            ng-model="user.level"
+                                                            ng-options="level.nombre for level in levels track by level.id" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblSchedules">Turno</label><br />
+                                                    <select
+                                                        name="lstSchedules" id="lstSchedules" class="form-control"
+                                                        ng-model="user.schedule"
+                                                        ng-options="schedule.nombre for schedule in schedules track by schedule.id" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-group-lg field_select">
+                                                    <label id="lblSectors">Sostenimiento</label><br />
+                                                    <select
+                                                        name="lstSectors" id="lstSectors" class="form-control"
+                                                        ng-model="user.sector"
+                                                        ng-options="sector.nombre for sector in sectors track by sector.id" style="background:rgb(225,225,225);color:black;">
+                                                        <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                            una opción</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <br>
+
+                                        <button type="submit" id="btnFindSchool" ng-click="Search()" class="btn btn-info btn-buscar" >Buscar</button>
+                                        <br>
+                                        <br>
+                                        <button type="button" id="reset" ng-click="newSearch()"class="btn btn-warning btn-buscar">Restablecer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+
+                <section>
+                    <div class="container">
+                        <div class="row">
+                          
+                        </div>
+                    </div>
+                </section>
+                
+                <br>
+                <section>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <ol class="breadcrumb">
+                                <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                                <li><a href="index.html">Inicio</a></li>
+                                <li><a href="index.html#info">Consultas</a></li>
+                                <li><a href="#">Estructuras Ocupacionales</a></li>
+                                <!--li class="active">Formulario básico</li-->
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section>
+                  <div  id="divSchoolResults" style="width:100%;display:none">
+                        <div class="col-lg-12 col-offset-12 centered">
+                            <a href="#" name="aschoolResults"></a>
+                        </div>
+                        <div class="col-md-12 col-lg-12 table-responsive"><!--id="tblSchoolResults"-->
+                            <table border="1" class="table table-siged table-select table-responsive"
+                                   id="tblSchoolResults" style="width:100%" >
+                                <thead class="header-order">
+                                    <tr>
+                                        <th>CCT</th>
+                                        <th>Entidad</th>
+                                        <!-- th>Abrv.</th-->
+                                        <th>Escuela</th>
+                                        <th>Nivel escolar</th>
+                                        <th title="Sostenimiento">Sost.</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="divNoEncontrada" style="display:none">
+                        <section >
+                            <div class="alert alert-danger">
+                                <p><b>La información solicitada no se encuentra en nuestros registros.</b></p>
+                                <br>
+                                <P>Verifica tus criterios de búsqueda y vuelve a intentarlo.</P>
+                                <br>
+                                <button class="btn btn-danger " style="display:block; margin-left:auto; margin-right:auto" onclick="$('html,body').scrollTop(0);" type="reset" ng-click="newSearch()">Volver a intentarlo</button>
+                            </div>
+                            <!--br>
+                            <div class="alert alert-warning">
+                                <p>Si deseas puedes reportar ese problema en el módulo de <a href="contacto.html" title=""> Reporte de inconsistencias de información</a>.</p>
+                            </div-->
+                        </section>
+                    </div>
+					<!-- Modal -->
+					<div id="myModal" class="modal fade" role="dialog">
+					  <div id="dialog_estructura"  class="modal-dialog modal-lg">
+					
+					    <!-- Modal content-->
+					    <div class="modal-content">
+					      <div class="modal-body">
+					      	<div ng-if="buscandoEstructura" class="row">
+					      		<div class="col-md-12">
+					      			<h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere...</h4>
+					      		</div>
+					      	</div>
+					      	<div ng-if="!buscandoEstructura && !capacidadEscuela " class="row">
+					      		<h4> No se encuentra información de estructura ocupacional de esta escuela</h4>
+					      	</div>
+					      	<div ng-if="!buscandoEstructura && capacidadEscuela " class="row">
+						      	<div class="row">
+						      		<div class="col-md-12">
+						        		<h4>{{capacidadEscuela.nombre}}<br><small>Estructura ocupacional en la escuela</small><h5>Fecha de actualización: 31/08/2021</h5></h4>
+						        	</div>
+						        	<div class="col-md-6">
+							        	<div class="col-md-6">
+							        		<label>Clave</label>
+							        		<a href="escuelas.html?cct={{capacidadEscuela.clave}}" target="_blank"><p>{{capacidadEscuela.clave}}</p></a>
+							        	</div>
+							        	<div class="col-md-6">
+							        		<label>Nivel</label>
+							        		<p>{{capacidadEscuela.nivelEscolar}}</p>
+							        	</div>
+							        	<div class="col-md-6">
+							        		<label>Subnivel</label>
+							        		<p>{{capacidadEscuela.subnivelEscolar}}</p>
+							        	</div>
+							        	<div class="col-md-6">
+							        		<label>Sostenimiento</label>
+							        		<p>{{capacidadEscuela.sostenimiento}}</p>
+							        	</div>
+							        	<div class="col-md-6">
+							        		<label>Servicio</label>
+							        		<p>{{capacidadEscuela.servicio}}</p>
+							        	</div>
+							        </div>
+							        <div class="col-md-6">
+							        	<div class="col-md-6 alert alert-info">
+							        		<h3>{{capacidadEscuela.totalAlumnos}}</h3>
+							        		Total de alumnos en la escuela
+							        	</div>
+							        	<div class="col-md-6 alert alert-info">
+							        		<h3>{{capacidadEscuela.totalGrupos}}</h3>
+							        		Total de grupos en la escuela
+							        	</div>
+							        </div>
+						        </div>
+						        <div class="row">
+						        	<div class="col-md-12">
+							        	<h4> Funciones en la escuela</h4>
+							        	<ul class="nav nav-tabs">
+										  <li ng-if="capacidadEscuela.funciones.length" ><a data-toggle="tab" href="#home">Escuela completa</a></li>
+										  <li  ng-repeat="headerTurno in capacidadEscuela.turnos"><a data-toggle="tab" href="#turno_{{headerTurno.turno}}">{{headerTurno.turno}}</a></li>
+										</ul>
+									</div>
+									<div class="tab-content" style="padding:15px;">
+									  <div  ng-if="capacidadEscuela.funciones.length"    id="home" class="tab-pane fade in active">
+									  	
+											<table  border="1" class="capacidad table table-siged table-select table-responsive">
+											<thead>
+												
+									    		<tr>
+									    			<th>Nombre</th>
+									    			<th>Cantidad</th>
+									    			<th>Métrica</th>
+									    		</tr>
+									    	</thead>
+									    	<tbody>
+									    		<tr ng-repeat="funcion in capacidadEscuela.funciones">
+									    			<th>{{funcion.nombre}}</th>
+									    			<th>{{funcion.cantidad}}</th>
+									    			<th>{{funcion.metrica}}</th>
+									    		</tr>
+									    	</tbody>
+									    </table>
+									  </div>
+									  <div ng-repeat="headerTurno in capacidadEscuela.turnos" id="turno_{{headerTurno.turno}}" class="tab-pane fade">
+									  <table border="1" class=" table table-siged table-select table-responsive" style="margin-bottom: 0px;">
+											<thead>
+									    		<tr>
+													<th class="alert-info text-center">
+													<p>{{headerTurno.totalAlumnos}}</p>
+													<p>Número de alumnos en turno</p>
+													</th>
+													<th class="alert-info text-center"s>
+													<p>{{headerTurno.totalGrupos}}</p>
+													<p>Número de grupos en turno</p>
+													</th>
+												</tr>
+											</thead>
+										</table>
+									    <table border="1" class="capacidad table table-siged table-select table-responsive">
+											<thead>
+									    		<tr>
+									    			<th>Nombre</th>
+									    			<th>Cantidad</th>
+									    			<th>Métrica</th>
+									    		</tr>
+									    	</thead>
+									    	<tbody>
+									    		<tr ng-repeat="funcion in headerTurno.funciones">
+									    			<th>{{funcion.nombre}}</th>
+									    			<th>{{funcion.cantidad}}</th>
+									    			<th>{{funcion.metrica}}</th>
+									    		</tr>
+									    	</tbody>
+									    </table>
+									    
+									  </div>
+									  <div class="fuente" align="left">
+									  	<p><b>Fuente de información</b></p>
+									    <p> Cuestionarios del formato 911, fuente <b>EstiniI1718</b></p>
+									   </div>
+									</div>
+						        </div>
+						      </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+					      </div>
+					    </div>
+					
+					  </div>
+					</div>
+                </section>
+                <!--Datos de la escuela seleccionada-->
+            </div>
+        </div>
+        <script src="./js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script
+        src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src='js/velocity.min.js'></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/responsivetable.js"></script>
+
+        <script src="js/slideShow.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/estructurasOcupacionales.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.fancybox.css?v=2.1.5" media="screen" />
+        <!-- Initializing the slider -->
+        <script>
+                                                    jQuery("#layerslider").layerSlider({
+                                                        pauseOnHover: true,
+                                                        autoPlayVideos: false,
+                                                        skinsPath: 'assets/layerslider/skins/',
+                                                        responsive: false,
+                                                        responsiveUnder: 1280,
+                                                        layersContainer: 1280,
+                                                        hoverPrevNext: true,
+                                                    });
+        </script>
+
+
+
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div   class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="modal fade" id="modalCCTnoEncontrada" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p><b>La información de este centro de trabajo no se encuentra en nuestros registros.</b></p>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    </div>
+                    <div class="modal-body">
+                         <img data-ng-src="data:image/png;base64,{{ctImagen.imagen}}" alt="{{ctImagen.etiqueta}}" height="100%" width="100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+
+    </body>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+   <script> 
+     $(function(){
+  		$("#header").load("header.html"); 
+	});
+   </script>
+</html>

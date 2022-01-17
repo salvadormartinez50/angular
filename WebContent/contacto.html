@@ -1,0 +1,224 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/banner.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+    </head>
+
+    <style >
+        
+        .banner{
+            height: 240px;
+            background-image: url("ima/contacto.png"); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <body ng-app="contacto" ng-controller="contactoController" >
+        <div id="header"></div>
+
+        <section id="slider-wrapper" class="layer-slider-wrapper " >
+       <div class="container-fluid banner row">
+        <div class="row col-md-12">
+            <div class="col-md-8" id="textos">
+                <section id="textoSigedCol"><h4 class="header-main" id="textoSiged" style="margin-left:130px; margin-top:50px;color: white" >Sistema de Información y Gestión Educativa</h4></section>
+                <section><h2 class=" header-main" id="textoSub" style="margin-left:130px;margin-top:45px;color:white;text-transform:none" >Contáctanos</h2></section>
+            </div>
+
+        </div>
+</div>
+
+        </section>
+        <!-- inicial -->
+        <!--div class="main-banner">
+            <img src="images/Recurso22.png" alt="" width="100%">
+        </div-->
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-sm-8 col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="#">Contáctanos</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <section class="slice bg-white">
+                    <div class="w-section inverse">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="section-title-wr">
+                                        <h3 class="section-title left"><span> <i class="fa fa-envelope"></i> Contáctanos</span></h3>
+                                    </div>
+                                    <p>
+                                        En esta sección podrás reportar alguna inconsistencia en la información o plantearnos tus dudas o sugerencias.
+                                    </p>
+
+                                    <form class="form-light mt-20" role="form" ng-submit="saveContacto()">
+                                        <div class="form-group">
+                                            <label>Título del reporte *</label>
+                                            <input type="text" class="form-control" ng-model="titulo" placeholder="Ingresa el título" required>
+                                        </div>
+                                        <div class="form-group" ng-init="getTipoProblema();">
+                                            <label>Tipo del reporte *</label>
+                                            <select class="form-control" name="lstEntidad" ng-model="user.idTipoProblema" ng-options="contacto.nombre for contacto in contacto track by contacto.id" required>
+                                                <option value="">selecciona una opción</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Descripción *</label>
+                                            <textarea class="form-control" maxlength="300" id="message" ng-model="descProblema" placeholder="Escríbe tu idea aquí..." style="height:100px;" required></textarea>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-user"></i> Nombre del solicitante *</label>
+                                            <input type="text" class="form-control" ng-model="nombre" placeholder="Ingresa tu nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-user"></i> Primer apellido del solicitante *</label>
+                                            <input type="text" class="form-control" ng-model="apellido" placeholder="Ingresa tu apellido" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><i class="fa fa-envelope"></i> Correo electrónico *</label>
+                                            <input type="email" class="form-control" ng-model="correo" placeholder="Ingresa tu correo" required>
+                                        </div>
+                                        <div class="form-group">
+                                                * Campo obligatorio
+                                        </div>
+                                        <div class="form-group">
+                                                <input type="checkbox" name="vehicle" value="true" required> Estoy de acuerdo
+                                                <!--<div class="g-recaptcha" data-sitekey="6LfxLSoTAAAAAGujqudtSWR7EXZeuFwTCFESF0sV"></div>-->
+                                                <br>
+                                                <!-- <p><a href="images/aviso_privacidad_SIGED.PNG" title="Aviso de privacidad"  target="popup" onClick="window.open(this.href, this.target, 'width=600,height=750');">Leer aviso de privacidad </a></p> -->
+												<p><a href="aviso_privacidad.html" title="Aviso de privacidad"  target="popup" onClick="window.open(this.href, this.target, 'width=620,height=370');">Leer aviso de privacidad </a></p>
+                                        <div class="form-group">
+                                        <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
+                                        
+                                            <div class="g-recaptcha" data-sitekey="6LenewgUAAAAACN23daMFdurvnh54lJZhQqxIm7X" data-callback="enableBtn"></div>
+                                            <br>
+                                            <button type="submit" class="btn btn-base btn-icon btn-icon-center btn-fly pull-center" id="submit_btn">
+                                    	        <span>Enviar mensaje</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <img class="img img-responsive" src="http://bhaktivedantacollege.com/wp-content/uploads/2012/01/contact-1.jpg">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <!-- /inicial -->
+        <!-- modal enviado -->
+        <div class="modal fade" id="modalEnviado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Mensaje enviado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Su reporte fue enviado de manera exitosa al Sistema de Información y Gestión Educativa, el cual se está analizado y en su caso será atendido a la brevedad por el área competente. Si por algún motivo no se proporcionó un dato de contacto en el reporte, la solicitud quedará almacenada y atendida en nuestro buzón.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /modal enviado -->
+        <!-- modal NO enviado -->
+        <div class="modal fade" id="modalNoEnviado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Mensaje no enviado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lo sentimos, por el momento el servicio no se encuentra disponible, por favor inténtalo más tarde.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /modal NO enviado -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src='js/velocity.min.js'></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/contacto.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <script>
+
+        document.getElementById("submit_btn").disabled = true;
+
+		function enableBtn(){
+   				document.getElementById("submit_btn").disabled = false;
+   			}
+		</script>
+        <script>
+                                                        jQuery("#layerslider").layerSlider({
+                                                            pauseOnHover: true,
+                                                            autoPlayVideos: false,
+                                                            responsive: false,
+                                                            responsiveUnder: 1280,
+                                                            layersContainer: 1280,
+                                                            skin: 'borderlessdark3d',
+                                                            hoverPrevNext: true,
+                                                        });
+        </script>
+    </body>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+       <script> 
+     $(function(){
+  $("#header").load("header.html"); 
+
+});
+   </script>
+</html>

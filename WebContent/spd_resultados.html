@@ -1,0 +1,394 @@
+<!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico"-->
+        <link rel="stylesheet" type="text/css" href="./css/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/banner.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="css/cambios.css" type="text/css">
+        
+		<!-- 	ACCESIBILIDAD	-->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300"  />
+		<link href="https://framework-gb.cdn.gob.mx/applications/cms/favicon.png" rel="shortcut icon" />
+		<link rel="stylesheet" data-turbolinks-track="true" href="https://www.gob.mx/cms/assets/barra-de-accesibilidad.css" media="all" />
+		<!--	END ACCESIBILIDAD	-->       
+    
+    </head>
+  
+        <style>
+            #curp{
+                display:none;
+            }
+            #divSchoolResults{
+                display:none;
+            }
+            input:required {
+                box-shadow:none;
+            }
+            input:invalid {
+                box-shadow:0 0 3px none;
+            }
+		/*
+        .banner{
+            height: 240px;
+            background-image: url("ima/bannerDocentes.png"); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+		*/
+			
+        </style>
+    <body ng-app="docentes" ng-controller="docentesController">
+      
+    <div id="header"></div>
+
+	<div class="section" data-type="background" style=" background-size: cover; height: 260px; text-align: center;">
+		  <img class="responsive" src="ima/bannerDocentes.png" style=" background-size: cover; height: 100%; width: 100%; text-align: center;">
+		  <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		  </div>
+	</div>
+
+<!--	HEADER COVID	-->
+  <!--header class=" navbar navbar-inverse"-->
+  <header class="  navbar-inverse" >
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-target="#navbarMainCollapse" data-toggle="collapse">
+            <span class="sr-only">Interruptor de Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--a href="/" style="padding: 1px 3px 3px 3px;" class="navbar-brand " title="Ir a la página inicial">
+			
+            <div class="logo-main"></div>
+          </a-->
+        </div>
+        <div id="navbarMainCollapse" class="collapse navbar-collapse">
+         <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg"  href="/" alt="logo gobierno de méxico" class="logo_footer" style="max-width: 12%; margin-left: 55px;   margin-top: 10px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://mivacuna.salud.gob.mx " title="Registro">Registro para vacunación</a></li>
+            <li><a href="https://coronavirus.gob.mx/" title="Coronavirus">Informacion sobre COVID-19</a></li>
+            <li><a href="/tramites" title="Trámites">Trámites </a></li>
+            <li><a href="/gobierno" title="Gobierno">Gobierno</a></li>
+            <li><form accept-charset="UTF-8" action="/busqueda" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div><input type="hidden" name="site" value="sep">
+                <button data-v-6394873e="" id="botonbuscar" type="button" class="btn btn-search" style="background-color: rgb(12, 35, 30)"><a data-v-6394873e="" href="https://www.gob.mx/busqueda?utf8=✓" target="_blank" id="botbusca" style="margin-top: 20px;" ><img data-v-6394873e="" alt="Buscar" src="https://framework-gb.cdn.gob.mx/landing/img/lupa.png"></a></button></form></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!--	END HEADER COVID	-->      
+            
+    <div class="container-fluid banner row">
+        <div class="row col-md-12">
+            <div class="col-md-12" id="textos">
+                <section id="textoSigedCol"><h4 class="header-main" id="textoSiged" style="margin-left:130px; margin-top:-180px;color: white" >Sistema de Información y Gestión Educativa</h4></section>
+                <section><h2 class=" header-main" id="textoSub" style="margin-left:130px;margin-top:-5px;color:white;text-transform:none" >Consulta los resultados del SPD y USICAMM</h2></section>
+            </div>
+<!--            
+            <div class="col-md-4 info-adicional-banner">            
+            </div>
+-->
+        </div>
+        <div class="row col-md-12" style="margin-top: -100px">
+            <section>
+                    <p class="header-main" style="margin-left:145px;margin-right:60px; color:white;font-size:0.9em;"><strong>Consulta de resultados de los procesos del Servicio Profesional Docente y la Unidad del Sistema para la Carrera de las Maestras y los Maestros</strong></p>
+            </section>
+        </div>          
+    </div>
+    <section  id="main-search" class="slice bg-white" style="margin-top:0px;  z-index: 20">
+            <div class="container" >
+                <div class="wp-section relative" >
+                    <div class="inline-form-filters over-top-element base" style="background-color:#545454">
+                        <form class="form-inline form-base" ng-submit="getConsultaDocentes(myVar);" >
+                            <!-- Optional filters tigger button -->
+                            <!-- Main filters -->
+                            <div class="row">
+                                <div id="nombre" class="col-md-7">
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group form-group-lg">
+                                            <input type="text" id="curp_campo" required ng-model="buscaCurp" maxlength="18" onkeyup="javascript:this.value = this.value.toUpperCase();" class=" input-lg input-busqueda" placeholder="*CURP" style="background:rgb(225,225,225);color:black;font-size: 18px">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-6"><button class="btn btn-info  btn-buscar" id="buscar_SPD">Buscar </button></div>
+                                    <div class="col-md-6"><button id="buscar_SPD_restablecer" class="btn btn-warning btn-buscar ">Restablecer</button></div>
+                                </div>
+                            </div>
+
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+      	<main >
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html"><i class="icon icon-home"></i></a></li>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="index.html#info">Consultas</a></li>
+                            <li><a href="#">Consulta de docentes</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="idResultadoSPD" style="display: none;"> 
+                    <table id="idDtPlazas" class="table table-siged table-select " border="1" style="width:100%;">
+                        <thead class="header-order">
+                            <tr>
+                                <th>Ciclo</th>
+                                <th>CURP</th>
+                                <th>NIVEL</th>
+                                <th>Evaluación</th>
+                                <th>Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody/>
+                    </table>
+                </div>
+            </section>
+
+            
+
+            <div class="modal fade" id="modal_docente" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div  id="dialog_docente" class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <h4>Detalle del docente</h4>
+                            </h4>
+                        </div>
+                        <div class="modal-body" ><!--style="overflow-x: scroll"-->
+                            <h4  id="cargando_docente" style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                            <div id="cont_docente" class="row">
+                                <div class="col-md-2">
+                                    <img class="img img-responsive" src="images/avatar_teacher.png">
+                                </div>
+                                <div class="col-md-10 alert alert-info" >
+                                    <div class="row" ng-show="docente.nombre != null">
+                                        <div class="col-md-4" style="text-align: left;"><strong>Nombre:</strong></div>
+                                        <div class="col-md-8" style="text-align: left;">{{docente.nombre}}</div>
+                                    </div>
+                                    <br>
+                                    <div class="row" ng-show="docente.formacion != null">
+                                        <div class="col-md-4" style="text-align: left;"><strong>Formación académica :</strong></div>
+                                        <div class="col-md-8" style="text-align: left;" >{{docente.formacion}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 table-responsive" >
+                                    
+                                </div>
+                                <br><br>
+                                <div class="fuente col-md-12" ng-if="fuentePlazaCCT != null && fuentePlazaCCT !== undefined">
+                                    <br>
+                                    <p><b>Fuente de información:</b></p>
+                                                      <p>La información exhibida en este portal es proporcionada directamente por la entidad.</p>
+                                    <p>{{fuentePlazaCCT.fuenteNominaPersonal}}, Quincena <b>{{fuentePlazaCCT.quincena}}</b>, Ciclo escolar <b>{{fuentePlazaCCT.ciclo}}</b> </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Salir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+        <!-- /inicial -->
+        <!-- CURP no encontrada -->
+        <script src="./js/jquery.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+        <script src='js/velocity.min.js'></script>
+        <script src="js/angular.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/slideShow.js"></script>
+        <script src="js/siged.js"></script>
+        <script src="js/uri.js"></script>
+        <script src="js/docentes.js"></script>
+        <!-- Sripts for individual pages, depending on what plug-ins are used -->
+        <script src="assets/layerslider/js/greensock.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="assets/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+        <!-- DataTables -->
+        <script type="text/javascript" src="./js/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="./js/datatables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/responsivetable.js"></script>
+        <!-- Initializing the slider -->
+        <script>
+                                                jQuery("#layerslider").layerSlider({
+                                                    pauseOnHover: true,
+                                                    autoPlayVideos: false,
+                                                    skinsPath: 'assets/layerslider/skins/',
+                                                    responsive: false,
+                                                    responsiveUnder: 1280,
+                                                    layersContainer: 1280,
+                                                    hoverPrevNext: true,
+                                                });
+        </script>
+        <main id="modal_loading">
+        <div class="modal fade" id="modal-loading" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 style="text-align:center"><i class="fa fa-spin fa-spinner"></i>Cargando información, por favor espera un momento...</h4>
+                    </div>
+                    <div class="tiempo_fuera modal-footer" style="display:none">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label > La consulta está tardando más de lo normal</label>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.tiempo_fuera').hide()">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+        <main id="modal_dialog">
+        <div class="modal fade" id="modalCurpError">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formato incorrecto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>El formato de la CURP ingresada no es válido.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+		</main>
+        <br>
+        
+        
+    </body>
+    
+    <!-- 	ACCESIBILIDAD	-->
+	<script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+	<script src="https://www.gob.mx/cms/assets/apps-accesibilidad.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/modal_global_cms.js"></script>
+	<script src="https://framework-gb.cdn.gob.mx/applications/cms/config_dependency.js"></script>
+	<!--	END ACCEBILIDAD	-->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83445936-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+   <script> 
+     $(function(){
+            $('#buscar_SPD').click(function() {
+              var curp = $('#curp_campo').val();
+              if (curp !== ("")){
+                $('#idResultadoSPD').show();
+                $('#idDtPlazas').show();
+                //$('#idtest').load('https://modulos.siged.sep.gob.mx/WScct/WSspd_doc.php?curp='+curp+'');
+                //$('#idtest').load(global_uri + '/docente/consultaSPD/curp=' + curp + '');
+
+                var table = $('#idDtPlazas').DataTable({
+                        //responsive: true,
+                        "destroy": true,
+
+                        "language": {
+                            "url": "./js/datatable.spanish.lang"
+                        },
+                        "ajax": {
+                            "url": global_uri + '/docente/consultaSPD/curp=' + curp,
+                            'beforeSend': function (request) {
+                                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+                            },
+                            "dataSrc": function (json) {
+                                var datosLimpios = [];
+                              json.SPD.forEach(function(valor){
+                                    datosLimpios.push(valor);
+                                });
+                              
+                                //noprocessing();
+                                $("#idResultadoSPD").show();
+                                $('html, body').animate({
+                                    scrollTop: 290
+                                }, 1000);
+                                $('#idDtPlazas').show();
+                                $('#idResultadoSPD').show();
+                                return datosLimpios;
+                            },
+                        },
+                        "columns": [
+                            {"name": "Ciclo", "data": "cicloEscolar"},
+                            {"name": "CURP", "data": "curp"},
+                            {"name": "NIVEL", "data": "nivel"},
+                            {"name": "Evaluación", "data": "concurso"},
+                            {"name": "Resultado", "data": "desempeno"}
+
+                        ]
+                    });
+                }
+             
+            });
+
+           
+
+         $('#buscar_SPD_restablecer').click(function() {
+
+             $('#idDtPlazas').hide();
+             $('#idResultadoSPD').hide();
+             $('#curp_campo').val("");
+         });
+
+            $("#header").load("header.html");                    
+            
+      });
+   </script>
+  
+  
+  
+</html>

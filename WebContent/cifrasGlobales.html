@@ -1,0 +1,268 @@
+  <!doctype html>
+<html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SEP | SIGED</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="https://framework-gb.cdn.gob.mx/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/global-style.css">
+        <link rel="stylesheet" type="text/css" href="https://framework-gb.cdn.gob.mx/assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="css/sige.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" href="assets/layerslider/css/layerslider.css" type="text/css">
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/ie8/0.2.2/ie8.js"></script>
+        <![endif]-->
+
+        <style>
+
+          tr:first-child{
+            padding-left: 10px;
+          }
+
+          .buscador,.input-group-addon{
+            background-color: #4f4f4f ;
+            color:white;
+          }
+          input.buscador::-webkit-input-placeholder {
+             color: #ccc;
+            }
+      .orden{
+        cursor: pointer;
+        font-size: 20px;
+      }
+			tbody>tr{
+				cursor:pointer;
+			}
+      .administrativo{
+        background-color: #EEE;
+      }
+
+			#tabla_descripcion>tbody>tr:hover{
+				background-color: #EEEEEE;
+			}
+			#tabla_descripcion>thead>tr>th,thead>tr>th{
+                vertical-align: middle;
+                text-align: right;
+                background-color: #444;
+                color:white
+      }
+      #tabla_descripcion>tfoot > tr{
+        font-weight: 900;
+      }
+			 #tabla_descripcion>tbody>tr>td{
+				cursor:pointer;
+			 }
+
+       .administrativo > td:first-child{
+         padding-left: 25px;
+       }
+       #tabla_descripcion>tbody>tr.administrativo>td
+       {
+         cursor: default;
+       }
+
+            td.numero{
+              vertical-align: middle;
+              text-align: right;
+            }
+            @media (min-width: 992px){
+              .modal-lg {
+                  width: 90%	;
+              }
+            }
+        </style>
+    </head>
+    <body ng-app="myApp">
+        <nav class="navbar navbar-inverse navbar-siged">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                        <span class="sr-only">Interruptor de Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SIGED</a>
+                </div>
+                <div class="collapse navbar-collapse" id="subenlaces">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="index.html#info"><i class="fa fa-search"></i> Consultas</a></li>
+                        <li><a href="estadisticas.html"><i class="fa fa-bar-chart"></i> Estadísticas</a></li>
+                        <!-- <li><a href="datosAbiertos.html"><i class="fa fa-folder-open-o"></i> Datos abiertos</a></li>  -->
+                        <li><a href="index.html#ref"><i class="fa fa-book"></i> Referencias</a></li>
+                        <li><a href="principalesCifras.html"><i class="fa fa-line-chart"></i> Principales cifras</a></li>
+                        <!--li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-line-chart"></i> Principales cifras <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://143.137.111.97/SIGED/principalesCifras.html"><i class="fa fa-line-chart"></i> Cifras 1 </a></li>
+                                < <li><a href="cifrasGlobales.html"><i class="fa fa-line-chart"></i> Cifras 2 </a></li> >
+                            </ul>
+                        </li-->
+                        <!--li><a href="contacto.html"><i class="fa fa-comments-o"></i> Contáctanos</a></li-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br><br>
+        <section class="container" ng-controller="myCtrl">
+          <div class="row">
+            <h4>Cifras Globales de Liberación/Regularización de Plazas en apoyo a las Escuelas <small>2016-2017</small></h4>
+              <hr class="red">
+              <table id="tabla_descripcion" class="table">
+                  <thead>
+                    <tr>
+                      <th width="50%">
+                        <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input  ng-model="busqueda" class="form-control buscador"  placeholder="Categoría">
+                      </div>
+                      </th>
+                      <th >
+                        Plazas
+                        <i class="orden fa fa-sort"   ng-click="setSort('plazas')"></i>
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="fila in  filasfiltradas = (filas | filter:busqueda | orderBy:sort)">
+                    <tr   class="{{fila.clase}}" ng-click="infoPlaza(fila)">
+                      <td>
+                        {{fila.nombre}} <sup  ng-show="fila.cita != null" >({{fila.cita}})</sup >
+                      </td>
+                      <td  class="numero">
+                       {{fila.plazas}}
+                      </td>
+
+                    </tr>
+                  </tbody>
+        				  <tbody ng-show="!filasfiltradas.length">
+        						<tr ><td colspan="3" style="text-align:center">No se encontraron coincidencias</td></tr>
+        				  </tbody>
+                  <tfoot >
+                    <tr>
+                      <td>Total personal regularizado</td><td class="numero">{{datos.totPlazas}}</td>
+                    </td>
+                  </tfoot>
+              </table>
+              <div class="col-md-offset-7 col-md-5" style="text-align: right">
+                <dl>
+          				<dt>
+          					Fuentes:
+          				</dt>
+          				<dd>
+          					<sup>(1)</sup> Oficialía Mayor-SEP
+          				</dd>
+
+          				<dd>
+                    <sup>(2)</sup>  AFSECDMX
+          				</dd>
+          				<dd>
+          					<sup>(3)</sup>  SIGED con información de FONE
+          				</dd>
+
+          				<dd>
+          					<sup>(4)</sup>  SIGED con información proporcionada por las Autoridades Educativas Locales
+          				</dd>
+
+          			</dl>
+              </div>
+          </div>
+          <div id="modal_cargando" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" style="margin-top: 0px">
+              <!-- Modal content-->
+              <div class="modal-content">
+
+                <div class="modal-body">
+                    <h4 style="text-align:center"> <i class="fa fa-spin fa-spinner "></i> Cargando información, por favor espere...</h3>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div id="modal_plazas" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg" style="margin-top: 0px">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">{{categoria}}</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="tabbable" id="tabs-592560">
+                    <ul class="nav nav-tabs">
+                      <li class="active">
+                        <a id="link-grafica" href="#panel-grafica" data-toggle="tab"><i class="fa fa-bar-chart"></i> Gráfica</a>
+                      </li>
+                      <li >
+                        <a href="#panel-tabla" data-toggle="tab"><i class="fa fa-table"></i> Información</a>
+                      </li>
+
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane " id="panel-tabla">
+                        <a href="#" class="btn btn-success pull-right" style="margin-bottom: 20px" ng-click="excelReporte('tabla_resultados');"><i class="fa fa-file-excel-o" ></i>Exportar a excel</a>
+                        <br>
+                        <table id="tabla_resultados" class="table">
+                            <thead>
+                              <tr>
+                                <th>
+                                  <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                  <input  ng-model="searchPlaza.plazaDTO.codigoPlaza" class="form-control buscador"  placeholder="Plaza">
+                                </div>
+                                </th>
+                                <th>
+                                  <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                  <input  ng-model="searchPlaza.estadoDTO.nombre" class="form-control buscador"  placeholder="Entidad">
+                                </div>
+                                </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody ng-repeat="plaza in plazas | filter:searchPlaza | limitTo:totalDisplayed ">
+                              <tr>
+                                <td>
+                                  {{plaza.plazaDTO.codigoPlaza}}
+                                </td>
+                                <td >
+                                  {{plaza.estadoDTO.nombre}}
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-info pull-right" ng-click="loadMore()">Ver más...</button>
+                        <br><br><br>
+                      </div>
+                      <div class="tab-pane active" id="panel-grafica">
+                        <canvas id="graficaPlazas" style="height: 250px;" ></canvas>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+        <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+        <script src="js/Chart.js"></script>
+        <script src="js/cifrasGlobales.js"></script>
+
+
+
+      </body>

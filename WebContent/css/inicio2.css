@@ -1,0 +1,50 @@
+.navbar-nav > li>a:hover{
+    text-decoration: underline;
+}
+.search-radio>div{
+    text-align: center
+}
+.header-sige{
+    color:white;
+    text-shadow: 2px 2px  black;
+    text-transform: none;
+    padding:0px;
+}
+.header-main{
+    text-shadow: 2px 2px  black;
+    padding:0px;
+}
+.span_dato_curioso{
+
+    display:inline-block;
+    text-align: center
+}
+.icono_curioso{
+    width:40%;
+    font-size:40px;  
+}
+.info_curioso{
+    text-align: center;
+    position:absolute; 
+    padding:10px;
+    width:50%;
+}
+
+.wp-section{
+    background-color: #545454;
+}
+
+.search-radio >div> input{
+    width: 1.5em; height: 1.5em
+}
+.input-busqueda{
+    width:100%;
+}
+.input-busqueda[placeholder],[placeholder], *[placeholder]{
+    color:black;
+}
+.btn-buscar{
+    width:100%;
+}
+
+

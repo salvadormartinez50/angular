@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta name="author" content="Ernesto Martínez Espinosa" />
+    <meta name="copyright" content="SEP - SIGED" />
+    <title>SEP | SIGED</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <style>
+        #mapid {
+            height: 380px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mapid"></div>
+    <script>
+        var mymap = L.map('mapid');
+        let markerSchool;
+        const tilesProvider = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+        mymap.doubleClickZoom.disable();
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
+            maxZoom: 18,
+            foo: 'bar',
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        }).addTo(mymap);
+
+        function crearMarker(latC, lngC) {
+            
+            mymap.setView([latC, lngC], 13);
+            markerSchool = L.marker([latC, lngC], { center: [latC, lngC] }).addTo(mymap);
+            
+        }
+
+        window.addEventListener('message', event => {
+            
+            resultado = eval(event.data);
+
+        }); 
+    </script>
+</body>
+
+</html>

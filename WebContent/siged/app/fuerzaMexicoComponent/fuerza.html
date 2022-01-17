@@ -1,0 +1,120 @@
+<link rel="stylesheet" type="text/css" href="app/fuerzaMexicoComponent/fuerza.css">
+<div class="bannerSIGED" style=" width: 100%; height: 615px; background-image: url('https://cdnmundo1.img.sputniknews.com/images/106765/88/1067658814.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
+  <div style="width: 100%; height: 100%; background: rgba(0, 77, 64,0.7)">
+    <h5 style="position: absolute; color:white; text-align:center; width: 100%;margin-top: 75px;">Una iniciativa de SIGED y Fuerza México </h5>
+    <h2 style="position: absolute; color:white; text-align:center; width: 100%;;margin-top:150px">BUSCADOR DE ESCUELAS</h2>
+    <p style="position: absolute; color:white; text-align:center; width: 50%;;margin-top: 224px;margin-left: 25%">Portal de consulta para dar seguimiento a los recursos destinados a la atención de los daños en escuelas.</p>
+
+    <div id="main-search" style="position: absolute;width:85%;margin-left:7.5%;margin-top: 400px;" >
+          <div class="wp-section relative"  >
+              <form class="form-inline form-base" role="form" ng-submit="search()">
+                  <div class="inline-form-filters over-top-element base" style="background:#1B5E20">
+                      <!-- Optional filters tigger button -->
+                      <!-- <a id="btnToggleOptionalFIlters" class="optional-form-filters-trigger" title="Toggle advanced search" style="background-color:#545454" rel="0"></a> -->
+
+                      <!-- Main filters -->
+                      <div class="row">
+                          <div class="col-md-10">
+                              <div class="row">
+
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg">
+                                          <label id="lblCCT" for="txtCCT">Nombre o clave de la escuela</label> <input
+                                              type="text" class="from-group form-control"
+                                              ng-model="user.schoolName" name="txtCCT" id="txtCCT" style="background:rgb(225,225,225);color:black; "  required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblState" for="lstStates">Estado</label>
+                                          <select name="lstStates" id="lstStates" class="form-control" ng-model="user.state"
+                                                  ng-options="state.des for state in states track by state.id"
+                                                  ng-change="getMunicipalities()" style="background:rgb(225,225,225);color:black;">
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblMunicipalities" for="lstMunicipalities">Municipio</label><br />
+                                          <select name="lstMunicipalities" id="lstMunicipalities"
+                                                  class="form-control" ng-model="user.municipality"
+                                                  ng-options="municipality.des for municipality in municipalities track by municipality.id"
+                                                  ng-change="getLocations()" style="background:rgb(225,225,225);color:black;" >
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblLocations" for="lstLocations">Localidad</label><br />
+                                          <select name="lstLocations" id="lstLocations"
+                                                  class="form-control" ng-model="user.olocation"
+                                                  ng-options="location.des for location in locations track by location.id" style="background:rgb(225,225,225);color:black;">
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div id="extras" class="row" style="display:none">
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblLevels" for="lstLevels">Nivel educativo</label><br />
+                                          <select name="lstLevels" id="lstLevels" class="form-control"
+                                                  ng-model="user.level"
+                                                  ng-options="level.des for level in levels track by level.id" style="background:rgb(225,225,225);color:black;">
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblSchedules">Turno</label><br />
+                                          <select
+                                              name="lstSchedules" id="lstSchedules" class="form-control"
+                                              ng-model="user.schedule"
+                                              ng-options="schedule.des for schedule in schedules track by schedule.id" style="background:rgb(225,225,225);color:black;">
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group form-group-lg field_select">
+                                          <label id="lblSectors">Sostenimiento</label><br />
+                                          <select
+                                              name="lstSectors" id="lstSectors" class="form-control"
+                                              ng-model="user.sector"
+                                              ng-options="sector.des for sector in sectors track by sector.id" style="background:rgb(225,225,225);color:black;">
+                                              <option label="selecciona una opción" selected="selected" value="">selecciona
+                                                  una opción</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <br>
+                                    <p class="form-text form-text-error" style="font-size:14px;color: white">Debes seleccionar una opción</p>
+                                  </div>
+                              </div>
+
+                          </div>
+                          <div class="col-md-2">
+                              <br>
+
+                              <button type="submit" id="btnFindSchool"  class="btn  btn-buscar" style="background-color: #3bb372" ><i class="fa fa-search"></i>Buscar</button>
+
+                              <!--button type="button" id="reset" ng-click="newSearch()"class="btn btn-buscar" style="background-color: #2E7D32">Restablecer</button-->
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <button class="btn btn-success btn-opcion" style="display:block; margin: auto;padding: 5px 12px;background:#1B5E20"> <i class="fa fa-chevron-down"></i></button>
+      </div>
+    </div>
+
+</div>

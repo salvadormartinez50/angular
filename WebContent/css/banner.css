@@ -1,0 +1,172 @@
+/*ANIMACIONES*/
+@-webkit-keyframes aniload {
+  from {-webkit-transform:translate(0px, 100px)}
+  to   {-webkit-transform:translate(0px, 0px)}
+}
+
+@-moz-keyframes aniload {
+  from {-moz-transform:translate(0px, 100px)}
+  to   {-moz-transform:translate(0px, 0px)}
+}
+
+@-ms-keyframes aniload {
+  from {-ms-transform:translate(0px, 100px)}
+  to   {-ms-transform:translate(0px, 0px)}
+}
+
+@-o-keyframes aniload {
+  from {-o-transform:translate(0px, 100px)}
+  to   {-o-transform:translate(0px, 0px)}
+}
+
+@keyframes aniload {
+  from { transform:translate(0px, 100px)}
+  to   {   opacity: 1;transform:translate(0px, 0px)}
+}
+
+
+
+#textoSiged {
+  -webkit-animation:aniload 1s;
+  -moz-animation:aniload 1s;
+  -ms-animation:aniload 1s;
+  -o-animation:aniload 1s;
+  animation:aniload 1s;
+  animation-fill-mode: forwards;
+}
+
+#textoSub {
+  opacity: 0;
+   -webkit-animation:aniload 1s;
+  -moz-animation:aniload 1s;
+  -ms-animation:aniload 1s;
+  -o-animation:aniload 1s;
+  animation:aniload 1s;
+   animation-delay: 1s;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+
+.info-adicional-banner {
+  opacity: 0;
+  -webkit-animation:aniload 1s;
+  -moz-animation:aniload 1s;
+  -ms-animation:aniload 1s;
+  -o-animation:aniload 1s;
+  animation:aniload 1s;
+     animation-delay: 2s;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -ms-animation-delay: 2s;
+  -o-animation-delay: 2s;
+
+  animation-fill-mode: forwards;
+
+}
+/*TERMINAN ANIMACIONES*/
+
+       .alert-datos-incial{
+          height: 125px;
+        }
+
+        .info-banner{
+            position: absolute;
+
+        }
+
+        #caja{
+            width: 370px;
+        }
+
+
+    @media screen and (min-width: 320px) and (max-width: 414px) {
+ 
+
+    #textos{
+        margin-left: -130px;
+
+    }
+
+    #formulario{
+        margin-top: -30px; 
+        width: 115%;
+        margin-left: -15px;
+    }
+
+    #home{
+        font-size: 16px;
+    }
+
+    #textoSiged{
+
+        font-size: 1em;
+    }
+
+    #textoSigedCol{
+        margin-top: -35px;
+    }
+
+    #textoSub{
+        margin-top: -40px;
+        font-size:1.2em;
+    }
+
+     .info-adicional-banner{
+        margin-top: -72px;
+        margin-left: -4px;
+    }
+
+    .logo-sep{
+      width: 80%;
+
+    }
+
+}
+
+
+  @media screen and (max-width: 360px)  {
+ 
+
+    #textos{
+        margin-left: -130px;
+
+    }
+
+    #formulario{
+        margin-top: -30px; 
+        width: 115%;
+        margin-left: -15px;
+    }
+
+    #home{
+        font-size: 16px;
+    }
+
+    #textoSiged{
+
+        font-size: 1em;
+    }
+
+    #textoSigedCol{
+        margin-top: -20px;
+    }
+
+    #textoSub{
+        margin-top: -40px;
+        font-size:1.2em;
+    }
+
+     .info-adicional-banner{
+        margin-top: -72px;
+        margin-left: -12px;
+    }
+
+    .logo-sep{
+      width: 80%;
+
+    }
+}
