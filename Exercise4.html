@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 <head>
     <meta charset="utf-8">
 </head>
-<body>
-    <div ng-app="myApp1" ng-controller="personCtrl">
+
+<body ng-app="myApp1">
+    <div  ng-controller="personCtrl">
         first Name : <input type="text" ng-model="firstName"><br>
         Last Name : <input type="text" ng-model="lastName"><br>
         <br>
-        Full Name : {{fullName()}}
+        Full Name : {{fullName() | uppercase}}
     </div>
+    <hr>
+    <div  ng-app="myApp2" ng-controller="namesCtrl">
+        <ul>
+            <li ng-repeat="x in names">
+                {{ x.name + ', ' + x.country }}
+            </li>
+        </ul>
+    </div>
+    <div  ng-app="myApp3" ng-controller="myCtrl">
+
+        <p>The scope of the controller's favorite color:</p>
+        <h1>{{color}}</h1>
+        
+        </div>
+
     <script src="personController.js"></script>
+    <script src="namesController.js"></script>
 </body>
 
 </html>

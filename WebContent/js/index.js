@@ -109,7 +109,7 @@ app.controller('searchReferenceCtrl', ['$scope', '$http', '$window', '$rootScope
                 "bLengthChange": true,
                 "ajax": {
                     // "url": $scope.getURLSchools() + parametros,
-                    "url": $scope.getURLReferencias() + "/id=",
+                    "url": $scope.getURLArchivos() + "/id=",
                     'beforeSend': function (request) {
                         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
                     },
